@@ -1,0 +1,124 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"9 C:\Program Files\Microchip\xc8\v2.32\pic\include\c90\time.h
+[s S1 `i 1 `i 1 `i 1 `i 1 `i 1 `i 1 `i 1 `i 1 `i 1 ]
+[n S1 tm tm_sec tm_min tm_hour tm_mday tm_mon tm_year tm_wday tm_yday tm_isdst ]
+"52
+[v _mktime `(l ~T0 @X0 0 ef1`*S1 ]
+[; ;xc8\pic\include\__size_t.h: 4: typedef unsigned size_t;
+[; ;time.h: 8: typedef long time_t;
+[; ;time.h: 9: struct tm {
+[; ;time.h: 10: int tm_sec;
+[; ;time.h: 11: int tm_min;
+[; ;time.h: 12: int tm_hour;
+[; ;time.h: 13: int tm_mday;
+[; ;time.h: 14: int tm_mon;
+[; ;time.h: 15: int tm_year;
+[; ;time.h: 16: int tm_wday;
+[; ;time.h: 17: int tm_yday;
+[; ;time.h: 18: int tm_isdst;
+[; ;time.h: 19: };
+[; ;time.h: 25: extern int time_zone;
+[; ;time.h: 30: extern time_t time(time_t *);
+[; ;time.h: 31: extern int stime(time_t *);
+[; ;time.h: 47: extern char * asctime(const struct tm *) ;
+[; ;time.h: 48: extern char * ctime(const time_t *) ;
+[; ;time.h: 49: extern struct tm * gmtime(const time_t *) ;
+[; ;time.h: 50: extern struct tm * localtime(const time_t *) ;
+[; ;time.h: 51: extern size_t strftime(char *, size_t, const char *, const struct tm *) ;
+[; ;time.h: 52: extern time_t mktime(struct tm *);
+[; ;build_time.h: 79: time_t build_time(void);
+"4 util/build_time.c
+[v _build_time `(l ~T0 @X0 1 ef ]
+"5
+{
+[; ;build_time.c: 4: time_t build_time(void)
+[; ;build_time.c: 5: {
+[e :U _build_time ]
+[f ]
+"6
+[v _tm `S1 ~T0 @X0 1 a ]
+[v F37 `S1 ~T0 @X0 1 s ]
+[i F37
+:U ..
+:U ..
+-> 0 `i
+..
+..
+]
+[; ;build_time.c: 6: struct tm tm = { 0 };
+[e = _tm F37 ]
+"7
+[v _timestamp `l ~T0 @X0 1 a ]
+[; ;build_time.c: 7: time_t timestamp;
+[; ;build_time.c: 9: tm.tm_year = ((("Jan 20 2022"[0] == '?')) ? 99 : ( ("Jan 20 2022"[ 7] - '0') * 1000 + ("Jan 20 2022"[ 8] - '0') * 100 + ("Jan 20 2022"[ 9] - '0') * 10 + ("Jan 20 2022"[10] - '0') )) - 1900;
+"9
+[e = . _tm 5 -> - ? == -> *U + :s 1C * -> -> 0 `i `x -> -> # *U :s 1C `i `x `ui -> 63 `ui : -> -> 99 `i `ui + + + * - -> *U + :s 2C * -> -> 7 `i `x -> -> # *U :s 2C `i `x `ui -> 48 `ui -> -> 1000 `i `ui * - -> *U + :s 3C * -> -> 8 `i `x -> -> # *U :s 3C `i `x `ui -> 48 `ui -> -> 100 `i `ui * - -> *U + :s 4C * -> -> 9 `i `x -> -> # *U :s 4C `i `x `ui -> 48 `ui -> -> 10 `i `ui - -> *U + :s 5C * -> -> 10 `i `x -> -> # *U :s 5C `i `x `ui -> 48 `ui -> -> 1900 `i `ui `i ]
+[; ;build_time.c: 10: tm.tm_mon = ((("Jan 20 2022"[0] == '?')) ? 99 : ( (("Jan 20 2022"[0] == 'J' && "Jan 20 2022"[1] == 'a' && "Jan 20 2022"[2] == 'n')) ? 1 : (("Jan 20 2022"[0] == 'F')) ? 2 : (("Jan 20 2022"[0] == 'M' && "Jan 20 2022"[1] == 'a' && "Jan 20 2022"[2] == 'r
+"10
+[e = . _tm 4 - ? == -> *U + :s 6C * -> -> 0 `i `x -> -> # *U :s 6C `i `x `ui -> 63 `ui : -> 99 `i ? && && == -> *U + :s 7C * -> -> 0 `i `x -> -> # *U :s 7C `i `x `ui -> 74 `ui == -> *U + :s 8C * -> -> 1 `i `x -> -> # *U :s 8C `i `x `ui -> 97 `ui == -> *U + :s 9C * -> -> 2 `i `x -> -> # *U :s 9C `i `x `ui -> 110 `ui : -> 1 `i ? == -> *U + :s 10C * -> -> 0 `i `x -> -> # *U :s 10C `i `x `ui -> 70 `ui : -> 2 `i ? && && == -> *U + :s 11C * -> -> 0 `i `x -> -> # *U :s 11C `i `x `ui -> 77 `ui == -> *U + :s 12C * -> -> 1 `i `x -> -> # *U :s 12C `i `x `ui -> 97 `ui == -> *U + :s 13C * -> -> 2 `i `x -> -> # *U :s 13C `i `x `ui -> 114 `ui : -> 3 `i ? && == -> *U + :s 14C * -> -> 0 `i `x -> -> # *U :s 14C `i `x `ui -> 65 `ui == -> *U + :s 15C * -> -> 1 `i `x -> -> # *U :s 15C `i `x `ui -> 112 `ui : -> 4 `i ? && && == -> *U + :s 16C * -> -> 0 `i `x -> -> # *U :s 16C `i `x `ui -> 77 `ui == -> *U + :s 17C * -> -> 1 `i `x -> -> # *U :s 17C `i `x `ui -> 97 `ui == -> *U + :s 18C * -> -> 2 `i `x -> -> # *U :s 18C `i `x `ui -> 121 `ui : -> 5 `i ? && && == -> *U + :s 19C * -> -> 0 `i `x -> -> # *U :s 19C `i `x `ui -> 74 `ui == -> *U + :s 20C * -> -> 1 `i `x -> -> # *U :s 20C `i `x `ui -> 117 `ui == -> *U + :s 21C * -> -> 2 `i `x -> -> # *U :s 21C `i `x `ui -> 110 `ui : -> 6 `i ? && && == -> *U + :s 22C * -> -> 0 `i `x -> -> # *U :s 22C `i `x `ui -> 74 `ui == -> *U + :s 23C * -> -> 1 `i `x -> -> # *U :s 23C `i `x `ui -> 117 `ui == -> *U + :s 24C * -> -> 2 `i `x -> -> # *U :s 24C `i `x `ui -> 108 `ui : -> 7 `i ? && == -> *U + :s 25C * -> -> 0 `i `x -> -> # *U :s 25C `i `x `ui -> 65 `ui == -> *U + :s 26C * -> -> 1 `i `x -> -> # *U :s 26C `i `x `ui -> 117 `ui : -> 8 `i ? == -> *U + :s 27C * -> -> 0 `i `x -> -> # *U :s 27C `i `x `ui -> 83 `ui : -> 9 `i ? == -> *U + :s 28C * -> -> 0 `i `x -> -> # *U :s 28C `i `x `ui -> 79 `ui : -> 10 `i ? == -> *U + :s 29C * -> -> 0 `i `x -> -> # *U :s 29C `i `x `ui -> 78 `ui : -> 11 `i ? == -> *U + :s 30C * -> -> 0 `i `x -> -> # *U :s 30C `i `x `ui -> 68 `ui : -> 12 `i -> 99 `i -> 1 `i ]
+[; ;build_time.c: 11: tm.tm_mday = ((("Jan 20 2022"[0] == '?')) ? 99 : ( (("Jan 20 2022"[4] >= '0') ? ("Jan 20 2022"[4] - '0') * 10 : 0) + ("Jan 20 2022"[5] - '0') ));
+"11
+[e = . _tm 3 -> ? == -> *U + :s 31C * -> -> 0 `i `x -> -> # *U :s 31C `i `x `ui -> 63 `ui : -> -> 99 `i `ui + ? >= -> *U + :s 32C * -> -> 4 `i `x -> -> # *U :s 32C `i `x `ui -> 48 `ui : * - -> *U + :s 33C * -> -> 4 `i `x -> -> # *U :s 33C `i `x `ui -> 48 `ui -> -> 10 `i `ui -> -> 0 `i `ui - -> *U + :s 34C * -> -> 5 `i `x -> -> # *U :s 34C `i `x `ui -> 48 `ui `i ]
+[; ;build_time.c: 12: tm.tm_hour = ((("11:28:20"[0] == '?')) ? 99 : (("11:28:20"[0] - '0') * 10 + "11:28:20"[1] - '0')) - 9;
+"12
+[e = . _tm 2 -> - ? == -> *U + :s 35C * -> -> 0 `i `x -> -> # *U :s 35C `i `x `ui -> 63 `ui : -> -> 99 `i `ui - + * - -> *U + :s 36C * -> -> 0 `i `x -> -> # *U :s 36C `i `x `ui -> 48 `ui -> -> 10 `i `ui -> *U + :s 37C * -> -> 1 `i `x -> -> # *U :s 37C `i `x `ui -> 48 `ui -> -> 9 `i `ui `i ]
+[; ;build_time.c: 13: tm.tm_min = ((("11:28:20"[0] == '?')) ? 99 : (("11:28:20"[3] - '0') * 10 + "11:28:20"[4] - '0'));
+"13
+[e = . _tm 1 -> ? == -> *U + :s 38C * -> -> 0 `i `x -> -> # *U :s 38C `i `x `ui -> 63 `ui : -> -> 99 `i `ui - + * - -> *U + :s 39C * -> -> 3 `i `x -> -> # *U :s 39C `i `x `ui -> 48 `ui -> -> 10 `i `ui -> *U + :s 40C * -> -> 4 `i `x -> -> # *U :s 40C `i `x `ui -> 48 `ui `i ]
+[; ;build_time.c: 14: tm.tm_sec = ((("11:28:20"[0] == '?')) ? 99 : (("11:28:20"[6] - '0') * 10 + "11:28:20"[7] - '0'));
+"14
+[e = . _tm 0 -> ? == -> *U + :s 41C * -> -> 0 `i `x -> -> # *U :s 41C `i `x `ui -> 63 `ui : -> -> 99 `i `ui - + * - -> *U + :s 42C * -> -> 6 `i `x -> -> # *U :s 42C `i `x `ui -> 48 `ui -> -> 10 `i `ui -> *U + :s 43C * -> -> 7 `i `x -> -> # *U :s 43C `i `x `ui -> 48 `ui `i ]
+[; ;build_time.c: 15: timestamp = mktime(&tm);
+"15
+[e = _timestamp ( _mktime (1 &U _tm ]
+[; ;build_time.c: 17: return timestamp;
+"17
+[e ) _timestamp ]
+[e $UE 2  ]
+[; ;build_time.c: 18: }
+"18
+[e :UE 2 ]
+}
+[a 1C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 2C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 3C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 4C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 5C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 6C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 7C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 8C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 9C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 10C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 11C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 12C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 13C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 14C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 15C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 16C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 17C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 18C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 19C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 20C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 21C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 22C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 23C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 24C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 25C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 26C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 27C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 28C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 29C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 30C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 31C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 32C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 33C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 34C 74 97 110 32 50 48 32 50 48 50 50 0 ]
+[a 35C 49 49 58 50 56 58 50 48 0 ]
+[a 36C 49 49 58 50 56 58 50 48 0 ]
+[a 37C 49 49 58 50 56 58 50 48 0 ]
+[a 38C 49 49 58 50 56 58 50 48 0 ]
+[a 39C 49 49 58 50 56 58 50 48 0 ]
+[a 40C 49 49 58 50 56 58 50 48 0 ]
+[a 41C 49 49 58 50 56 58 50 48 0 ]
+[a 42C 49 49 58 50 56 58 50 48 0 ]
+[a 43C 49 49 58 50 56 58 50 48 0 ]

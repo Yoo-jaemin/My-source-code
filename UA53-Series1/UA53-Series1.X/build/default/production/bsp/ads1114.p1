@@ -1,0 +1,293 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"22 bsp/i2c.h
+[v _i2c_writeBytes `(uc ~T0 @X0 0 ef4`Cuc`*Cuc`Cuc`uc ]
+"24
+[v _i2c_readBytes `(uc ~T0 @X0 0 ef3`Cuc`*uc`Cuc ]
+"23
+[v _i2c_writeBytes_to `(uc ~T0 @X0 0 ef5`Cuc`*Cuc`Cuc`*Cuc`Cuc ]
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef __int24 int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 52: typedef unsigned char uint8_t;
+[; ;stdint.h: 58: typedef unsigned int uint16_t;
+[; ;stdint.h: 65: typedef __uint24 uint24_t;
+[; ;stdint.h: 72: typedef unsigned long int uint32_t;
+[; ;stdint.h: 88: typedef signed char int_least8_t;
+[; ;stdint.h: 96: typedef signed int int_least16_t;
+[; ;stdint.h: 109: typedef __int24 int_least24_t;
+[; ;stdint.h: 118: typedef signed long int int_least32_t;
+[; ;stdint.h: 136: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 143: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 154: typedef __uint24 uint_least24_t;
+[; ;stdint.h: 162: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 181: typedef signed char int_fast8_t;
+[; ;stdint.h: 188: typedef signed int int_fast16_t;
+[; ;stdint.h: 200: typedef __int24 int_fast24_t;
+[; ;stdint.h: 208: typedef signed long int int_fast32_t;
+[; ;stdint.h: 224: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 230: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 240: typedef __uint24 uint_fast24_t;
+[; ;stdint.h: 247: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 268: typedef int32_t intmax_t;
+[; ;stdint.h: 282: typedef uint32_t uintmax_t;
+[; ;stdint.h: 289: typedef int16_t intptr_t;
+[; ;stdint.h: 294: typedef uint16_t uintptr_t;
+[; ;stdbool.h: 15: typedef unsigned char bool;
+[; ;board.h: 73: enum {
+[; ;board.h: 74: CELSIUS,
+[; ;board.h: 75: FAHRENHEIT
+[; ;board.h: 76: };
+[; ;board.h: 78: enum {
+[; ;board.h: 79: RAW_MODE,
+[; ;board.h: 80: FIL_MODE
+[; ;board.h: 81: };
+[; ;board.h: 83: enum {
+[; ;board.h: 84: TEMP_NOT_COMPENSATION,
+[; ;board.h: 85: TEMP_COMPENSATION
+[; ;board.h: 86: };
+[; ;board.h: 88: enum {
+[; ;board.h: 89: USB_NONE,
+[; ;board.h: 90: USB_DETACHED,
+[; ;board.h: 91: USB_ATTACHED
+[; ;board.h: 92: };
+[; ;board.h: 94: enum {
+[; ;board.h: 95: OFF,
+[; ;board.h: 96: ON
+[; ;board.h: 97: };
+[; ;board.h: 156: void write_command(const uint8_t* buff);
+[; ;board.h: 157: uint16_t* get_product_desc();
+[; ;i2c.h: 4: typedef enum {
+[; ;i2c.h: 5: I2C_100kHz,
+[; ;i2c.h: 6: I2C_400kHz
+[; ;i2c.h: 7: } I2C_SPEED;
+[; ;i2c.h: 9: typedef enum {
+[; ;i2c.h: 10: I2C_ACK,
+[; ;i2c.h: 11: I2C_NACK
+[; ;i2c.h: 12: } I2C_TRANS_CTRL;
+[; ;i2c.h: 19: void i2c_init(const I2C_SPEED speed);
+[; ;i2c.h: 21: bool i2c_writeData(const uint8_t *wrptr, const uint8_t len, bool isStop);
+[; ;i2c.h: 22: bool i2c_writeBytes(const uint8_t address, const uint8_t *wrptr, const uint8_t len, bool isStop);
+[; ;i2c.h: 23: bool i2c_writeBytes_to(const uint8_t address, const uint8_t *wraddr, const uint8_t addrlen, const uint8_t *wrptr, const uint8_t len);
+[; ;i2c.h: 24: bool i2c_readBytes(const uint8_t address, uint8_t *rdptr, const uint8_t len);
+[; ;i2c.h: 25: bool i2c_readBytes_from(const uint8_t address, const uint8_t *wraddr, const uint8_t addrlen, uint8_t *rdptr, const uint8_t len);
+[; ;ads1114.h: 43: typedef enum {
+[; ;ads1114.h: 44: FSR_6p144V,
+[; ;ads1114.h: 45: FSR_4p096V,
+[; ;ads1114.h: 46: FSR_2p048V,
+[; ;ads1114.h: 47: FSR_1p024V,
+[; ;ads1114.h: 48: FSR_0p512V,
+[; ;ads1114.h: 49: FSR_0p256V
+[; ;ads1114.h: 50: } e_ADC_Gain;
+[; ;ads1114.h: 53: typedef enum {
+[; ;ads1114.h: 54: CONTINUE_CONV,
+[; ;ads1114.h: 55: SINGLE_CONV
+[; ;ads1114.h: 56: } e_ADC_Mode;
+[; ;ads1114.h: 59: typedef enum {
+[; ;ads1114.h: 60: SPS8,
+[; ;ads1114.h: 61: SPS16,
+[; ;ads1114.h: 62: SPS32,
+[; ;ads1114.h: 63: SPS64,
+[; ;ads1114.h: 64: SPS128,
+[; ;ads1114.h: 65: SPS250,
+[; ;ads1114.h: 66: SPS475,
+[; ;ads1114.h: 67: SPS860
+[; ;ads1114.h: 68: } e_ADC_DataRate;
+[; ;ads1114.h: 72: typedef enum {
+[; ;ads1114.h: 73: COMP,
+[; ;ads1114.h: 74: WIN_COMP
+[; ;ads1114.h: 75: } e_Comparator_Mode;
+[; ;ads1114.h: 78: typedef enum {
+[; ;ads1114.h: 79: LO,
+[; ;ads1114.h: 80: HI
+[; ;ads1114.h: 81: } e_Comparator_Pol;
+[; ;ads1114.h: 84: typedef enum {
+[; ;ads1114.h: 85: NONE_LATCH,
+[; ;ads1114.h: 86: LATCH
+[; ;ads1114.h: 87: } e_Comparator_Latch;
+[; ;ads1114.h: 90: typedef enum {
+[; ;ads1114.h: 91: ONE_CONV,
+[; ;ads1114.h: 92: TWO_CONV,
+[; ;ads1114.h: 93: FOUR_CONV,
+[; ;ads1114.h: 94: DISABL
+[; ;ads1114.h: 95: } e_Comparator_Que;
+[; ;ads1114.h: 101: bool ads1114_read_ready(void);
+[; ;ads1114.h: 102: bool ads1114_SetUp(uint8_t mode, uint8_t pga, uint8_t dataRate);
+[; ;ads1114.h: 103: bool ads1114_read(int16_t* raw_adc);
+[; ;ads1114.h: 104: bool ads1114_Comparator_SetUp(uint8_t mode, uint8_t polar, uint8_t latch, uint8_t que);
+"15 bsp/ads1114.c
+[v _ads1114_read_ready `(uc ~T0 @X0 1 ef ]
+"16
+{
+[; ;ads1114.c: 15: bool ads1114_read_ready(void)
+[; ;ads1114.c: 16: {
+[e :U _ads1114_read_ready ]
+[f ]
+"17
+[v _wbuff `uc ~T0 @X0 1 a ]
+[; ;ads1114.c: 17: uint8_t wbuff = 0x01;
+[e = _wbuff -> -> 1 `i `uc ]
+"18
+[v _rbuff `uc ~T0 @X0 -> 2 `i a ]
+[; ;ads1114.c: 18: uint8_t rbuff[2];
+[; ;ads1114.c: 20: if (i2c_writeBytes(0x92, &wbuff, 1, 1) == 0)
+"20
+[e $ ! == -> ( _i2c_writeBytes (4 , , , -> -> 146 `i `uc -> &U _wbuff `*Cuc -> -> 1 `i `uc -> -> 1 `i `uc `i -> 0 `i 2  ]
+[; ;ads1114.c: 21: return 0;
+"21
+[e ) -> -> 0 `i `uc ]
+[e $UE 1  ]
+[e :U 2 ]
+[; ;ads1114.c: 23: if (i2c_readBytes(0x92, rbuff, 2) == 0)
+"23
+[e $ ! == -> ( _i2c_readBytes (3 , , -> -> 146 `i `uc &U _rbuff -> -> 2 `i `uc `i -> 0 `i 3  ]
+[; ;ads1114.c: 24: return 0;
+"24
+[e ) -> -> 0 `i `uc ]
+[e $UE 1  ]
+[e :U 3 ]
+[; ;ads1114.c: 26: if (rbuff[0] & 0x80)
+"26
+[e $ ! != & -> *U + &U _rbuff * -> -> -> 0 `i `ui `ux -> -> # *U &U _rbuff `ui `ux `i -> 128 `i -> 0 `i 4  ]
+[; ;ads1114.c: 27: return 0;
+"27
+[e ) -> -> 0 `i `uc ]
+[e $UE 1  ]
+[e :U 4 ]
+[; ;ads1114.c: 29: return 1;
+"29
+[e ) -> -> 1 `i `uc ]
+[e $UE 1  ]
+[; ;ads1114.c: 30: }
+"30
+[e :UE 1 ]
+}
+"32
+[v _ads1114_SetUp `(uc ~T0 @X0 1 ef3`uc`uc`uc ]
+"33
+{
+[; ;ads1114.c: 32: bool ads1114_SetUp(uint8_t mode, uint8_t pga, uint8_t dataRate)
+[; ;ads1114.c: 33: {
+[e :U _ads1114_SetUp ]
+"32
+[v _mode `uc ~T0 @X0 1 r1 ]
+[v _pga `uc ~T0 @X0 1 r2 ]
+[v _dataRate `uc ~T0 @X0 1 r3 ]
+"33
+[f ]
+"34
+[v _wraddr `uc ~T0 @X0 1 a ]
+[; ;ads1114.c: 34: uint8_t wraddr = 0x01;
+[e = _wraddr -> -> 1 `i `uc ]
+"35
+[v _buff `uc ~T0 @X0 -> 2 `i a ]
+[; ;ads1114.c: 35: uint8_t buff[2];
+[; ;ads1114.c: 37: buff[0] = 0x00 | (pga << 1) | mode;
+"37
+[e = *U + &U _buff * -> -> -> 0 `i `ui `ux -> -> # *U &U _buff `ui `ux -> | | -> 0 `i << -> _pga `i -> 1 `i -> _mode `i `uc ]
+[; ;ads1114.c: 38: buff[1] = dataRate << 5 | 0b00010011;
+"38
+[e = *U + &U _buff * -> -> -> 1 `i `ui `ux -> -> # *U &U _buff `ui `ux -> | << -> _dataRate `i -> 5 `i -> 19 `i `uc ]
+[; ;ads1114.c: 40: return i2c_writeBytes_to(0x92, &wraddr, 1, buff, 2);
+"40
+[e ) ( _i2c_writeBytes_to (4 , , , , -> -> 146 `i `uc -> &U _wraddr `*Cuc -> -> 1 `i `uc -> &U _buff `*Cuc -> -> 2 `i `uc ]
+[e $UE 5  ]
+[; ;ads1114.c: 41: }
+"41
+[e :UE 5 ]
+}
+"43
+[v _ads1114_read `(uc ~T0 @X0 1 ef1`*i ]
+"44
+{
+[; ;ads1114.c: 43: bool ads1114_read(int16_t* raw_adc)
+[; ;ads1114.c: 44: {
+[e :U _ads1114_read ]
+"43
+[v _raw_adc `*i ~T0 @X0 1 r1 ]
+"44
+[f ]
+"45
+[v _wbuff `uc ~T0 @X0 1 a ]
+[; ;ads1114.c: 45: uint8_t wbuff = 0x00;
+[e = _wbuff -> -> 0 `i `uc ]
+"46
+[v _rbuff `uc ~T0 @X0 -> 2 `i a ]
+[; ;ads1114.c: 46: uint8_t rbuff[2];
+[; ;ads1114.c: 48: if (i2c_writeBytes(0x92, &wbuff, 1, 1) == 0)
+"48
+[e $ ! == -> ( _i2c_writeBytes (4 , , , -> -> 146 `i `uc -> &U _wbuff `*Cuc -> -> 1 `i `uc -> -> 1 `i `uc `i -> 0 `i 7  ]
+[; ;ads1114.c: 49: return 0;
+"49
+[e ) -> -> 0 `i `uc ]
+[e $UE 6  ]
+[e :U 7 ]
+[; ;ads1114.c: 51: if (i2c_readBytes(0x92, rbuff, 2) == 0)
+"51
+[e $ ! == -> ( _i2c_readBytes (3 , , -> -> 146 `i `uc &U _rbuff -> -> 2 `i `uc `i -> 0 `i 8  ]
+[; ;ads1114.c: 52: return 0;
+"52
+[e ) -> -> 0 `i `uc ]
+[e $UE 6  ]
+[e :U 8 ]
+[; ;ads1114.c: 54: *raw_adc = ((uint16_t)rbuff[0] << 8) | rbuff[1];
+"54
+[e = *U _raw_adc -> | << -> *U + &U _rbuff * -> -> -> 0 `i `ui `ux -> -> # *U &U _rbuff `ui `ux `ui -> 8 `i -> *U + &U _rbuff * -> -> -> 1 `i `ui `ux -> -> # *U &U _rbuff `ui `ux `ui `i ]
+[; ;ads1114.c: 55: return 1;
+"55
+[e ) -> -> 1 `i `uc ]
+[e $UE 6  ]
+[; ;ads1114.c: 56: }
+"56
+[e :UE 6 ]
+}
+"58
+[v _ads1114_Comparator_SetUp `(uc ~T0 @X0 1 ef4`uc`uc`uc`uc ]
+"60
+{
+[; ;ads1114.c: 58: bool ads1114_Comparator_SetUp(uint8_t mode, uint8_t polar,
+[; ;ads1114.c: 59: uint8_t latch, uint8_t que)
+[; ;ads1114.c: 60: {
+[e :U _ads1114_Comparator_SetUp ]
+"58
+[v _mode `uc ~T0 @X0 1 r1 ]
+[v _polar `uc ~T0 @X0 1 r2 ]
+"59
+[v _latch `uc ~T0 @X0 1 r3 ]
+[v _que `uc ~T0 @X0 1 r4 ]
+"60
+[f ]
+"61
+[v _wbuff `uc ~T0 @X0 1 a ]
+[; ;ads1114.c: 61: uint8_t wbuff = 0x01;
+[e = _wbuff -> -> 1 `i `uc ]
+"62
+[v _rbuff `uc ~T0 @X0 -> 2 `i a ]
+[; ;ads1114.c: 62: uint8_t rbuff[2];
+[; ;ads1114.c: 64: if(!i2c_writeBytes(0x92, &wbuff, 1, 1))
+"64
+[e $ ! ! != -> ( _i2c_writeBytes (4 , , , -> -> 146 `i `uc -> &U _wbuff `*Cuc -> -> 1 `i `uc -> -> 1 `i `uc `i -> -> -> 0 `i `uc `i 10  ]
+[; ;ads1114.c: 65: return 0;
+"65
+[e ) -> -> 0 `i `uc ]
+[e $UE 9  ]
+[e :U 10 ]
+[; ;ads1114.c: 67: if(!i2c_readBytes(0x92, rbuff, 2))
+"67
+[e $ ! ! != -> ( _i2c_readBytes (3 , , -> -> 146 `i `uc &U _rbuff -> -> 2 `i `uc `i -> -> -> 0 `i `uc `i 11  ]
+[; ;ads1114.c: 68: return 0;
+"68
+[e ) -> -> 0 `i `uc ]
+[e $UE 9  ]
+[e :U 11 ]
+[; ;ads1114.c: 71: rbuff[1] |= (mode << 4) | (polar << 3) | (latch << 2) | que;
+"71
+[e =| *U + &U _rbuff * -> -> -> 1 `i `ui `ux -> -> # *U &U _rbuff `ui `ux -> | | | << -> _mode `i -> 4 `i << -> _polar `i -> 3 `i << -> _latch `i -> 2 `i -> _que `i `uc ]
+[; ;ads1114.c: 73: return i2c_writeBytes_to(0x92, &wbuff, 1, rbuff, 2);
+"73
+[e ) ( _i2c_writeBytes_to (4 , , , , -> -> 146 `i `uc -> &U _wbuff `*Cuc -> -> 1 `i `uc -> &U _rbuff `*Cuc -> -> 2 `i `uc ]
+[e $UE 9  ]
+[; ;ads1114.c: 74: }
+"74
+[e :UE 9 ]
+}

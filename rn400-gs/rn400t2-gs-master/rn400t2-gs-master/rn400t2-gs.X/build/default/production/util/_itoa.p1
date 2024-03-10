@@ -1,0 +1,94 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[; ;_itoa.h: 9: unsigned _itoa(const long num, char* str);
+"4 util/_itoa.c
+[v __itoa `(ui ~T0 @X0 1 ef2`Cl`*uc ]
+"5
+{
+[; ;_itoa.c: 4: unsigned _itoa(const long num, char* str)
+[; ;_itoa.c: 5: {
+[e :U __itoa ]
+"4
+[v _num `Cl ~T0 @X0 1 r1 ]
+[v _str `*uc ~T0 @X0 1 r2 ]
+"5
+[f ]
+"6
+[v _shifter `l ~T0 @X0 1 a ]
+"7
+[v _n `l ~T0 @X0 1 a ]
+"8
+[v _len `ui ~T0 @X0 1 a ]
+[; ;_itoa.c: 6: long shifter;
+[; ;_itoa.c: 7: long n;
+[; ;_itoa.c: 8: unsigned len = 0;
+[e = _len -> -> 0 `i `ui ]
+"9
+[v _p `*uc ~T0 @X0 1 a ]
+[; ;_itoa.c: 9: char* p = str;
+[e = _p _str ]
+[; ;_itoa.c: 11: n = num;
+"11
+[e = _n _num ]
+[; ;_itoa.c: 12: if (num < 0){
+"12
+[e $ ! < _num -> -> 0 `i `l 2  ]
+{
+[; ;_itoa.c: 13: n *= -1;
+"13
+[e =* _n -> -U -> 1 `i `l ]
+[; ;_itoa.c: 14: *p = '-';
+"14
+[e = *U _p -> -> 45 `ui `uc ]
+[; ;_itoa.c: 15: p++; len++;
+"15
+[e ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
+[e ++ _len -> -> 1 `i `ui ]
+"16
+}
+[e :U 2 ]
+[; ;_itoa.c: 16: }
+[; ;_itoa.c: 18: shifter = n;
+"18
+[e = _shifter _n ]
+[; ;_itoa.c: 19: do {
+"19
+[e :U 5 ]
+{
+[; ;_itoa.c: 20: shifter /= 10;
+"20
+[e =/ _shifter -> -> 10 `uc `l ]
+[; ;_itoa.c: 21: p++; len++;
+"21
+[e ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
+[e ++ _len -> -> 1 `i `ui ]
+"22
+}
+[; ;_itoa.c: 22: } while (shifter);
+[e $ != _shifter -> -> 0 `i `l 5  ]
+[e :U 4 ]
+[; ;_itoa.c: 24: *p = '\0';
+"24
+[e = *U _p -> -> 0 `ui `uc ]
+[; ;_itoa.c: 26: do {
+"26
+[e :U 8 ]
+{
+[; ;_itoa.c: 27: *--p = (n % 10) + '0';
+"27
+[e = *U =- _p * -> -> 1 `i `x -> -> # *U _p `i `x -> + % _n -> -> 10 `i `l -> -> 48 `ui `l `uc ]
+[; ;_itoa.c: 28: n /= 10;
+"28
+[e =/ _n -> -> 10 `uc `l ]
+"29
+}
+[; ;_itoa.c: 29: } while (n);
+[e $ != _n -> -> 0 `i `l 8  ]
+[e :U 7 ]
+[; ;_itoa.c: 31: return len;
+"31
+[e ) _len ]
+[e $UE 1  ]
+[; ;_itoa.c: 32: }
+"32
+[e :UE 1 ]
+}

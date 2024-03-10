@@ -1,0 +1,283 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[; ;_string.h: 10: unsigned _strcpy(char* dest, const char* source);
+[; ;_string.h: 11: void _strncpy(char *_to, const char *_from, int _n);
+[; ;_string.h: 12: unsigned _strlen(const char* source);
+[; ;_string.h: 13: void _strcat(char* dest, const char* source);
+[; ;_string.h: 15: unsigned char _strncmp(const char* src1, const char* src2, int n, int i);
+[; ;_string.h: 16: void _strclr(char* dest, int n);
+[; ;_string.h: 18: unsigned char _isdigit(const char* src, int n);
+"4 util/_string.c
+[v __strcpy `(ui ~T0 @X0 1 ef2`*uc`*Cuc ]
+"5
+{
+[; ;_string.c: 4: unsigned _strcpy(char* dest, const char* source)
+[; ;_string.c: 5: {
+[e :U __strcpy ]
+"4
+[v _dest `*uc ~T0 @X0 1 r1 ]
+[v _source `*Cuc ~T0 @X0 1 r2 ]
+"5
+[f ]
+"6
+[v _i `ui ~T0 @X0 1 a ]
+[; ;_string.c: 6: unsigned int i = 0;
+[e = _i -> -> 0 `i `ui ]
+[; ;_string.c: 7: if(!source || !dest) return i;
+"7
+[e $ ! || ! != _source -> -> 0 `i `*Cuc ! != _dest -> -> 0 `i `*uc 2  ]
+[e ) _i ]
+[e $UE 1  ]
+[e :U 2 ]
+[; ;_string.c: 8: while(*dest++ = *source++) i++;
+"8
+[e $U 3  ]
+[e :U 4 ]
+[e ++ _i -> -> 1 `i `ui ]
+[e :U 3 ]
+[e $ != -> = *U ++ _dest * -> -> 1 `i `x -> -> # *U _dest `i `x *U ++ _source * -> -> 1 `i `x -> -> # *U _source `i `x `i -> -> -> 0 `i `uc `i 4  ]
+[e :U 5 ]
+[; ;_string.c: 9: return i;
+"9
+[e ) _i ]
+[e $UE 1  ]
+[; ;_string.c: 10: }
+"10
+[e :UE 1 ]
+}
+"12
+[v __strncpy `(v ~T0 @X0 1 ef3`*uc`*Cuc`i ]
+"13
+{
+[; ;_string.c: 12: void _strncpy(char *_to, const char *_from, int _n)
+[; ;_string.c: 13: {
+[e :U __strncpy ]
+"12
+[v __to `*uc ~T0 @X0 1 r1 ]
+[v __from `*Cuc ~T0 @X0 1 r2 ]
+[v __n `i ~T0 @X0 1 r3 ]
+"13
+[f ]
+[; ;_string.c: 14: if(!_from || !_to || !_n) return;
+"14
+[e $ ! || || ! != __from -> -> 0 `i `*Cuc ! != __to -> -> 0 `i `*uc ! != __n -> 0 `i 7  ]
+[e $UE 6  ]
+[e :U 7 ]
+[; ;_string.c: 15: while (_n--) *_to++ = *_from++;
+"15
+[e $U 8  ]
+[e :U 9 ]
+[e = *U ++ __to * -> -> 1 `i `x -> -> # *U __to `i `x *U ++ __from * -> -> 1 `i `x -> -> # *U __from `i `x ]
+[e :U 8 ]
+[e $ != -- __n -> 1 `i -> 0 `i 9  ]
+[e :U 10 ]
+[; ;_string.c: 16: }
+"16
+[e :UE 6 ]
+}
+"18
+[v __strlen `(ui ~T0 @X0 1 ef1`*Cuc ]
+"19
+{
+[; ;_string.c: 18: unsigned _strlen(const char* source)
+[; ;_string.c: 19: {
+[e :U __strlen ]
+"18
+[v _source `*Cuc ~T0 @X0 1 r1 ]
+"19
+[f ]
+"20
+[v _sc `*Cuc ~T0 @X0 1 a ]
+[; ;_string.c: 20: const char* sc = source;
+[e = _sc _source ]
+[; ;_string.c: 21: while(*sc) ++sc;
+"21
+[e $U 12  ]
+[e :U 13 ]
+[e =+ _sc * -> -> 1 `i `x -> -> # *U _sc `i `x ]
+[e :U 12 ]
+[e $ != -> *U _sc `i -> -> -> 0 `i `Cuc `i 13  ]
+[e :U 14 ]
+[; ;_string.c: 22: return sc-source;
+"22
+[e ) -> / - -> _sc `x -> _source `x -> -> # *U _sc `i `x `ui ]
+[e $UE 11  ]
+[; ;_string.c: 23: }
+"23
+[e :UE 11 ]
+}
+"25
+[v __strcat `(v ~T0 @X0 1 ef2`*uc`*Cuc ]
+"26
+{
+[; ;_string.c: 25: void _strcat(char* dest, const char* source)
+[; ;_string.c: 26: {
+[e :U __strcat ]
+"25
+[v _dest `*uc ~T0 @X0 1 r1 ]
+[v _source `*Cuc ~T0 @X0 1 r2 ]
+"26
+[f ]
+[; ;_string.c: 27: while(*dest) ++dest;
+"27
+[e $U 16  ]
+[e :U 17 ]
+[e =+ _dest * -> -> 1 `i `x -> -> # *U _dest `i `x ]
+[e :U 16 ]
+[e $ != -> *U _dest `i -> -> -> 0 `i `uc `i 17  ]
+[e :U 18 ]
+[; ;_string.c: 28: while(*dest++ = *source++);
+"28
+[e $U 19  ]
+[e :U 20 ]
+[e :U 19 ]
+[e $ != -> = *U ++ _dest * -> -> 1 `i `x -> -> # *U _dest `i `x *U ++ _source * -> -> 1 `i `x -> -> # *U _source `i `x `i -> -> -> 0 `i `uc `i 20  ]
+[e :U 21 ]
+[; ;_string.c: 29: }
+"29
+[e :UE 15 ]
+}
+"31
+[v __strncmp `(uc ~T0 @X0 1 ef4`*Cuc`*Cuc`i`i ]
+"32
+{
+[; ;_string.c: 31: unsigned char _strncmp(const char* src1, const char* src2, int n, int i)
+[; ;_string.c: 32: {
+[e :U __strncmp ]
+"31
+[v _src1 `*Cuc ~T0 @X0 1 r1 ]
+[v _src2 `*Cuc ~T0 @X0 1 r2 ]
+[v _n `i ~T0 @X0 1 r3 ]
+[v _i `i ~T0 @X0 1 r4 ]
+"32
+[f ]
+[; ;_string.c: 33: if(!src1 || !src2 || !n || n<0) return 0;
+"33
+[e $ ! || || || ! != _src1 -> -> 0 `i `*Cuc ! != _src2 -> -> 0 `i `*Cuc ! != _n -> 0 `i < _n -> 0 `i 23  ]
+[e ) -> -> 0 `i `uc ]
+[e $UE 22  ]
+[e :U 23 ]
+[; ;_string.c: 34: while (n--) {
+"34
+[e $U 24  ]
+[e :U 25 ]
+{
+"35
+[v _ch `uc ~T0 @X0 1 a ]
+[; ;_string.c: 35: char ch = *src1;
+[e = _ch *U _src1 ]
+[; ;_string.c: 36: if (i > 0 && ch == '%') {
+"36
+[e $ ! && > _i -> 0 `i == -> _ch `ui -> 37 `ui 27  ]
+{
+[; ;_string.c: 37: ch = i + '0';
+"37
+[e = _ch -> + -> _i `ui -> 48 `ui `uc ]
+"38
+}
+[e :U 27 ]
+[; ;_string.c: 38: }
+[; ;_string.c: 39: if (ch != *src2)
+"39
+[e $ ! != -> _ch `i -> *U _src2 `i 28  ]
+[; ;_string.c: 40: return 0;
+"40
+[e ) -> -> 0 `i `uc ]
+[e $UE 22  ]
+[e :U 28 ]
+[; ;_string.c: 41: src1++;
+"41
+[e ++ _src1 * -> -> 1 `i `x -> -> # *U _src1 `i `x ]
+[; ;_string.c: 42: src2++;
+"42
+[e ++ _src2 * -> -> 1 `i `x -> -> # *U _src2 `i `x ]
+"43
+}
+[e :U 24 ]
+"34
+[e $ != -- _n -> 1 `i -> 0 `i 25  ]
+[e :U 26 ]
+[; ;_string.c: 43: }
+[; ;_string.c: 44: return 1;
+"44
+[e ) -> -> 1 `i `uc ]
+[e $UE 22  ]
+[; ;_string.c: 45: }
+"45
+[e :UE 22 ]
+}
+"47
+[v __strclr `(v ~T0 @X0 1 ef2`*uc`i ]
+"48
+{
+[; ;_string.c: 47: void _strclr(char* dest, int n)
+[; ;_string.c: 48: {
+[e :U __strclr ]
+"47
+[v _dest `*uc ~T0 @X0 1 r1 ]
+[v _n `i ~T0 @X0 1 r2 ]
+"48
+[f ]
+[; ;_string.c: 49: if(!dest || !n || n<0) return;
+"49
+[e $ ! || || ! != _dest -> -> 0 `i `*uc ! != _n -> 0 `i < _n -> 0 `i 30  ]
+[e $UE 29  ]
+[e :U 30 ]
+[; ;_string.c: 50: while (n--) *dest++ = '\0';
+"50
+[e $U 31  ]
+[e :U 32 ]
+[e = *U ++ _dest * -> -> 1 `i `x -> -> # *U _dest `i `x -> -> 0 `ui `uc ]
+[e :U 31 ]
+[e $ != -- _n -> 1 `i -> 0 `i 32  ]
+[e :U 33 ]
+[; ;_string.c: 51: }
+"51
+[e :UE 29 ]
+}
+"53
+[v __isdigit `(uc ~T0 @X0 1 ef2`*Cuc`i ]
+"54
+{
+[; ;_string.c: 53: unsigned char _isdigit(const char* src, int n)
+[; ;_string.c: 54: {
+[e :U __isdigit ]
+"53
+[v _src `*Cuc ~T0 @X0 1 r1 ]
+[v _n `i ~T0 @X0 1 r2 ]
+"54
+[f ]
+[; ;_string.c: 55: while (n--) {
+"55
+[e $U 35  ]
+[e :U 36 ]
+{
+"56
+[v _ch `uc ~T0 @X0 1 a ]
+[; ;_string.c: 56: char ch = *src - '0';
+[e = _ch -> - -> *U _src `ui -> 48 `ui `uc ]
+[; ;_string.c: 57: if (!(ch >= 0 && ch <= 9))
+"57
+[e $ ! ! && >= -> _ch `i -> 0 `i <= -> _ch `i -> 9 `i 38  ]
+[; ;_string.c: 58: return 0;
+"58
+[e ) -> -> 0 `i `uc ]
+[e $UE 34  ]
+[e :U 38 ]
+[; ;_string.c: 59: src++;
+"59
+[e ++ _src * -> -> 1 `i `x -> -> # *U _src `i `x ]
+"60
+}
+[e :U 35 ]
+"55
+[e $ != -- _n -> 1 `i -> 0 `i 36  ]
+[e :U 37 ]
+[; ;_string.c: 60: }
+[; ;_string.c: 61: return 1;
+"61
+[e ) -> -> 1 `i `uc ]
+[e $UE 34  ]
+[; ;_string.c: 62: }
+"62
+[e :UE 34 ]
+}

@@ -1,0 +1,1037 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"30 app_sens_measure.c
+[c E463 0 1 2 3 4 5 6 .. ]
+[n E463 e_SensorValue LV_GAS_VOLT LV_GAS_PPM LV_RAW_VALUE LV_FILTERD_VALUE LV_SNR LV_TEMP LV_HUMI  ]
+"17 filter.h
+[s S5 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 ]
+[n S5 . _err_measure _err_estimate _q_process _current_estimate _last_estimate _kalman_gain ]
+"32 app_sens_measure.h
+[s S6 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S6 . seq next_seq seq_count isInitDone isGasSensor_Success isTemp_Success ]
+"22 app_sens_measure.c
+[v _g_sens_measure `S6 ~T0 @X0 0 e ]
+"48
+[c E455 0 1 2 3 4 5 6 .. ]
+[n E455 e_Measure_Seq SENS_INIT SENS_READY SENS_TEMP_MEASURE SENS_GAS_MEASURE SENS_APPLY SENS_WAIT SENS_DISPLAY  ]
+"58 filter.h
+[v _Kalman_setMeasurementError `(v ~T0 @X0 0 ef2`*S5`f ]
+"8 nvm.h
+[s S3 `uc 1 `uc 1 `uc 1 `uc 1 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 `uc 1 `uc 1 `f 1 `f 1 `f 1 `f 1 `ui 1 `ul 1 `ul 1 `ul 1 `Quc -> 8 `i ]
+[n S3 . filter_mode window_size temp_corf temp_compensate baseLine_uV nA_per_ppm gasOffset tempOffset calib_temp KMf_e_measure KMF_e_estimate auto_Calib dummy slope_min slope_max zeroShift_uV zeroRange_ppm autoCalib_cnt exectime usedtime buildtime serialNum ]
+"6
+[u S2 `Quc -> 72 `i `QS3 1 ]
+[n S2 . byte . ]
+"46
+[s S4 `uc 1 `S2 1 ]
+[n S4 . status flash ]
+"23 app_sens_measure.c
+[v _g_nvm `S4 ~T0 @X0 0 e ]
+"59 filter.h
+[v _Kalman_setEstimateError `(v ~T0 @X0 0 ef2`*S5`f ]
+"62 app_sens_measure.c
+[c E401 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 .. ]
+[n E401 . LEVEL_1 LEVEL_2 LEVEL_3 LEVEL_4 LEVEL_5 LEVEL_6 LEVEL_7 LEVEL_8 LEVEL_9 LEVEL_10 LEVEL_11 LEVEL_12 LEVEL_13 LEVEL_14 LEVEL_15  ]
+"65 filter.h
+[v _Set_KamanFilter_Sensitivity `(v ~T0 @X0 0 ef1`E401 ]
+"16 sensor.h
+[v _sensor_read_temp_humi `(uc ~T0 @X0 0 ef2`*f`*f ]
+"19
+[v _sensor_ADC_read `(uc ~T0 @X0 0 ef1`*i ]
+"20
+[v _ADCto_uVoltage `(f ~T0 @X0 0 ef2`i`uc ]
+"100 app_sens_measure.c
+[c E171 0 1 2 3 4 5 .. ]
+[n E171 . FSR_6p144V FSR_4p096V FSR_2p048V FSR_1p024V FSR_0p512V FSR_0p256V  ]
+"56 filter.h
+[v _Kalman_updateEstimate `(f ~T0 @X0 0 ef2`*S5`f ]
+"111 app_sens_measure.c
+[c E158 0 1 .. ]
+[n E158 . TEMP_NOT_COMPENSATION TEMP_COMPENSATION  ]
+"22 sensor.h
+[v _compensate_temperature `(f ~T0 @X0 0 ef1`f ]
+"23
+[v _gasSensor_calib `(f ~T0 @X0 0 ef2`f`f ]
+"116 app_sens_measure.c
+[c E155 0 1 .. ]
+[n E155 . RAW_MODE FIL_MODE  ]
+"24 sensor.h
+[v _gasSensor_lowfilter `(f ~T0 @X0 0 ef1`f ]
+"14
+[v _sensor_init `(uc ~T0 @X0 0 ef ]
+"14 app_linear_regression.h
+[s S8 `f -> 10 `i `f -> 10 `i `uc 1 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 ]
+[n S8 . x y position time_cnt sum_x sum_x2 sum_y sum_xy slope offset ]
+"48
+[v _Linear_regression `(v ~T0 @X0 0 ef2`*S8`f ]
+"25 app_sens_measure.c
+[v _g_linear_reg `S8 ~T0 @X0 0 e ]
+"43 app_sens_measure.h
+[s S7 `f -> 30 `i `f -> 30 `i `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 ]
+[n S7 . rawData_buffer fltData_buffer rawData_sum fltData_sum rawData_sqrSum fltData_sqrSum rawData_avg fltData_avg rawData_RMS fltData_RMS SNRv SNRdB ]
+"44 C:\Program Files\Microchip\xc8\v2.32\pic\include\c90\math.h
+[v _log10 `(d ~T0 @X0 0 ef1`d ]
+[; ;stdbool.h: 15: typedef unsigned char bool;
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef __int24 int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 52: typedef unsigned char uint8_t;
+[; ;stdint.h: 58: typedef unsigned int uint16_t;
+[; ;stdint.h: 65: typedef __uint24 uint24_t;
+[; ;stdint.h: 72: typedef unsigned long int uint32_t;
+[; ;stdint.h: 88: typedef signed char int_least8_t;
+[; ;stdint.h: 96: typedef signed int int_least16_t;
+[; ;stdint.h: 109: typedef __int24 int_least24_t;
+[; ;stdint.h: 118: typedef signed long int int_least32_t;
+[; ;stdint.h: 136: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 143: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 154: typedef __uint24 uint_least24_t;
+[; ;stdint.h: 162: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 181: typedef signed char int_fast8_t;
+[; ;stdint.h: 188: typedef signed int int_fast16_t;
+[; ;stdint.h: 200: typedef __int24 int_fast24_t;
+[; ;stdint.h: 208: typedef signed long int int_fast32_t;
+[; ;stdint.h: 224: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 230: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 240: typedef __uint24 uint_fast24_t;
+[; ;stdint.h: 247: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 268: typedef int32_t intmax_t;
+[; ;stdint.h: 282: typedef uint32_t uintmax_t;
+[; ;stdint.h: 289: typedef int16_t intptr_t;
+[; ;stdint.h: 294: typedef uint16_t uintptr_t;
+[; ;xc8\pic\include\__size_t.h: 4: typedef unsigned size_t;
+[; ;stdarg.h: 7: typedef void * va_list[1];
+[; ;stdarg.h: 10: extern void * __va_start(void);
+[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
+[; ;stdio.h: 43: struct __prbuf
+[; ;stdio.h: 44: {
+[; ;stdio.h: 45: char * ptr;
+[; ;stdio.h: 46: void (* func)(char);
+[; ;stdio.h: 47: };
+[; ;errno.h: 29: extern int errno;
+[; ;conio.h: 12: extern void init_uart(void);
+[; ;conio.h: 14: extern char getch(void);
+[; ;conio.h: 15: extern char getche(void);
+[; ;conio.h: 16: extern void putch(char);
+[; ;conio.h: 17: extern void ungetch(char);
+[; ;conio.h: 19: extern __bit kbhit(void);
+[; ;conio.h: 23: extern char * cgets(char *);
+[; ;conio.h: 24: extern void cputs(const char *);
+[; ;stdio.h: 88: extern int cprintf(char *, ...);
+[; ;stdio.h: 93: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+[; ;stdio.h: 183: extern char * gets(char *);
+[; ;stdio.h: 184: extern int puts(const char *);
+[; ;stdio.h: 185: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+[; ;stdio.h: 186: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+[; ;stdio.h: 187: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+[; ;stdio.h: 188: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+[; ;stdio.h: 189: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+[; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+[; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
+[; ;stdio.h: 195: extern int printf(const char *, ...);
+[; ;math.h: 30: extern double fabs(double);
+[; ;math.h: 31: extern double floor(double);
+[; ;math.h: 32: extern double ceil(double);
+[; ;math.h: 33: extern double modf(double, double *);
+[; ;math.h: 34: extern double sqrt(double);
+[; ;math.h: 35: extern double atof(const char *);
+[; ;math.h: 36: extern double sin(double) ;
+[; ;math.h: 37: extern double cos(double) ;
+[; ;math.h: 38: extern double tan(double) ;
+[; ;math.h: 39: extern double asin(double) ;
+[; ;math.h: 40: extern double acos(double) ;
+[; ;math.h: 41: extern double atan(double);
+[; ;math.h: 42: extern double atan2(double, double) ;
+[; ;math.h: 43: extern double log(double);
+[; ;math.h: 44: extern double log10(double);
+[; ;math.h: 45: extern double pow(double, double) ;
+[; ;math.h: 46: extern double exp(double) ;
+[; ;math.h: 47: extern double sinh(double) ;
+[; ;math.h: 48: extern double cosh(double) ;
+[; ;math.h: 49: extern double tanh(double);
+[; ;math.h: 50: extern double eval_poly(double, const double *, int);
+[; ;math.h: 51: extern double frexp(double, int *);
+[; ;math.h: 52: extern double ldexp(double, int);
+[; ;math.h: 53: extern double fmod(double, double);
+[; ;math.h: 54: extern double trunc(double);
+[; ;math.h: 55: extern double round(double);
+[; ;board.h: 73: enum {
+[; ;board.h: 74: CELSIUS,
+[; ;board.h: 75: FAHRENHEIT
+[; ;board.h: 76: };
+[; ;board.h: 78: enum {
+[; ;board.h: 79: RAW_MODE,
+[; ;board.h: 80: FIL_MODE
+[; ;board.h: 81: };
+[; ;board.h: 83: enum {
+[; ;board.h: 84: TEMP_NOT_COMPENSATION,
+[; ;board.h: 85: TEMP_COMPENSATION
+[; ;board.h: 86: };
+[; ;board.h: 88: enum {
+[; ;board.h: 89: USB_NONE,
+[; ;board.h: 90: USB_DETACHED,
+[; ;board.h: 91: USB_ATTACHED
+[; ;board.h: 92: };
+[; ;board.h: 94: enum {
+[; ;board.h: 95: OFF,
+[; ;board.h: 96: ON
+[; ;board.h: 97: };
+[; ;board.h: 156: void write_command(const uint8_t* buff);
+[; ;board.h: 157: uint16_t* get_product_desc();
+[; ;ads1114.h: 43: typedef enum {
+[; ;ads1114.h: 44: FSR_6p144V,
+[; ;ads1114.h: 45: FSR_4p096V,
+[; ;ads1114.h: 46: FSR_2p048V,
+[; ;ads1114.h: 47: FSR_1p024V,
+[; ;ads1114.h: 48: FSR_0p512V,
+[; ;ads1114.h: 49: FSR_0p256V
+[; ;ads1114.h: 50: } e_ADC_Gain;
+[; ;ads1114.h: 53: typedef enum {
+[; ;ads1114.h: 54: CONTINUE_CONV,
+[; ;ads1114.h: 55: SINGLE_CONV
+[; ;ads1114.h: 56: } e_ADC_Mode;
+[; ;ads1114.h: 59: typedef enum {
+[; ;ads1114.h: 60: SPS8,
+[; ;ads1114.h: 61: SPS16,
+[; ;ads1114.h: 62: SPS32,
+[; ;ads1114.h: 63: SPS64,
+[; ;ads1114.h: 64: SPS128,
+[; ;ads1114.h: 65: SPS250,
+[; ;ads1114.h: 66: SPS475,
+[; ;ads1114.h: 67: SPS860
+[; ;ads1114.h: 68: } e_ADC_DataRate;
+[; ;ads1114.h: 72: typedef enum {
+[; ;ads1114.h: 73: COMP,
+[; ;ads1114.h: 74: WIN_COMP
+[; ;ads1114.h: 75: } e_Comparator_Mode;
+[; ;ads1114.h: 78: typedef enum {
+[; ;ads1114.h: 79: LO,
+[; ;ads1114.h: 80: HI
+[; ;ads1114.h: 81: } e_Comparator_Pol;
+[; ;ads1114.h: 84: typedef enum {
+[; ;ads1114.h: 85: NONE_LATCH,
+[; ;ads1114.h: 86: LATCH
+[; ;ads1114.h: 87: } e_Comparator_Latch;
+[; ;ads1114.h: 90: typedef enum {
+[; ;ads1114.h: 91: ONE_CONV,
+[; ;ads1114.h: 92: TWO_CONV,
+[; ;ads1114.h: 93: FOUR_CONV,
+[; ;ads1114.h: 94: DISABL
+[; ;ads1114.h: 95: } e_Comparator_Que;
+[; ;ads1114.h: 101: bool ads1114_read_ready(void);
+[; ;ads1114.h: 102: bool ads1114_SetUp(uint8_t mode, uint8_t pga, uint8_t dataRate);
+[; ;ads1114.h: 103: bool ads1114_read(int16_t* raw_adc);
+[; ;ads1114.h: 104: bool ads1114_Comparator_SetUp(uint8_t mode, uint8_t polar, uint8_t latch, uint8_t que);
+[; ;lmp91000.h: 25: typedef enum {
+[; ;lmp91000.h: 26: EXTERNAL_REGISTOR,
+[; ;lmp91000.h: 27: R2p75K,
+[; ;lmp91000.h: 28: R3p5K,
+[; ;lmp91000.h: 29: R7K,
+[; ;lmp91000.h: 30: R14K,
+[; ;lmp91000.h: 31: R35K,
+[; ;lmp91000.h: 32: R120K,
+[; ;lmp91000.h: 33: R350K
+[; ;lmp91000.h: 34: } e_TIA_InternalGain;
+[; ;lmp91000.h: 37: typedef enum {
+[; ;lmp91000.h: 38: R10,
+[; ;lmp91000.h: 39: R33,
+[; ;lmp91000.h: 40: R50,
+[; ;lmp91000.h: 41: R100
+[; ;lmp91000.h: 42: } e_TIA_RLoad;
+[; ;lmp91000.h: 45: typedef enum {
+[; ;lmp91000.h: 46: INTERNAL,
+[; ;lmp91000.h: 47: EXTERNAL
+[; ;lmp91000.h: 48: } e_Ref_Voltage;
+[; ;lmp91000.h: 51: typedef enum {
+[; ;lmp91000.h: 52: S20P,
+[; ;lmp91000.h: 53: S50P,
+[; ;lmp91000.h: 54: S67P,
+[; ;lmp91000.h: 55: BYPASS
+[; ;lmp91000.h: 56: } e_InZ_sel;
+[; ;lmp91000.h: 59: typedef enum {
+[; ;lmp91000.h: 60: NAGATIVE,
+[; ;lmp91000.h: 61: POSITIVE
+[; ;lmp91000.h: 62: } e_Bias_sign;
+[; ;lmp91000.h: 65: typedef enum {
+[; ;lmp91000.h: 66: B0P,
+[; ;lmp91000.h: 67: B1P,
+[; ;lmp91000.h: 68: B2P,
+[; ;lmp91000.h: 69: B4P,
+[; ;lmp91000.h: 70: B6P,
+[; ;lmp91000.h: 71: B8P,
+[; ;lmp91000.h: 72: B10P,
+[; ;lmp91000.h: 73: B12P,
+[; ;lmp91000.h: 74: B14P,
+[; ;lmp91000.h: 75: B16P,
+[; ;lmp91000.h: 76: B18P,
+[; ;lmp91000.h: 77: B20P,
+[; ;lmp91000.h: 78: B22P,
+[; ;lmp91000.h: 79: B24P
+[; ;lmp91000.h: 80: } e_Bias_sel;
+[; ;lmp91000.h: 83: typedef enum {
+[; ;lmp91000.h: 84: DISABLE,
+[; ;lmp91000.h: 85: ENABLE
+[; ;lmp91000.h: 86: } e_FET;
+[; ;lmp91000.h: 89: typedef enum {
+[; ;lmp91000.h: 90: SLEEP,
+[; ;lmp91000.h: 91: GALVANIC_2LEAD,
+[; ;lmp91000.h: 92: STANBY,
+[; ;lmp91000.h: 93: AMPEROETRIC_3LEAD,
+[; ;lmp91000.h: 94: TEMP_MEASURE_TIAOFF = 6,
+[; ;lmp91000.h: 95: TEMP_MEASURE_TIAON = 7
+[; ;lmp91000.h: 96: } e_OP_Mode;
+[; ;lmp91000.h: 104: bool lmp91000_lock(void);
+[; ;lmp91000.h: 105: bool lmp91000_unlock(void);
+[; ;lmp91000.h: 106: bool lmp91000_isUnLocked(void);
+[; ;lmp91000.h: 107: bool lmp91000_isReady(void);
+[; ;lmp91000.h: 109: bool lmp91000_get_status(uint8_t* preg);
+[; ;lmp91000.h: 110: bool lmp91000_get_lock(uint8_t* preg);
+[; ;lmp91000.h: 111: bool lmp91000_get_Tiacn(uint8_t* preg);
+[; ;lmp91000.h: 112: bool lmp91000_get_Refcn(uint8_t* preg);
+[; ;lmp91000.h: 113: bool lmp91000_get_Modecn(uint8_t* preg);
+[; ;lmp91000.h: 115: bool lmp91000_set_GainRLoad(uint8_t user_gain, uint8_t RLoad);
+[; ;lmp91000.h: 116: bool lmp91000_set_Reference(uint8_t source, uint8_t IntZ, uint8_t sign, uint8_t bias);
+[; ;lmp91000.h: 117: bool lmp91000_set_Mode(uint8_t fet, uint8_t mode);
+[; ;sht3x.h: 79: bool sht3x_softreset(void);
+[; ;sht3x.h: 80: bool sht3x_measure_start(void);
+[; ;sht3x.h: 82: bool sht3x_art_cmd(void);
+[; ;sht3x.h: 83: bool sht3x_break_cmd(void);
+[; ;sht3x.h: 85: bool sht3x_clear_status_reg(void);
+[; ;sht3x.h: 86: bool sht3x_read_status_reg(uint16_t* status);
+[; ;sht3x.h: 87: bool sht3x_heaterOn(void);
+[; ;sht3x.h: 88: bool sht3x_heaterOff(void);
+[; ;sht3x.h: 90: bool sht3x_write_alert_limits(float humidityHighSet, float temperatureHighSet,
+[; ;sht3x.h: 91: float humidityHighClear, float temperatureHighClear,
+[; ;sht3x.h: 92: float humidityLowClear, float temperatureLowClear,
+[; ;sht3x.h: 93: float humidityLowSet, float temperatureLowSet);
+[; ;sht3x.h: 95: bool sht3x_common_read(int32_t* temp, int32_t* humi);
+[; ;sht3x.h: 101: bool sht3x_measure_read(float* temp, float* humi);
+[; ;sht3x.h: 102: bool sht3x_measure_nonblock_read(float* temp, float* humi);
+[; ;sht3x.h: 103: bool sht3x_measure_block_read(float* temp, float* humi);
+[; ;nvm.h: 6: typedef union {
+[; ;nvm.h: 7: __pack uint8_t byte[72];
+[; ;nvm.h: 8: __pack struct {
+[; ;nvm.h: 9: uint8_t filter_mode;
+[; ;nvm.h: 10: uint8_t window_size;
+[; ;nvm.h: 11: uint8_t temp_corf;
+[; ;nvm.h: 12: uint8_t temp_compensate;
+[; ;nvm.h: 14: float baseLine_uV;
+[; ;nvm.h: 15: float nA_per_ppm;
+[; ;nvm.h: 16: float gasOffset;
+[; ;nvm.h: 17: float tempOffset;
+[; ;nvm.h: 18: float calib_temp;
+[; ;nvm.h: 21: float KMf_e_measure;
+[; ;nvm.h: 22: float KMF_e_estimate;
+[; ;nvm.h: 25: uint8_t auto_Calib;
+[; ;nvm.h: 26: uint8_t dummy;
+[; ;nvm.h: 27: float slope_min;
+[; ;nvm.h: 28: float slope_max;
+[; ;nvm.h: 29: float zeroShift_uV;
+[; ;nvm.h: 30: float zeroRange_ppm;
+[; ;nvm.h: 31: uint16_t autoCalib_cnt;
+[; ;nvm.h: 33: uint32_t exectime;
+[; ;nvm.h: 34: uint32_t usedtime;
+[; ;nvm.h: 35: uint32_t buildtime;
+[; ;nvm.h: 36: __pack uint8_t serialNum[8];
+[; ;nvm.h: 37: };
+[; ;nvm.h: 38: } u_Flash_Nvm;
+[; ;nvm.h: 41: typedef enum {
+[; ;nvm.h: 42: NVM_INIT_NONE,
+[; ;nvm.h: 43: NVM_INIT_FLASH,
+[; ;nvm.h: 44: }e_Nvm_Status;
+[; ;nvm.h: 46: typedef struct {
+[; ;nvm.h: 47: uint8_t status;
+[; ;nvm.h: 48: u_Flash_Nvm flash;
+[; ;nvm.h: 49: } s_Nvm;
+[; ;nvm.h: 55: void nvm_init(void);
+[; ;nvm.h: 56: void nvm_clear(void);
+[; ;nvm.h: 57: void nvm_clear_all(void);
+[; ;nvm.h: 59: bool nvm_write_flash_all(u_Flash_Nvm* flash);
+[; ;nvm.h: 60: void nvm_read_flash_all(u_Flash_Nvm* flash);
+[; ;filter.h: 16: typedef struct
+[; ;filter.h: 17: {
+[; ;filter.h: 18: float _err_measure;
+[; ;filter.h: 19: float _err_estimate;
+[; ;filter.h: 21: float _q_process;
+[; ;filter.h: 23: float _current_estimate;
+[; ;filter.h: 24: float _last_estimate;
+[; ;filter.h: 25: float _kalman_gain;
+[; ;filter.h: 26: } s_KalmanFilter_t;
+[; ;filter.h: 29: typedef enum {
+[; ;filter.h: 30: LEVEL_1 = 1,
+[; ;filter.h: 31: LEVEL_2,
+[; ;filter.h: 32: LEVEL_3,
+[; ;filter.h: 33: LEVEL_4,
+[; ;filter.h: 34: LEVEL_5,
+[; ;filter.h: 35: LEVEL_6,
+[; ;filter.h: 36: LEVEL_7,
+[; ;filter.h: 37: LEVEL_8,
+[; ;filter.h: 38: LEVEL_9,
+[; ;filter.h: 39: LEVEL_10,
+[; ;filter.h: 40: LEVEL_11,
+[; ;filter.h: 41: LEVEL_12,
+[; ;filter.h: 42: LEVEL_13,
+[; ;filter.h: 43: LEVEL_14,
+[; ;filter.h: 44: LEVEL_15
+[; ;filter.h: 45: } e_KalmaFilter_sensitivity;
+[; ;filter.h: 56: float Kalman_updateEstimate(s_KalmanFilter_t *pObj,float mea);
+[; ;filter.h: 58: void Kalman_setMeasurementError(s_KalmanFilter_t *pObj,float mea_e);
+[; ;filter.h: 59: void Kalman_setEstimateError(s_KalmanFilter_t *pObj,float est_e);
+[; ;filter.h: 60: void Kalman_setProcessNoise(s_KalmanFilter_t *pObj,float q);
+[; ;filter.h: 62: float Kalman_getKalmanGain(s_KalmanFilter_t *pObj);
+[; ;filter.h: 63: float Kalman_getEstimateError(s_KalmanFilter_t *pObj);
+[; ;filter.h: 65: void Set_KamanFilter_Sensitivity(e_KalmaFilter_sensitivity e_level);
+[; ;sensor.h: 14: bool sensor_init(void);
+[; ;sensor.h: 16: bool sensor_read_temp_humi(float* temp, float* humi);
+[; ;sensor.h: 17: void sensor_temp_fahrenheit(float* temp);
+[; ;sensor.h: 19: bool sensor_ADC_read(int16_t* raw_adc);
+[; ;sensor.h: 20: float ADCto_uVoltage(int16_t raw_adc, uint8_t gain);
+[; ;sensor.h: 22: float compensate_temperature(float temp);
+[; ;sensor.h: 23: float gasSensor_calib(float slope, float gas_uVolt);
+[; ;sensor.h: 24: float gasSensor_lowfilter(float gasConcent);
+[; ;app_sens_measure.h: 9: enum e_Measure_Seq {
+[; ;app_sens_measure.h: 10: SENS_INIT,
+[; ;app_sens_measure.h: 11: SENS_READY,
+[; ;app_sens_measure.h: 12: SENS_TEMP_MEASURE,
+[; ;app_sens_measure.h: 13: SENS_GAS_MEASURE,
+[; ;app_sens_measure.h: 14: SENS_APPLY,
+[; ;app_sens_measure.h: 15: SENS_WAIT,
+[; ;app_sens_measure.h: 16: SENS_DISPLAY
+[; ;app_sens_measure.h: 17: };
+[; ;app_sens_measure.h: 19: enum e_SensorValue {
+[; ;app_sens_measure.h: 20: LV_GAS_VOLT,
+[; ;app_sens_measure.h: 21: LV_GAS_PPM,
+[; ;app_sens_measure.h: 22: LV_RAW_VALUE,
+[; ;app_sens_measure.h: 23: LV_FILTERD_VALUE,
+[; ;app_sens_measure.h: 24: LV_SNR,
+[; ;app_sens_measure.h: 25: LV_TEMP,
+[; ;app_sens_measure.h: 26: LV_HUMI
+[; ;app_sens_measure.h: 27: };
+[; ;app_sens_measure.h: 32: typedef struct {
+[; ;app_sens_measure.h: 33: uint8_t seq;
+[; ;app_sens_measure.h: 34: uint8_t next_seq;
+[; ;app_sens_measure.h: 35: uint8_t seq_count;
+[; ;app_sens_measure.h: 37: bool isInitDone;
+[; ;app_sens_measure.h: 38: bool isGasSensor_Success;
+[; ;app_sens_measure.h: 39: bool isTemp_Success;
+[; ;app_sens_measure.h: 41: } s_Sens_Measure;
+[; ;app_sens_measure.h: 43: typedef struct {
+[; ;app_sens_measure.h: 44: float rawData_buffer[30];
+[; ;app_sens_measure.h: 45: float fltData_buffer[30];
+[; ;app_sens_measure.h: 47: float rawData_sum;
+[; ;app_sens_measure.h: 48: float fltData_sum;
+[; ;app_sens_measure.h: 50: float rawData_sqrSum;
+[; ;app_sens_measure.h: 51: float fltData_sqrSum;
+[; ;app_sens_measure.h: 53: float rawData_avg;
+[; ;app_sens_measure.h: 54: float fltData_avg;
+[; ;app_sens_measure.h: 56: float rawData_RMS;
+[; ;app_sens_measure.h: 57: float fltData_RMS;
+[; ;app_sens_measure.h: 59: float SNRv;
+[; ;app_sens_measure.h: 60: float SNRdB;
+[; ;app_sens_measure.h: 62: } s_Sens_SNR;
+[; ;app_sens_measure.h: 68: void sensMeasure_init();
+[; ;app_sens_measure.h: 69: void sensMeasure_task();
+[; ;app_sens_measure.h: 72: void sensMeasure_SNR_init(s_Sens_SNR* pSNR);
+[; ;app_sens_measure.h: 73: float sensMeasure_SNR(s_Sens_SNR* pSNR, float rawData, float filData);
+[; ;window.h: 12: float window_moving_average_recursion(float uV, uint8_t window_size);
+[; ;app_linear_regression.h: 14: typedef struct {
+[; ;app_linear_regression.h: 17: float x[10];
+[; ;app_linear_regression.h: 18: float y[10];
+[; ;app_linear_regression.h: 24: uint8_t position;
+[; ;app_linear_regression.h: 25: float time_cnt;
+[; ;app_linear_regression.h: 27: float sum_x;
+[; ;app_linear_regression.h: 28: float sum_x2;
+[; ;app_linear_regression.h: 29: float sum_y;
+[; ;app_linear_regression.h: 30: float sum_xy;
+[; ;app_linear_regression.h: 32: float slope;
+[; ;app_linear_regression.h: 33: float offset;
+[; ;app_linear_regression.h: 39: } s_Linear_reg;
+[; ;app_linear_regression.h: 47: void Linear_regression_init(s_Linear_reg* p);
+[; ;app_linear_regression.h: 48: void Linear_regression(s_Linear_reg* p, float uVoltage);
+[; ;app_sens_autoCalibration.h: 15: typedef enum {
+[; ;app_sens_autoCalibration.h: 16: AUTO_CALIB_INIT,
+[; ;app_sens_autoCalibration.h: 17: AUTO_CALIB_READY,
+[; ;app_sens_autoCalibration.h: 18: AUTO_CALIB_CHECK,
+[; ;app_sens_autoCalibration.h: 19: AUTO_CALIB
+[; ;app_sens_autoCalibration.h: 20: } e_AutoCalib;
+[; ;app_sens_autoCalibration.h: 22: typedef enum {
+[; ;app_sens_autoCalibration.h: 23: SLOPE_SET_INIT,
+[; ;app_sens_autoCalibration.h: 24: SLOPE_SET_LED,
+[; ;app_sens_autoCalibration.h: 25: SLOPE_SET_READY,
+[; ;app_sens_autoCalibration.h: 26: SLOPE_SAVE,
+[; ;app_sens_autoCalibration.h: 27: SLOPE_SET,
+[; ;app_sens_autoCalibration.h: 28: SLOPE_SET_END
+[; ;app_sens_autoCalibration.h: 29: } e_AutoCalib_slp;
+[; ;app_sens_autoCalibration.h: 31: typedef struct {
+[; ;app_sens_autoCalibration.h: 32: uint8_t Seq_autoCal;
+[; ;app_sens_autoCalibration.h: 33: uint8_t Seq_slpSet;
+[; ;app_sens_autoCalibration.h: 34: uint8_t slpSet_en;
+[; ;app_sens_autoCalibration.h: 35: uint8_t led_slpSet;
+[; ;app_sens_autoCalibration.h: 37: float slope_min;
+[; ;app_sens_autoCalibration.h: 38: float slope_max;
+[; ;app_sens_autoCalibration.h: 40: volatile uint8_t chk_cnt;
+[; ;app_sens_autoCalibration.h: 41: float sumZero_uV;
+[; ;app_sens_autoCalibration.h: 42: float avgZero_uV;
+[; ;app_sens_autoCalibration.h: 44: float sft_ppm;
+[; ;app_sens_autoCalibration.h: 46: } s_Auto_calib;
+[; ;app_sens_autoCalibration.h: 53: void sens_autoCalib_init(void);
+[; ;app_sens_autoCalibration.h: 54: void sens_autoCalib_task(void);
+[; ;app_sens_autoCalibration.h: 55: void sens_autoCalib_slp_set_task(void);
+[; ;app_sens_measure.c: 22: extern s_Sens_Measure g_sens_measure;
+[; ;app_sens_measure.c: 23: extern s_Nvm g_nvm;
+[; ;app_sens_measure.c: 25: extern s_Linear_reg g_linear_reg;
+[; ;app_sens_measure.c: 26: extern s_Auto_calib g_sens_autoCalib;
+[; ;app_sens_measure.c: 27: extern volatile uint16_t g_slpSet_cnt2;
+[; ;app_sens_measure.c: 28: extern volatile uint8_t g_autoCal_cnt2;
+"30 app_sens_measure.c
+[v _g_last_value `f ~T0 @X0 + -> . `E463 6 `i -> 1 `i e ]
+[; ;app_sens_measure.c: 30: float g_last_value[LV_HUMI+1];
+"31
+[v _g_temp_value `f ~T0 @X0 + -> . `E463 6 `i -> 1 `i e ]
+[; ;app_sens_measure.c: 31: float g_temp_value[LV_HUMI+1];
+"33
+[v _g_large_counter `Vul ~T0 @X0 1 e ]
+[; ;app_sens_measure.c: 33: volatile uint32_t g_large_counter;
+"34
+[v _gCnt `Vui ~T0 @X0 1 e ]
+[; ;app_sens_measure.c: 34: volatile uint16_t gCnt;
+"37
+[v _kalmanFilter `S5 ~T0 @X0 1 e ]
+[; ;app_sens_measure.c: 37: s_KalmanFilter_t kalmanFilter;
+"45
+[v _sensMeasure_init `(v ~T0 @X0 1 ef ]
+"46
+{
+[; ;app_sens_measure.c: 45: void sensMeasure_init(void)
+[; ;app_sens_measure.c: 46: {
+[e :U _sensMeasure_init ]
+[f ]
+[; ;app_sens_measure.c: 47: g_large_counter = 0;
+"47
+[e = _g_large_counter -> -> -> 0 `i `l `ul ]
+[; ;app_sens_measure.c: 48: g_sens_measure.seq = SENS_INIT;
+"48
+[e = . _g_sens_measure 0 -> . `E455 0 `uc ]
+[; ;app_sens_measure.c: 49: g_sens_measure.isInitDone = 0;
+"49
+[e = . _g_sens_measure 3 -> -> 0 `i `uc ]
+[; ;app_sens_measure.c: 50: g_sens_measure.isGasSensor_Success = 0;
+"50
+[e = . _g_sens_measure 4 -> -> 0 `i `uc ]
+[; ;app_sens_measure.c: 51: g_sens_measure.isTemp_Success = 0;
+"51
+[e = . _g_sens_measure 5 -> -> 0 `i `uc ]
+[; ;app_sens_measure.c: 54: kalmanFilter._current_estimate = 0.0f;
+"54
+[e = . _kalmanFilter 3 -> .0.0 `f ]
+[; ;app_sens_measure.c: 55: kalmanFilter._err_estimate = 0.0f;
+"55
+[e = . _kalmanFilter 1 -> .0.0 `f ]
+[; ;app_sens_measure.c: 56: kalmanFilter._err_measure = 0.0f;
+"56
+[e = . _kalmanFilter 0 -> .0.0 `f ]
+[; ;app_sens_measure.c: 57: kalmanFilter._kalman_gain = 0.0f;
+"57
+[e = . _kalmanFilter 5 -> .0.0 `f ]
+[; ;app_sens_measure.c: 58: kalmanFilter._last_estimate = 0.0f;
+"58
+[e = . _kalmanFilter 4 -> .0.0 `f ]
+[; ;app_sens_measure.c: 59: kalmanFilter._q_process = 0.0f;
+"59
+[e = . _kalmanFilter 2 -> .0.0 `f ]
+[; ;app_sens_measure.c: 60: Kalman_setMeasurementError(&kalmanFilter, g_nvm.flash.KMf_e_measure);
+"60
+[e ( _Kalman_setMeasurementError (2 , &U _kalmanFilter . . . _g_nvm 1 1 9 ]
+[; ;app_sens_measure.c: 61: Kalman_setEstimateError(&kalmanFilter, g_nvm.flash.KMF_e_estimate);
+"61
+[e ( _Kalman_setEstimateError (2 , &U _kalmanFilter . . . _g_nvm 1 1 10 ]
+[; ;app_sens_measure.c: 62: Set_KamanFilter_Sensitivity(g_nvm.flash.window_size);
+"62
+[e ( _Set_KamanFilter_Sensitivity (1 -> . . . _g_nvm 1 1 1 `E401 ]
+[; ;app_sens_measure.c: 74: }
+"74
+[e :UE 10 ]
+}
+"76
+[v _sensMeasure_temp_read `(uc ~T0 @X0 1 sf ]
+"77
+{
+[; ;app_sens_measure.c: 76: static bool sensMeasure_temp_read()
+[; ;app_sens_measure.c: 77: {
+[e :U _sensMeasure_temp_read ]
+[f ]
+"78
+[v _temp `f ~T0 @X0 1 a ]
+[v _humi `f ~T0 @X0 1 a ]
+[; ;app_sens_measure.c: 78: float temp, humi;
+[; ;app_sens_measure.c: 80: if (g_sens_measure.isInitDone == 0)
+"80
+[e $ ! == -> . _g_sens_measure 3 `i -> 0 `i 12  ]
+[; ;app_sens_measure.c: 81: return 0;
+"81
+[e ) -> -> 0 `i `uc ]
+[e $UE 11  ]
+[e :U 12 ]
+[; ;app_sens_measure.c: 83: if (sensor_read_temp_humi(&temp, &humi)) {
+"83
+[e $ ! != -> ( _sensor_read_temp_humi (2 , &U _temp &U _humi `i -> -> -> 0 `i `uc `i 13  ]
+{
+[; ;app_sens_measure.c: 84: g_temp_value[LV_TEMP] = temp;
+"84
+[e = *U + &U _g_temp_value * -> . `E463 5 `ux -> -> # *U &U _g_temp_value `ui `ux _temp ]
+[; ;app_sens_measure.c: 85: g_temp_value[LV_TEMP] += g_nvm.flash.tempOffset;
+"85
+[e =+ *U + &U _g_temp_value * -> . `E463 5 `ux -> -> # *U &U _g_temp_value `ui `ux . . . _g_nvm 1 1 7 ]
+[; ;app_sens_measure.c: 86: g_temp_value[LV_HUMI] = humi;
+"86
+[e = *U + &U _g_temp_value * -> . `E463 6 `ux -> -> # *U &U _g_temp_value `ui `ux _humi ]
+[; ;app_sens_measure.c: 87: return 1;
+"87
+[e ) -> -> 1 `i `uc ]
+[e $UE 11  ]
+"88
+}
+[e :U 13 ]
+[; ;app_sens_measure.c: 88: }
+[; ;app_sens_measure.c: 89: return 0;
+"89
+[e ) -> -> 0 `i `uc ]
+[e $UE 11  ]
+[; ;app_sens_measure.c: 90: }
+"90
+[e :UE 11 ]
+}
+"92
+[v _sensMeasure_gas_read `(uc ~T0 @X0 1 sf ]
+"93
+{
+[; ;app_sens_measure.c: 92: static bool sensMeasure_gas_read()
+[; ;app_sens_measure.c: 93: {
+[e :U _sensMeasure_gas_read ]
+[f ]
+"94
+[v _raw `i ~T0 @X0 1 a ]
+[; ;app_sens_measure.c: 94: int16_t raw;
+[; ;app_sens_measure.c: 96: if (g_sens_measure.isInitDone == 0)
+"96
+[e $ ! == -> . _g_sens_measure 3 `i -> 0 `i 15  ]
+[; ;app_sens_measure.c: 97: return 0;
+"97
+[e ) -> -> 0 `i `uc ]
+[e $UE 14  ]
+[e :U 15 ]
+[; ;app_sens_measure.c: 99: if (sensor_ADC_read(&raw)) {
+"99
+[e $ ! != -> ( _sensor_ADC_read (1 &U _raw `i -> -> -> 0 `i `uc `i 16  ]
+{
+"100
+[v _volt `f ~T0 @X0 1 a ]
+[; ;app_sens_measure.c: 100: float volt = ADCto_uVoltage(raw, FSR_0p256V);
+[e = _volt ( _ADCto_uVoltage (2 , _raw -> . `E171 5 `uc ]
+[; ;app_sens_measure.c: 101: g_temp_value[LV_GAS_VOLT] = Kalman_updateEstimate(&kalmanFilter, volt);
+"101
+[e = *U + &U _g_temp_value * -> . `E463 0 `ux -> -> # *U &U _g_temp_value `ui `ux ( _Kalman_updateEstimate (2 , &U _kalmanFilter _volt ]
+[; ;app_sens_measure.c: 108: g_temp_value[LV_GAS_VOLT] = g_temp_value[LV_GAS_VOLT] * 2.0f;
+"108
+[e = *U + &U _g_temp_value * -> . `E463 0 `ux -> -> # *U &U _g_temp_value `ui `ux * *U + &U _g_temp_value * -> . `E463 0 `ux -> -> # *U &U _g_temp_value `ui `ux -> .2.0 `f ]
+"110
+[v _cmp_val `f ~T0 @X0 1 a ]
+[; ;app_sens_measure.c: 110: float cmp_val = 0.0f;
+[e = _cmp_val -> .0.0 `f ]
+[; ;app_sens_measure.c: 111: if (g_nvm.flash.temp_compensate == TEMP_COMPENSATION)
+"111
+[e $ ! == -> . . . _g_nvm 1 1 3 `i -> . `E158 1 `i 17  ]
+[; ;app_sens_measure.c: 112: cmp_val = compensate_temperature(g_temp_value[LV_TEMP]);
+"112
+[e = _cmp_val ( _compensate_temperature (1 *U + &U _g_temp_value * -> . `E463 5 `ux -> -> # *U &U _g_temp_value `ui `ux ]
+[e :U 17 ]
+[; ;app_sens_measure.c: 114: g_temp_value[LV_GAS_PPM] = gasSensor_calib(cmp_val, g_temp_value[LV_GAS_VOLT]);
+"114
+[e = *U + &U _g_temp_value * -> . `E463 1 `ux -> -> # *U &U _g_temp_value `ui `ux ( _gasSensor_calib (2 , _cmp_val *U + &U _g_temp_value * -> . `E463 0 `ux -> -> # *U &U _g_temp_value `ui `ux ]
+[; ;app_sens_measure.c: 116: if(g_nvm.flash.filter_mode == FIL_MODE)
+"116
+[e $ ! == -> . . . _g_nvm 1 1 0 `i -> . `E155 1 `i 18  ]
+[; ;app_sens_measure.c: 117: g_temp_value[LV_GAS_PPM] = gasSensor_lowfilter(g_temp_value[LV_GAS_PPM]);
+"117
+[e = *U + &U _g_temp_value * -> . `E463 1 `ux -> -> # *U &U _g_temp_value `ui `ux ( _gasSensor_lowfilter (1 *U + &U _g_temp_value * -> . `E463 1 `ux -> -> # *U &U _g_temp_value `ui `ux ]
+[e :U 18 ]
+[; ;app_sens_measure.c: 119: return 1;
+"119
+[e ) -> -> 1 `i `uc ]
+[e $UE 14  ]
+"120
+}
+[e :U 16 ]
+[; ;app_sens_measure.c: 120: }
+[; ;app_sens_measure.c: 121: return 0;
+"121
+[e ) -> -> 0 `i `uc ]
+[e $UE 14  ]
+[; ;app_sens_measure.c: 122: }
+"122
+[e :UE 14 ]
+}
+"124
+[v _sensMeasure_task `(v ~T0 @X0 1 ef ]
+"125
+{
+[; ;app_sens_measure.c: 124: void sensMeasure_task(void)
+[; ;app_sens_measure.c: 125: {
+[e :U _sensMeasure_task ]
+[f ]
+[; ;app_sens_measure.c: 126: switch (g_sens_measure.seq)
+"126
+[e $U 21  ]
+[; ;app_sens_measure.c: 127: {
+"127
+{
+[; ;app_sens_measure.c: 128: case SENS_INIT:
+"128
+[e :U 22 ]
+[; ;app_sens_measure.c: 129: if (sensor_init()) {
+"129
+[e $ ! != -> ( _sensor_init ..  `i -> -> -> 0 `i `uc `i 23  ]
+{
+[; ;app_sens_measure.c: 130: g_sens_measure.isInitDone = 1;
+"130
+[e = . _g_sens_measure 3 -> -> 1 `i `uc ]
+[; ;app_sens_measure.c: 131: g_large_counter = 0;
+"131
+[e = _g_large_counter -> -> -> 0 `i `l `ul ]
+[; ;app_sens_measure.c: 132: g_sens_measure.seq = SENS_READY;
+"132
+[e = . _g_sens_measure 0 -> . `E455 1 `uc ]
+"133
+}
+[; ;app_sens_measure.c: 133: } else {
+[e $U 24  ]
+[e :U 23 ]
+{
+[; ;app_sens_measure.c: 134: g_large_counter = 0;
+"134
+[e = _g_large_counter -> -> -> 0 `i `l `ul ]
+[; ;app_sens_measure.c: 135: g_sens_measure.seq_count = 30;
+"135
+[e = . _g_sens_measure 2 -> -> 30 `i `uc ]
+[; ;app_sens_measure.c: 136: g_sens_measure.seq = SENS_WAIT;
+"136
+[e = . _g_sens_measure 0 -> . `E455 5 `uc ]
+[; ;app_sens_measure.c: 137: g_sens_measure.next_seq = SENS_INIT;
+"137
+[e = . _g_sens_measure 1 -> . `E455 0 `uc ]
+"138
+}
+[e :U 24 ]
+[; ;app_sens_measure.c: 138: } break;
+[e $U 20  ]
+[; ;app_sens_measure.c: 139: case SENS_READY:
+"139
+[e :U 25 ]
+[; ;app_sens_measure.c: 140: if (g_large_counter >= 100) {
+"140
+[e $ ! >= _g_large_counter -> -> -> 100 `i `l `ul 26  ]
+{
+[; ;app_sens_measure.c: 142: if (gCnt == 3600) gCnt = 1;
+"142
+[e $ ! == _gCnt -> -> 3600 `i `ui 27  ]
+[e = _gCnt -> -> 1 `i `ui ]
+[e $U 28  ]
+"143
+[e :U 27 ]
+[; ;app_sens_measure.c: 143: else gCnt++;
+[e ++ _gCnt -> -> 1 `i `ui ]
+[e :U 28 ]
+[; ;app_sens_measure.c: 145: g_large_counter = 0;
+"145
+[e = _g_large_counter -> -> -> 0 `i `l `ul ]
+[; ;app_sens_measure.c: 146: g_sens_measure.seq = SENS_TEMP_MEASURE;
+"146
+[e = . _g_sens_measure 0 -> . `E455 2 `uc ]
+"147
+}
+[e :U 26 ]
+[; ;app_sens_measure.c: 147: } break;
+[e $U 20  ]
+[; ;app_sens_measure.c: 148: case SENS_TEMP_MEASURE:
+"148
+[e :U 29 ]
+[; ;app_sens_measure.c: 149: g_sens_measure.isTemp_Success = sensMeasure_temp_read();
+"149
+[e = . _g_sens_measure 5 ( _sensMeasure_temp_read ..  ]
+[; ;app_sens_measure.c: 150: g_large_counter = 0;
+"150
+[e = _g_large_counter -> -> -> 0 `i `l `ul ]
+[; ;app_sens_measure.c: 151: g_sens_measure.seq_count = 2;
+"151
+[e = . _g_sens_measure 2 -> -> 2 `i `uc ]
+[; ;app_sens_measure.c: 152: g_sens_measure.seq = SENS_WAIT;
+"152
+[e = . _g_sens_measure 0 -> . `E455 5 `uc ]
+[; ;app_sens_measure.c: 153: g_sens_measure.next_seq = SENS_GAS_MEASURE;
+"153
+[e = . _g_sens_measure 1 -> . `E455 3 `uc ]
+[; ;app_sens_measure.c: 154: break;
+"154
+[e $U 20  ]
+[; ;app_sens_measure.c: 155: case SENS_GAS_MEASURE:
+"155
+[e :U 30 ]
+[; ;app_sens_measure.c: 156: g_sens_measure.isGasSensor_Success = sensMeasure_gas_read();
+"156
+[e = . _g_sens_measure 4 ( _sensMeasure_gas_read ..  ]
+[; ;app_sens_measure.c: 157: g_large_counter = 0;
+"157
+[e = _g_large_counter -> -> -> 0 `i `l `ul ]
+[; ;app_sens_measure.c: 158: g_sens_measure.seq = SENS_APPLY;
+"158
+[e = . _g_sens_measure 0 -> . `E455 4 `uc ]
+[; ;app_sens_measure.c: 159: break;
+"159
+[e $U 20  ]
+[; ;app_sens_measure.c: 160: case SENS_APPLY:
+"160
+[e :U 31 ]
+[; ;app_sens_measure.c: 161: if (g_sens_measure.isGasSensor_Success) {
+"161
+[e $ ! != -> . _g_sens_measure 4 `i -> -> -> 0 `i `uc `i 32  ]
+{
+[; ;app_sens_measure.c: 162: g_last_value[LV_GAS_VOLT] = g_temp_value[LV_GAS_VOLT];
+"162
+[e = *U + &U _g_last_value * -> . `E463 0 `ux -> -> # *U &U _g_last_value `ui `ux *U + &U _g_temp_value * -> . `E463 0 `ux -> -> # *U &U _g_temp_value `ui `ux ]
+[; ;app_sens_measure.c: 164: Linear_regression(&g_linear_reg, g_last_value[LV_GAS_VOLT]);
+"164
+[e ( _Linear_regression (2 , &U _g_linear_reg *U + &U _g_last_value * -> . `E463 0 `ux -> -> # *U &U _g_last_value `ui `ux ]
+[; ;app_sens_measure.c: 169: g_last_value[LV_GAS_PPM] = g_temp_value[LV_GAS_PPM];
+"169
+[e = *U + &U _g_last_value * -> . `E463 1 `ux -> -> # *U &U _g_last_value `ui `ux *U + &U _g_temp_value * -> . `E463 1 `ux -> -> # *U &U _g_temp_value `ui `ux ]
+[; ;app_sens_measure.c: 171: g_last_value[LV_GAS_PPM] = g_last_value[LV_GAS_PPM] + g_nvm.flash.gasOffset;;
+"171
+[e = *U + &U _g_last_value * -> . `E463 1 `ux -> -> # *U &U _g_last_value `ui `ux + *U + &U _g_last_value * -> . `E463 1 `ux -> -> # *U &U _g_last_value `ui `ux . . . _g_nvm 1 1 6 ]
+"172
+}
+[e :U 32 ]
+[; ;app_sens_measure.c: 172: }
+[; ;app_sens_measure.c: 173: if (g_sens_measure.isTemp_Success) {
+"173
+[e $ ! != -> . _g_sens_measure 5 `i -> -> -> 0 `i `uc `i 33  ]
+{
+[; ;app_sens_measure.c: 174: g_last_value[LV_TEMP] = g_temp_value[LV_TEMP];
+"174
+[e = *U + &U _g_last_value * -> . `E463 5 `ux -> -> # *U &U _g_last_value `ui `ux *U + &U _g_temp_value * -> . `E463 5 `ux -> -> # *U &U _g_temp_value `ui `ux ]
+[; ;app_sens_measure.c: 175: g_last_value[LV_HUMI] = g_temp_value[LV_HUMI];
+"175
+[e = *U + &U _g_last_value * -> . `E463 6 `ux -> -> # *U &U _g_last_value `ui `ux *U + &U _g_temp_value * -> . `E463 6 `ux -> -> # *U &U _g_temp_value `ui `ux ]
+"176
+}
+[e :U 33 ]
+[; ;app_sens_measure.c: 176: }
+[; ;app_sens_measure.c: 177: g_large_counter = 0;
+"177
+[e = _g_large_counter -> -> -> 0 `i `l `ul ]
+[; ;app_sens_measure.c: 178: g_sens_measure.seq = SENS_DISPLAY;
+"178
+[e = . _g_sens_measure 0 -> . `E455 6 `uc ]
+[; ;app_sens_measure.c: 179: break;
+"179
+[e $U 20  ]
+[; ;app_sens_measure.c: 180: case SENS_WAIT:
+"180
+[e :U 34 ]
+[; ;app_sens_measure.c: 181: if (g_large_counter > g_sens_measure.seq_count) {
+"181
+[e $ ! > _g_large_counter -> . _g_sens_measure 2 `ul 35  ]
+{
+[; ;app_sens_measure.c: 182: g_large_counter = 0;
+"182
+[e = _g_large_counter -> -> -> 0 `i `l `ul ]
+[; ;app_sens_measure.c: 183: g_sens_measure.seq = g_sens_measure.next_seq;
+"183
+[e = . _g_sens_measure 0 . _g_sens_measure 1 ]
+"184
+}
+[e :U 35 ]
+[; ;app_sens_measure.c: 184: } break;
+[e $U 20  ]
+[; ;app_sens_measure.c: 185: case SENS_DISPLAY:
+"185
+[e :U 36 ]
+[; ;app_sens_measure.c: 186: {
+"186
+{
+[; ;app_sens_measure.c: 201: g_large_counter = 0;
+"201
+[e = _g_large_counter -> -> -> 0 `i `l `ul ]
+[; ;app_sens_measure.c: 202: g_sens_measure.seq = SENS_READY;
+"202
+[e = . _g_sens_measure 0 -> . `E455 1 `uc ]
+"203
+}
+[; ;app_sens_measure.c: 203: } break;
+[e $U 20  ]
+"204
+}
+[; ;app_sens_measure.c: 204: }
+[e $U 20  ]
+"126
+[e :U 21 ]
+[e [\ . _g_sens_measure 0 , $ -> . `E455 0 `uc 22
+ , $ -> . `E455 1 `uc 25
+ , $ -> . `E455 2 `uc 29
+ , $ -> . `E455 3 `uc 30
+ , $ -> . `E455 4 `uc 31
+ , $ -> . `E455 5 `uc 34
+ , $ -> . `E455 6 `uc 36
+ 20 ]
+"204
+[e :U 20 ]
+[; ;app_sens_measure.c: 205: }
+"205
+[e :UE 19 ]
+}
+"215
+[v _sensMeasure_SNR_init `(v ~T0 @X0 1 ef1`*S7 ]
+"216
+{
+[; ;app_sens_measure.c: 215: void sensMeasure_SNR_init(s_Sens_SNR* pSNR)
+[; ;app_sens_measure.c: 216: {
+[e :U _sensMeasure_SNR_init ]
+"215
+[v _pSNR `*S7 ~T0 @X0 1 r1 ]
+"216
+[f ]
+[; ;app_sens_measure.c: 217: for (uint8_t i = 0; i < 30; i++) {
+"217
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 30 `i 38  ]
+[e $U 39  ]
+[e :U 38 ]
+{
+[; ;app_sens_measure.c: 218: pSNR->rawData_buffer[i] = 0.0f;
+"218
+[e = *U + &U . *U _pSNR 0 * -> _i `ux -> -> # *U &U . *U _pSNR 0 `ui `ux -> .0.0 `f ]
+[; ;app_sens_measure.c: 219: pSNR->fltData_buffer[i] = 0.0f;
+"219
+[e = *U + &U . *U _pSNR 1 * -> _i `ux -> -> # *U &U . *U _pSNR 1 `ui `ux -> .0.0 `f ]
+"220
+}
+"217
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 30 `i 38  ]
+[e :U 39 ]
+"220
+}
+[; ;app_sens_measure.c: 220: }
+[; ;app_sens_measure.c: 221: pSNR->rawData_RMS = 0.0f;
+"221
+[e = . *U _pSNR 8 -> .0.0 `f ]
+[; ;app_sens_measure.c: 222: pSNR->rawData_RMS = 0.0f;
+"222
+[e = . *U _pSNR 8 -> .0.0 `f ]
+[; ;app_sens_measure.c: 223: }
+"223
+[e :UE 37 ]
+}
+"225
+[v _sensMeasure_SNR `(f ~T0 @X0 1 ef3`*S7`f`f ]
+"226
+{
+[; ;app_sens_measure.c: 225: float sensMeasure_SNR(s_Sens_SNR* pSNR, float rawData, float filData)
+[; ;app_sens_measure.c: 226: {
+[e :U _sensMeasure_SNR ]
+"225
+[v _pSNR `*S7 ~T0 @X0 1 r1 ]
+[v _rawData `f ~T0 @X0 1 r2 ]
+[v _filData `f ~T0 @X0 1 r3 ]
+"226
+[f ]
+"227
+[v _idx `uc ~T0 @X0 1 a ]
+[; ;app_sens_measure.c: 227: uint8_t idx;
+[; ;app_sens_measure.c: 228: pSNR->rawData_sum = 0.0f;
+"228
+[e = . *U _pSNR 2 -> .0.0 `f ]
+[; ;app_sens_measure.c: 229: pSNR->fltData_sum = 0.0f;
+"229
+[e = . *U _pSNR 3 -> .0.0 `f ]
+"232
+[v _RawData `f ~T0 @X0 1 a ]
+[; ;app_sens_measure.c: 232: float RawData = rawData/1000;
+[e = _RawData / _rawData -> -> 1000 `i `f ]
+"233
+[v _FilData `f ~T0 @X0 1 a ]
+[; ;app_sens_measure.c: 233: float FilData = filData/1000;
+[e = _FilData / _filData -> -> 1000 `i `f ]
+[; ;app_sens_measure.c: 236: for (idx = 0; idx < 30 -1; idx++) {
+"236
+{
+[e = _idx -> -> 0 `i `uc ]
+[e $ < -> _idx `i - -> 30 `i -> 1 `i 42  ]
+[e $U 43  ]
+[e :U 42 ]
+{
+[; ;app_sens_measure.c: 237: pSNR->rawData_buffer[idx] = pSNR->rawData_buffer[idx +1];
+"237
+[e = *U + &U . *U _pSNR 0 * -> _idx `ux -> -> # *U &U . *U _pSNR 0 `ui `ux *U + &U . *U _pSNR 0 * -> -> + -> _idx `i -> 1 `i `ui `ux -> -> # *U &U . *U _pSNR 0 `ui `ux ]
+[; ;app_sens_measure.c: 238: pSNR->fltData_buffer[idx] = pSNR->fltData_buffer[idx +1];
+"238
+[e = *U + &U . *U _pSNR 1 * -> _idx `ux -> -> # *U &U . *U _pSNR 1 `ui `ux *U + &U . *U _pSNR 1 * -> -> + -> _idx `i -> 1 `i `ui `ux -> -> # *U &U . *U _pSNR 1 `ui `ux ]
+"239
+}
+"236
+[e ++ _idx -> -> 1 `i `uc ]
+[e $ < -> _idx `i - -> 30 `i -> 1 `i 42  ]
+[e :U 43 ]
+"239
+}
+[; ;app_sens_measure.c: 239: }
+[; ;app_sens_measure.c: 240: pSNR->rawData_buffer[30 -1] = RawData;
+"240
+[e = *U + &U . *U _pSNR 0 * -> -> - -> 30 `i -> 1 `i `ui `ux -> -> # *U &U . *U _pSNR 0 `ui `ux _RawData ]
+[; ;app_sens_measure.c: 241: pSNR->fltData_buffer[30 -1] = FilData;
+"241
+[e = *U + &U . *U _pSNR 1 * -> -> - -> 30 `i -> 1 `i `ui `ux -> -> # *U &U . *U _pSNR 1 `ui `ux _FilData ]
+[; ;app_sens_measure.c: 244: for (idx = 0; idx < 30; idx++) {
+"244
+{
+[e = _idx -> -> 0 `i `uc ]
+[e $ < -> _idx `i -> 30 `i 45  ]
+[e $U 46  ]
+[e :U 45 ]
+{
+[; ;app_sens_measure.c: 245: pSNR->rawData_sum += pSNR->rawData_buffer[idx];
+"245
+[e =+ . *U _pSNR 2 *U + &U . *U _pSNR 0 * -> _idx `ux -> -> # *U &U . *U _pSNR 0 `ui `ux ]
+[; ;app_sens_measure.c: 246: pSNR->fltData_sum += pSNR->fltData_buffer[idx];
+"246
+[e =+ . *U _pSNR 3 *U + &U . *U _pSNR 1 * -> _idx `ux -> -> # *U &U . *U _pSNR 1 `ui `ux ]
+"249
+}
+"244
+[e ++ _idx -> -> 1 `i `uc ]
+[e $ < -> _idx `i -> 30 `i 45  ]
+[e :U 46 ]
+"249
+}
+[; ;app_sens_measure.c: 249: }
+[; ;app_sens_measure.c: 252: pSNR->rawData_avg = pSNR->rawData_sum / 30;
+"252
+[e = . *U _pSNR 6 / . *U _pSNR 2 -> -> 30 `i `f ]
+[; ;app_sens_measure.c: 253: pSNR->fltData_avg = pSNR->fltData_sum / 30;
+"253
+[e = . *U _pSNR 7 / . *U _pSNR 3 -> -> 30 `i `f ]
+[; ;app_sens_measure.c: 260: pSNR->SNRv = pSNR->fltData_avg / pSNR->rawData_avg;
+"260
+[e = . *U _pSNR 10 / . *U _pSNR 7 . *U _pSNR 6 ]
+[; ;app_sens_measure.c: 261: pSNR->SNRdB = 10.0f * log10(pSNR->SNRv);
+"261
+[e = . *U _pSNR 11 -> * -> -> .10.0 `f `d ( _log10 (1 -> . *U _pSNR 10 `d `f ]
+[; ;app_sens_measure.c: 264: return pSNR->SNRdB;
+"264
+[e ) . *U _pSNR 11 ]
+[e $UE 41  ]
+[; ;app_sens_measure.c: 265: }
+"265
+[e :UE 41 ]
+}

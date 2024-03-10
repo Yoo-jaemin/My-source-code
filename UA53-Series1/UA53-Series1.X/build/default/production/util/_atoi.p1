@@ -1,0 +1,71 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[; ;_atoi.h: 9: long _atoi(const char* str);
+"4 util/_atoi.c
+[v __atoi `(l ~T0 @X0 1 ef1`*Cuc ]
+"5
+{
+[; ;_atoi.c: 4: long _atoi(const char* str)
+[; ;_atoi.c: 5: {
+[e :U __atoi ]
+"4
+[v _str `*Cuc ~T0 @X0 1 r1 ]
+"5
+[f ]
+"6
+[v _ret `l ~T0 @X0 1 a ]
+[; ;_atoi.c: 6: long ret = 0;
+[e = _ret -> -> 0 `i `l ]
+"7
+[v _sign `i ~T0 @X0 1 a ]
+[; ;_atoi.c: 7: int sign = 1;
+[e = _sign -> 1 `i ]
+"8
+[v _p `*uc ~T0 @X0 1 a ]
+[; ;_atoi.c: 8: char* p = (char*)str;
+[e = _p -> _str `*uc ]
+[; ;_atoi.c: 10: while (('-' == *p) || (*p == '+')) {
+"10
+[e $U 2  ]
+[e :U 3 ]
+{
+[; ;_atoi.c: 11: if (*p == '-') sign = -1;
+"11
+[e $ ! == -> *U _p `ui -> 45 `ui 5  ]
+[e = _sign -U -> 1 `i ]
+[e :U 5 ]
+[; ;_atoi.c: 12: p++;
+"12
+[e ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
+"13
+}
+[e :U 2 ]
+"10
+[e $ || == -> 45 `ui -> *U _p `ui == -> *U _p `ui -> 43 `ui 3  ]
+[e :U 4 ]
+[; ;_atoi.c: 13: }
+[; ;_atoi.c: 15: while ((*p >= '0') && (*p <= '9')) {
+"15
+[e $U 6  ]
+[e :U 7 ]
+{
+[; ;_atoi.c: 16: ret = (ret * 10) + (*p - '0');
+"16
+[e = _ret + * _ret -> -> 10 `i `l -> - -> *U _p `ui -> 48 `ui `l ]
+[; ;_atoi.c: 17: p++;
+"17
+[e ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
+"18
+}
+[e :U 6 ]
+"15
+[e $ && >= -> *U _p `ui -> 48 `ui <= -> *U _p `ui -> 57 `ui 7  ]
+[e :U 8 ]
+[; ;_atoi.c: 18: }
+[; ;_atoi.c: 20: return (ret * sign);
+"20
+[e ) * _ret -> _sign `l ]
+[e $UE 1  ]
+[; ;_atoi.c: 21: }
+"21
+[e :UE 1 ]
+}

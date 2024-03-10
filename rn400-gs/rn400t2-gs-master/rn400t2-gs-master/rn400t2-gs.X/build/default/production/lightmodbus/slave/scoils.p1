@@ -1,0 +1,455 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"86 lightmodbus/slave/../master.h
+[s S23 `uc -> 9 `i `uc 1 ]
+[n S23 . frame length ]
+"109
+[s S24 `uc -> 9 `i `uc 1 ]
+[n S24 . frame length ]
+"63 lightmodbus/slave/../master/mbcoils.h
+[c E274 1 2 4 8 .. ]
+[n E274 modbusDataType MODBUS_HOLDING_REGISTER MODBUS_INPUT_REGISTER MODBUS_COIL MODBUS_DISCRETE_INPUT  ]
+"139 lightmodbus/slave/../master.h
+[u S26 `uc -> 3 `i `ui -> >> -> 3 `i -> 1 `i `ux ]
+[n S26 . coils regs ]
+"129
+[s S25 `uc 1 `ui 1 `ui 1 `uc 1 `E274 1 `uc 1 `S26 1 ]
+[n S25 . address index count length type function . ]
+"63 lightmodbus/slave/../master/mbcoils.h
+[c E266 1 2 3 4 5 7 .. ]
+[n E266 modbusExceptionCode MODBUS_EXCEP_ILLEGAL_FUNCTION MODBUS_EXCEP_ILLEGAL_ADDRESS MODBUS_EXCEP_ILLEGAL_VALUE MODBUS_EXCEP_SLAVE_FAILURE MODBUS_EXCEP_ACK MODBUS_EXCEP_NACK  ]
+"184 lightmodbus/slave/../master.h
+[s S27 `uc 1 `uc 1 `E266 1 ]
+[n S27 . address function code ]
+"63 lightmodbus/slave/../master/mbcoils.h
+[c E245 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 .. ]
+[n E245 modbusFrameError MODBUS_FERROR_OK MODBUS_FERROR_CRC MODBUS_FERROR_LENGTH MODBUS_FERROR_COUNT MODBUS_FERROR_VALUE MODBUS_FERROR_RANGE MODBUS_FERROR_NOSRC MODBUS_FERROR_NOREAD MODBUS_FERROR_NOWRITE MODBUS_FERROR_NOFUN MODBUS_FERROR_BADFUN MODBUS_FERROR_NULLFUN MODBUS_FERROR_MISM_FUN MODBUS_FERROR_MISM_ADDR MODBUS_FERROR_MISM_INDEX MODBUS_FERROR_MISM_COUNT MODBUS_FERROR_MISM_VALUE MODBUS_FERROR_MISM_MASK MODBUS_FERROR_BROADCAST  ]
+"71 lightmodbus/slave/../master.h
+[s S22 `uc 1 `S23 1 `S24 1 `S25 1 `S27 1 `E245 1 `E245 1 ]
+[n S22 modbusMaster predictedResponseLength request response data exception parseError buildError ]
+"63 lightmodbus/slave/../master/mbcoils.h
+[c E235 0 1 2 3 4 5 6 0 .. ]
+[n E235 modbusError MODBUS_ERROR_OK MODBUS_ERROR_EXCEPTION MODBUS_ERROR_ALLOC MODBUS_ERROR_OTHER MODBUS_ERROR_NULLPTR MODBUS_ERROR_PARSE MODBUS_ERROR_BUILD MODBUS_OK  ]
+"47
+[v _modbusBuildRequest0102 `(E235 ~T0 @X0 0 ef5`*S22`uc`uc`ui`ui ]
+[; ;xc8\pic\include\__size_t.h: 4: typedef unsigned size_t;
+[; ;stdlib.h: 7: typedef unsigned short wchar_t;
+[; ;stdlib.h: 15: typedef struct {
+[; ;stdlib.h: 16: int rem;
+[; ;stdlib.h: 17: int quot;
+[; ;stdlib.h: 18: } div_t;
+[; ;stdlib.h: 19: typedef struct {
+[; ;stdlib.h: 20: unsigned rem;
+[; ;stdlib.h: 21: unsigned quot;
+[; ;stdlib.h: 22: } udiv_t;
+[; ;stdlib.h: 23: typedef struct {
+[; ;stdlib.h: 24: long quot;
+[; ;stdlib.h: 25: long rem;
+[; ;stdlib.h: 26: } ldiv_t;
+[; ;stdlib.h: 27: typedef struct {
+[; ;stdlib.h: 28: unsigned long quot;
+[; ;stdlib.h: 29: unsigned long rem;
+[; ;stdlib.h: 30: } uldiv_t;
+[; ;stdlib.h: 65: extern double atof(const char *);
+[; ;stdlib.h: 66: extern double strtod(const char *, const char **);
+[; ;stdlib.h: 67: extern int atoi(const char *);
+[; ;stdlib.h: 68: extern unsigned xtoi(const char *);
+[; ;stdlib.h: 69: extern long atol(const char *);
+[; ;stdlib.h: 73: extern long strtol(const char *, char **, int);
+[; ;stdlib.h: 75: extern int rand(void);
+[; ;stdlib.h: 76: extern void srand(unsigned int);
+[; ;stdlib.h: 77: extern void * calloc(size_t, size_t);
+[; ;stdlib.h: 78: extern div_t div(int numer, int denom);
+[; ;stdlib.h: 79: extern udiv_t udiv(unsigned numer, unsigned denom);
+[; ;stdlib.h: 80: extern ldiv_t ldiv(long numer, long denom);
+[; ;stdlib.h: 81: extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
+[; ;stdlib.h: 85: extern unsigned long _lrotl(unsigned long value, unsigned int shift);
+[; ;stdlib.h: 86: extern unsigned long _lrotr(unsigned long value, unsigned int shift);
+[; ;stdlib.h: 87: extern unsigned int _rotl(unsigned int value, unsigned int shift);
+[; ;stdlib.h: 88: extern unsigned int _rotr(unsigned int value, unsigned int shift);
+[; ;stdlib.h: 93: extern void * malloc(size_t);
+[; ;stdlib.h: 94: extern void free(void *);
+[; ;stdlib.h: 95: extern void * realloc(void *, size_t);
+[; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
+[; ;stdlib.h: 104: extern int atexit(void (*)(void));
+[; ;stdlib.h: 105: extern char * getenv(const char *);
+[; ;stdlib.h: 106: extern char ** environ;
+[; ;stdlib.h: 107: extern int system(char *);
+[; ;stdlib.h: 108: extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+[; ;stdlib.h: 109: extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
+[; ;stdlib.h: 110: extern int abs(int);
+[; ;stdlib.h: 111: extern long labs(long);
+[; ;stdlib.h: 113: extern char * itoa(char * buf, int val, int base);
+[; ;stdlib.h: 114: extern char * utoa(char * buf, unsigned val, int base);
+[; ;stdlib.h: 119: extern char * ltoa(char * buf, long val, int base);
+[; ;stdlib.h: 120: extern char * ultoa(char * buf, unsigned long val, int base);
+[; ;stdlib.h: 122: extern char * ftoa(float f, int * status);
+[; ;string.h: 14: extern void * memcpy(void *, const void *, size_t);
+[; ;string.h: 15: extern void * memmove(void *, const void *, size_t);
+[; ;string.h: 16: extern void * memset(void *, int, size_t);
+[; ;string.h: 36: extern char * strcat(char *, const char *);
+[; ;string.h: 37: extern char * strcpy(char *, const char *);
+[; ;string.h: 38: extern char * strncat(char *, const char *, size_t);
+[; ;string.h: 39: extern char * strncpy(char *, const char *, size_t);
+[; ;string.h: 40: extern char * strdup(const char *);
+[; ;string.h: 41: extern char * strtok(char *, const char *);
+[; ;string.h: 44: extern int memcmp(const void *, const void *, size_t);
+[; ;string.h: 45: extern int strcmp(const char *, const char *);
+[; ;string.h: 46: extern int stricmp(const char *, const char *);
+[; ;string.h: 47: extern int strncmp(const char *, const char *, size_t);
+[; ;string.h: 48: extern int strnicmp(const char *, const char *, size_t);
+[; ;string.h: 49: extern void * memchr(const void *, int, size_t);
+[; ;string.h: 50: extern size_t strcspn(const char *, const char *);
+[; ;string.h: 51: extern char * strpbrk(const char *, const char *);
+[; ;string.h: 52: extern size_t strspn(const char *, const char *);
+[; ;string.h: 53: extern char * strstr(const char *, const char *);
+[; ;string.h: 54: extern char * stristr(const char *, const char *);
+[; ;string.h: 55: extern char * strerror(int);
+[; ;string.h: 56: extern size_t strlen(const char *);
+[; ;string.h: 57: extern char * strchr(const char *, int);
+[; ;string.h: 58: extern char * strichr(const char *, int);
+[; ;string.h: 59: extern char * strrchr(const char *, int);
+[; ;string.h: 60: extern char * strrichr(const char *, int);
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef __int24 int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 52: typedef unsigned char uint8_t;
+[; ;stdint.h: 58: typedef unsigned int uint16_t;
+[; ;stdint.h: 65: typedef __uint24 uint24_t;
+[; ;stdint.h: 72: typedef unsigned long int uint32_t;
+[; ;stdint.h: 88: typedef signed char int_least8_t;
+[; ;stdint.h: 96: typedef signed int int_least16_t;
+[; ;stdint.h: 109: typedef __int24 int_least24_t;
+[; ;stdint.h: 118: typedef signed long int int_least32_t;
+[; ;stdint.h: 136: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 143: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 154: typedef __uint24 uint_least24_t;
+[; ;stdint.h: 162: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 181: typedef signed char int_fast8_t;
+[; ;stdint.h: 188: typedef signed int int_fast16_t;
+[; ;stdint.h: 200: typedef __int24 int_fast24_t;
+[; ;stdint.h: 208: typedef signed long int int_fast32_t;
+[; ;stdint.h: 224: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 230: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 240: typedef __uint24 uint_fast24_t;
+[; ;stdint.h: 247: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 268: typedef int32_t intmax_t;
+[; ;stdint.h: 282: typedef uint32_t uintmax_t;
+[; ;stdint.h: 289: typedef int16_t intptr_t;
+[; ;stdint.h: 294: typedef uint16_t uintptr_t;
+[; ;lightmodbus.h: 49: typedef enum modbusError
+[; ;lightmodbus.h: 50: {
+[; ;lightmodbus.h: 51: MODBUS_ERROR_OK = 0,
+[; ;lightmodbus.h: 64: MODBUS_ERROR_EXCEPTION = 1,
+[; ;lightmodbus.h: 71: MODBUS_ERROR_ALLOC,
+[; ;lightmodbus.h: 72: MODBUS_ERROR_OTHER,
+[; ;lightmodbus.h: 73: MODBUS_ERROR_NULLPTR,
+[; ;lightmodbus.h: 81: MODBUS_ERROR_PARSE,
+[; ;lightmodbus.h: 82: MODBUS_ERROR_BUILD,
+[; ;lightmodbus.h: 83: MODBUS_OK = MODBUS_ERROR_OK,
+[; ;lightmodbus.h: 84: } ModbusError;
+[; ;lightmodbus.h: 91: typedef enum modbusFrameError
+[; ;lightmodbus.h: 92: {
+[; ;lightmodbus.h: 93: MODBUS_FERROR_OK = MODBUS_OK,
+[; ;lightmodbus.h: 94: MODBUS_FERROR_CRC,
+[; ;lightmodbus.h: 95: MODBUS_FERROR_LENGTH,
+[; ;lightmodbus.h: 96: MODBUS_FERROR_COUNT,
+[; ;lightmodbus.h: 97: MODBUS_FERROR_VALUE,
+[; ;lightmodbus.h: 98: MODBUS_FERROR_RANGE,
+[; ;lightmodbus.h: 99: MODBUS_FERROR_NOSRC,
+[; ;lightmodbus.h: 100: MODBUS_FERROR_NOREAD,
+[; ;lightmodbus.h: 101: MODBUS_FERROR_NOWRITE,
+[; ;lightmodbus.h: 102: MODBUS_FERROR_NOFUN,
+[; ;lightmodbus.h: 103: MODBUS_FERROR_BADFUN,
+[; ;lightmodbus.h: 104: MODBUS_FERROR_NULLFUN,
+[; ;lightmodbus.h: 105: MODBUS_FERROR_MISM_FUN,
+[; ;lightmodbus.h: 106: MODBUS_FERROR_MISM_ADDR,
+[; ;lightmodbus.h: 107: MODBUS_FERROR_MISM_INDEX,
+[; ;lightmodbus.h: 108: MODBUS_FERROR_MISM_COUNT,
+[; ;lightmodbus.h: 109: MODBUS_FERROR_MISM_VALUE,
+[; ;lightmodbus.h: 110: MODBUS_FERROR_MISM_MASK,
+[; ;lightmodbus.h: 111: MODBUS_FERROR_BROADCAST
+[; ;lightmodbus.h: 113: } ModbusFrameError;
+[; ;lightmodbus.h: 118: typedef enum modbusExceptionCode
+[; ;lightmodbus.h: 119: {
+[; ;lightmodbus.h: 120: MODBUS_EXCEP_ILLEGAL_FUNCTION = 1,
+[; ;lightmodbus.h: 121: MODBUS_EXCEP_ILLEGAL_ADDRESS = 2,
+[; ;lightmodbus.h: 122: MODBUS_EXCEP_ILLEGAL_VALUE = 3,
+[; ;lightmodbus.h: 123: MODBUS_EXCEP_SLAVE_FAILURE = 4,
+[; ;lightmodbus.h: 124: MODBUS_EXCEP_ACK = 5,
+[; ;lightmodbus.h: 125: MODBUS_EXCEP_NACK = 7
+[; ;lightmodbus.h: 126: } ModbusExceptionCode;
+[; ;lightmodbus.h: 131: typedef enum modbusDataType
+[; ;lightmodbus.h: 132: {
+[; ;lightmodbus.h: 133: MODBUS_HOLDING_REGISTER = 1,
+[; ;lightmodbus.h: 134: MODBUS_INPUT_REGISTER = 2,
+[; ;lightmodbus.h: 135: MODBUS_COIL = 4,
+[; ;lightmodbus.h: 136: MODBUS_DISCRETE_INPUT = 8
+[; ;lightmodbus.h: 137: } ModbusDataType;
+[; ;lightmodbus.h: 145: extern uint16_t modbusBitsToBytes( uint16_t n );
+[; ;lightmodbus.h: 157: extern uint16_t modbusSwapEndian( uint16_t data );
+[; ;lightmodbus.h: 172: extern uint16_t modbusMatchEndian( uint16_t data );
+[; ;lightmodbus.h: 183: extern uint8_t modbusMaskRead( const uint8_t *mask, uint16_t maskLength, uint16_t _bit );
+[; ;lightmodbus.h: 194: extern uint8_t modbusMaskWrite( uint8_t *mask, uint16_t maskLength, uint16_t _bit, uint8_t value );
+[; ;lightmodbus.h: 203: extern uint16_t modbusCRC( const uint8_t *data, uint16_t length );
+[; ;parser.h: 43: typedef union modbusParser
+[; ;parser.h: 44: {
+[; ;parser.h: 45: uint8_t frame[256];
+[; ;parser.h: 47: __pack struct
+[; ;parser.h: 48: {
+[; ;parser.h: 49: uint8_t address;
+[; ;parser.h: 50: uint8_t function;
+[; ;parser.h: 51: } _base;
+[; ;parser.h: 53: __pack struct
+[; ;parser.h: 54: {
+[; ;parser.h: 55: uint8_t address;
+[; ;parser.h: 56: uint8_t function;
+[; ;parser.h: 57: uint8_t code;
+[; ;parser.h: 58: uint16_t crc;
+[; ;parser.h: 59: } exception;
+[; ;parser.h: 61: __pack struct
+[; ;parser.h: 62: {
+[; ;parser.h: 63: uint8_t address;
+[; ;parser.h: 64: uint8_t function;
+[; ;parser.h: 65: uint16_t index;
+[; ;parser.h: 66: uint16_t count;
+[; ;parser.h: 67: uint16_t crc;
+[; ;parser.h: 68: } request0102;
+[; ;parser.h: 70: __pack struct
+[; ;parser.h: 71: {
+[; ;parser.h: 72: uint8_t address;
+[; ;parser.h: 73: uint8_t function;
+[; ;parser.h: 74: uint8_t length;
+[; ;parser.h: 75: uint8_t values[250];
+[; ;parser.h: 76: uint16_t crc;
+[; ;parser.h: 77: } response0102;
+[; ;parser.h: 79: __pack struct
+[; ;parser.h: 80: {
+[; ;parser.h: 81: uint8_t address;
+[; ;parser.h: 82: uint8_t function;
+[; ;parser.h: 83: uint16_t index;
+[; ;parser.h: 84: uint16_t count;
+[; ;parser.h: 85: uint16_t crc;
+[; ;parser.h: 86: } request0304;
+[; ;parser.h: 88: __pack struct
+[; ;parser.h: 89: {
+[; ;parser.h: 90: uint8_t address;
+[; ;parser.h: 91: uint8_t function;
+[; ;parser.h: 92: uint8_t length;
+[; ;parser.h: 93: uint16_t values[125];
+[; ;parser.h: 94: uint16_t crc;
+[; ;parser.h: 95: } response0304;
+[; ;parser.h: 98: __pack struct
+[; ;parser.h: 99: {
+[; ;parser.h: 100: uint8_t address;
+[; ;parser.h: 101: uint8_t function;
+[; ;parser.h: 102: uint16_t index;
+[; ;parser.h: 103: uint16_t value;
+[; ;parser.h: 104: uint16_t crc;
+[; ;parser.h: 105: } request05;
+[; ;parser.h: 107: __pack struct
+[; ;parser.h: 108: {
+[; ;parser.h: 109: uint8_t address;
+[; ;parser.h: 110: uint8_t function;
+[; ;parser.h: 111: uint16_t index;
+[; ;parser.h: 112: uint16_t value;
+[; ;parser.h: 113: uint16_t crc;
+[; ;parser.h: 114: } response05;
+[; ;parser.h: 116: __pack struct
+[; ;parser.h: 117: {
+[; ;parser.h: 118: uint8_t address;
+[; ;parser.h: 119: uint8_t function;
+[; ;parser.h: 120: uint16_t index;
+[; ;parser.h: 121: uint16_t value;
+[; ;parser.h: 122: uint16_t crc;
+[; ;parser.h: 123: } request06;
+[; ;parser.h: 125: __pack struct
+[; ;parser.h: 126: {
+[; ;parser.h: 127: uint8_t address;
+[; ;parser.h: 128: uint8_t function;
+[; ;parser.h: 129: uint16_t index;
+[; ;parser.h: 130: uint16_t value;
+[; ;parser.h: 131: uint16_t crc;
+[; ;parser.h: 132: } response06;
+[; ;parser.h: 134: __pack struct
+[; ;parser.h: 135: {
+[; ;parser.h: 136: uint8_t address;
+[; ;parser.h: 137: uint8_t function;
+[; ;parser.h: 138: uint16_t index;
+[; ;parser.h: 139: uint16_t count;
+[; ;parser.h: 140: uint8_t length;
+[; ;parser.h: 141: uint8_t values[246];
+[; ;parser.h: 142: uint16_t crc;
+[; ;parser.h: 143: } request15;
+[; ;parser.h: 145: __pack struct
+[; ;parser.h: 146: {
+[; ;parser.h: 147: uint8_t address;
+[; ;parser.h: 148: uint8_t function;
+[; ;parser.h: 149: uint16_t index;
+[; ;parser.h: 150: uint16_t count;
+[; ;parser.h: 151: uint16_t crc;
+[; ;parser.h: 152: } response15;
+[; ;parser.h: 154: __pack struct
+[; ;parser.h: 155: {
+[; ;parser.h: 156: uint8_t address;
+[; ;parser.h: 157: uint8_t function;
+[; ;parser.h: 158: uint16_t index;
+[; ;parser.h: 159: uint16_t count;
+[; ;parser.h: 160: uint8_t length;
+[; ;parser.h: 161: uint16_t values[123];
+[; ;parser.h: 162: uint16_t crc;
+[; ;parser.h: 163: } request16;
+[; ;parser.h: 165: __pack struct
+[; ;parser.h: 166: {
+[; ;parser.h: 167: uint8_t address;
+[; ;parser.h: 168: uint8_t function;
+[; ;parser.h: 169: uint16_t index;
+[; ;parser.h: 170: uint16_t count;
+[; ;parser.h: 171: uint16_t crc;
+[; ;parser.h: 172: } response16;
+[; ;parser.h: 174: __pack struct
+[; ;parser.h: 175: {
+[; ;parser.h: 176: uint8_t address;
+[; ;parser.h: 177: uint8_t function;
+[; ;parser.h: 178: uint16_t index;
+[; ;parser.h: 179: uint16_t andmask;
+[; ;parser.h: 180: uint16_t ormask;
+[; ;parser.h: 181: uint16_t crc;
+[; ;parser.h: 182: } request22;
+[; ;parser.h: 184: __pack struct
+[; ;parser.h: 185: {
+[; ;parser.h: 186: uint8_t address;
+[; ;parser.h: 187: uint8_t function;
+[; ;parser.h: 188: uint16_t index;
+[; ;parser.h: 189: uint16_t andmask;
+[; ;parser.h: 190: uint16_t ormask;
+[; ;parser.h: 191: uint16_t crc;
+[; ;parser.h: 192: } response22;
+[; ;parser.h: 193: } ModbusParser;
+[; ;master.h: 71: typedef struct modbusMaster
+[; ;master.h: 72: {
+[; ;master.h: 74: uint8_t predictedResponseLength;
+[; ;master.h: 85: struct
+[; ;master.h: 86: {
+[; ;master.h: 89: uint8_t frame[9];
+[; ;master.h: 96: uint8_t length;
+[; ;master.h: 97: } request;
+[; ;master.h: 108: struct
+[; ;master.h: 109: {
+[; ;master.h: 112: uint8_t frame[9];
+[; ;master.h: 119: uint8_t length;
+[; ;master.h: 120: } response;
+[; ;master.h: 128: struct
+[; ;master.h: 129: {
+[; ;master.h: 130: uint8_t address;
+[; ;master.h: 131: uint16_t index;
+[; ;master.h: 132: uint16_t count;
+[; ;master.h: 133: uint8_t length;
+[; ;master.h: 134: ModbusDataType type;
+[; ;master.h: 135: uint8_t function;
+[; ;master.h: 138: union
+[; ;master.h: 139: {
+[; ;master.h: 147: uint8_t coils[3];
+[; ;master.h: 155: uint16_t regs[3 >> 1];
+[; ;master.h: 156: };
+[; ;master.h: 175: } data;
+[; ;master.h: 183: struct
+[; ;master.h: 184: {
+[; ;master.h: 185: uint8_t address;
+[; ;master.h: 186: uint8_t function;
+[; ;master.h: 187: ModbusExceptionCode code;
+[; ;master.h: 188: } exception;
+[; ;master.h: 191: ModbusFrameError parseError;
+[; ;master.h: 194: ModbusFrameError buildError;
+[; ;master.h: 206: } ModbusMaster;
+[; ;mbcoils.h: 47: extern ModbusError modbusBuildRequest0102( ModbusMaster *status, uint8_t function, uint8_t address, uint16_t index, uint16_t count );
+[v F456 `(E235 ~T0 @X0 1 tf4`*S22`uc`ui`ui ]
+"62 lightmodbus/slave/../master/mbcoils.h
+[v _modbusBuildRequest01 `TF456 ~T0 @X0 1 s ]
+"63
+{
+[; ;mbcoils.h: 62: static inline ModbusError modbusBuildRequest01( ModbusMaster *status, uint8_t address, uint16_t index, uint16_t count )
+[; ;mbcoils.h: 63: { return modbusBuildRequest0102( (status), 1, (address), (index), (count) ); }
+[e :U _modbusBuildRequest01 ]
+"62
+[v _status `*S22 ~T0 @X0 1 r1 ]
+[v _address `uc ~T0 @X0 1 r2 ]
+[v _index `ui ~T0 @X0 1 r3 ]
+[v _count `ui ~T0 @X0 1 r4 ]
+"63
+[f ]
+[e ) ( _modbusBuildRequest0102 (4 , , , , _status -> -> 1 `i `uc _address _index _count ]
+[e $UE 28  ]
+[e :UE 28 ]
+}
+[v F462 `(E235 ~T0 @X0 1 tf4`*S22`uc`ui`ui ]
+"77
+[v _modbusBuildRequest02 `TF462 ~T0 @X0 1 s ]
+"78
+{
+[; ;mbcoils.h: 77: static inline ModbusError modbusBuildRequest02( ModbusMaster *status, uint8_t address, uint16_t index, uint16_t count )
+[; ;mbcoils.h: 78: { return modbusBuildRequest0102( (status), 2, (address), (index), (count) ); }
+[e :U _modbusBuildRequest02 ]
+"77
+[v _status `*S22 ~T0 @X0 1 r1 ]
+[v _address `uc ~T0 @X0 1 r2 ]
+[v _index `ui ~T0 @X0 1 r3 ]
+[v _count `ui ~T0 @X0 1 r4 ]
+"78
+[f ]
+[e ) ( _modbusBuildRequest0102 (4 , , , , _status -> -> 2 `i `uc _address _index _count ]
+[e $UE 29  ]
+[e :UE 29 ]
+}
+[; ;mbcoils.h: 92: extern ModbusError modbusBuildRequest05( ModbusMaster *status, uint8_t address, uint16_t index, uint16_t value );
+[; ;master.h: 240: extern ModbusError modbusParseResponse( ModbusMaster *status );
+[; ;master.h: 247: extern ModbusError modbusMasterInit( ModbusMaster *status );
+[; ;master.h: 254: extern ModbusError modbusMasterEnd( ModbusMaster *status );
+[; ;stddef.h: 6: typedef int ptrdiff_t;
+[; ;slave.h: 45: struct modbusSlave;
+[; ;slave.h: 51: typedef struct modbusSlaveUserFunction
+[; ;slave.h: 52: {
+[; ;slave.h: 53: uint8_t function;
+[; ;slave.h: 60: ModbusError ( *handler )( struct modbusSlave *status, ModbusParser *parser );
+[; ;slave.h: 61: } ModbusSlaveUserFunction;
+[; ;slave.h: 73: typedef enum modbusRegisterQuery
+[; ;slave.h: 74: {
+[; ;slave.h: 75: MODBUS_REGQ_R,
+[; ;slave.h: 76: MODBUS_REGQ_W,
+[; ;slave.h: 77: MODBUS_REGQ_R_CHECK,
+[; ;slave.h: 78: MODBUS_REGQ_W_CHECK
+[; ;slave.h: 79: } ModbusRegisterQuery;
+[; ;slave.h: 90: typedef uint16_t ( *ModbusRegisterCallbackFunction )( ModbusRegisterQuery query, ModbusDataType datatype, uint16_t index, uint16_t value, void *ctx );
+[; ;slave.h: 96: typedef struct modbusSlave
+[; ;slave.h: 97: {
+[; ;slave.h: 98: uint8_t address;
+[; ;slave.h: 107: ModbusRegisterCallbackFunction registerCallback;
+[; ;slave.h: 114: void *registerCallbackContext;
+[; ;slave.h: 124: uint16_t registerCount;
+[; ;slave.h: 125: uint16_t inputRegisterCount;
+[; ;slave.h: 129: uint8_t *coils;
+[; ;slave.h: 130: uint8_t *discreteInputs;
+[; ;slave.h: 131: uint8_t *coilMask;
+[; ;slave.h: 132: uint16_t coilMaskLength;
+[; ;slave.h: 134: uint16_t coilCount;
+[; ;slave.h: 135: uint16_t discreteInputCount;
+[; ;slave.h: 141: ModbusExceptionCode lastException;
+[; ;slave.h: 149: ModbusFrameError parseError;
+[; ;slave.h: 159: ModbusSlaveUserFunction *userFunctions;
+[; ;slave.h: 160: uint16_t userFunctionCount;
+[; ;slave.h: 172: struct
+[; ;slave.h: 173: {
+[; ;slave.h: 176: uint8_t frame[23];
+[; ;slave.h: 183: uint8_t length;
+[; ;slave.h: 184: } response;
+[; ;slave.h: 195: struct
+[; ;slave.h: 196: {
+[; ;slave.h: 199: uint8_t frame[9];
+[; ;slave.h: 206: uint8_t length;
+[; ;slave.h: 207: } request;
+[; ;slave.h: 209: } ModbusSlave;
+[; ;slave.h: 231: extern ModbusError modbusBuildException( ModbusSlave *status, uint8_t function, ModbusExceptionCode code );
+[; ;slave.h: 258: extern ModbusError modbusParseRequest( ModbusSlave *status );
+[; ;slave.h: 265: extern ModbusError modbusSlaveInit( ModbusSlave *status );
+[; ;slave.h: 272: extern ModbusError modbusSlaveEnd( ModbusSlave *status );
+[; ;slave.h: 293: extern ModbusError modbusBuildExceptionErr( ModbusSlave *status, uint8_t function, ModbusExceptionCode code, ModbusFrameError parseError );

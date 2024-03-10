@@ -1,0 +1,117 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[; ;_atof.h: 9: float _atof(const char* str);
+"4 util/_atof.c
+[v __atof `(f ~T0 @X0 1 ef1`*Cuc ]
+"5
+{
+[; ;_atof.c: 4: float _atof(const char* str)
+[; ;_atof.c: 5: {
+[e :U __atof ]
+"4
+[v _str `*Cuc ~T0 @X0 1 r1 ]
+"5
+[f ]
+"6
+[v _ret `f ~T0 @X0 1 a ]
+[; ;_atof.c: 6: float ret = 0.0f;
+[e = _ret -> .0.0 `f ]
+"7
+[v _sign `i ~T0 @X0 1 a ]
+[; ;_atof.c: 7: int sign = 1;
+[e = _sign -> 1 `i ]
+"8
+[v _p `*uc ~T0 @X0 1 a ]
+[; ;_atof.c: 8: char* p = (char*)str;
+[e = _p -> _str `*uc ]
+"9
+[v _dotpos `ui ~T0 @X0 1 a ]
+[; ;_atof.c: 9: unsigned dotpos = 0;
+[e = _dotpos -> -> 0 `i `ui ]
+"10
+[v _cnt `ui ~T0 @X0 1 a ]
+[; ;_atof.c: 10: unsigned cnt = 0;
+[e = _cnt -> -> 0 `i `ui ]
+[; ;_atof.c: 12: while (('-' == *p) || (*p == '+')) {
+"12
+[e $U 2  ]
+[e :U 3 ]
+{
+[; ;_atof.c: 13: if (*p == '-') sign = -1;
+"13
+[e $ ! == -> *U _p `ui -> 45 `ui 5  ]
+[e = _sign -U -> 1 `i ]
+[e :U 5 ]
+[; ;_atof.c: 14: p++; cnt++;
+"14
+[e ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
+[e ++ _cnt -> -> 1 `i `ui ]
+"15
+}
+[e :U 2 ]
+"12
+[e $ || == -> 45 `ui -> *U _p `ui == -> *U _p `ui -> 43 `ui 3  ]
+[e :U 4 ]
+[; ;_atof.c: 15: }
+[; ;_atof.c: 17: while ( ((*p >= '0') && (*p <= '9')) || (*p == '.') ) {
+"17
+[e $U 6  ]
+[e :U 7 ]
+{
+[; ;_atof.c: 18: if (*p == '.') {
+"18
+[e $ ! == -> *U _p `ui -> 46 `ui 9  ]
+{
+[; ;_atof.c: 19: dotpos = cnt;
+"19
+[e = _dotpos _cnt ]
+"20
+}
+[; ;_atof.c: 20: } else {
+[e $U 10  ]
+[e :U 9 ]
+{
+[; ;_atof.c: 21: ret = (ret * 10.0f) + (*p - '0');
+"21
+[e = _ret + * _ret -> .10.0 `f -> - -> *U _p `ui -> 48 `ui `f ]
+"22
+}
+[e :U 10 ]
+[; ;_atof.c: 22: }
+[; ;_atof.c: 23: p++; cnt++;
+"23
+[e ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
+[e ++ _cnt -> -> 1 `i `ui ]
+"24
+}
+[e :U 6 ]
+"17
+[e $ || && >= -> *U _p `ui -> 48 `ui <= -> *U _p `ui -> 57 `ui == -> *U _p `ui -> 46 `ui 7  ]
+[e :U 8 ]
+[; ;_atof.c: 24: }
+[; ;_atof.c: 26: if (dotpos > 0) {
+"26
+[e $ ! > _dotpos -> -> 0 `i `ui 11  ]
+{
+[; ;_atof.c: 27: dotpos = cnt - dotpos - 1;
+"27
+[e = _dotpos - - _cnt _dotpos -> -> 1 `i `ui ]
+[; ;_atof.c: 28: while (dotpos--) ret /= 10.0f;
+"28
+[e $U 12  ]
+[e :U 13 ]
+[e =/ _ret -> .10.0 `f ]
+[e :U 12 ]
+[e $ != -- _dotpos -> -> 1 `i `ui -> -> 0 `i `ui 13  ]
+[e :U 14 ]
+"29
+}
+[e :U 11 ]
+[; ;_atof.c: 29: }
+[; ;_atof.c: 31: return (ret * sign);
+"31
+[e ) * _ret -> _sign `f ]
+[e $UE 1  ]
+[; ;_atof.c: 32: }
+"32
+[e :UE 1 ]
+}

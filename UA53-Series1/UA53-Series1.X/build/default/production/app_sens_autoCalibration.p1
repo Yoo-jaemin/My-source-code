@@ -1,0 +1,795 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"31 app_sens_autoCalibration.h
+[s S2 `uc 1 `uc 1 `uc 1 `uc 1 `f 1 `f 1 `Vuc 1 `f 1 `f 1 `f 1 ]
+[n S2 . Seq_autoCal Seq_slpSet slpSet_en led_slpSet slope_min slope_max chk_cnt sumZero_uV avgZero_uV sft_ppm ]
+"30 app_sens_autoCalibration.c
+[v _g_sens_autoCalib `S2 ~T0 @X0 0 e ]
+"47
+[c E92 0 1 2 3 .. ]
+[n E92 . AUTO_CALIB_INIT AUTO_CALIB_READY AUTO_CALIB_CHECK AUTO_CALIB  ]
+"48
+[c E98 0 1 2 3 4 5 .. ]
+[n E98 . SLOPE_SET_INIT SLOPE_SET_LED SLOPE_SET_READY SLOPE_SAVE SLOPE_SET SLOPE_SET_END  ]
+"52
+[c E245 0 1 .. ]
+[n E245 . OFF ON  ]
+"14 app_linear_regression.h
+[s S3 `f -> 10 `i `f -> 10 `i `uc 1 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 ]
+[n S3 . x y position time_cnt sum_x sum_x2 sum_y sum_xy slope offset ]
+"29 app_sens_autoCalibration.c
+[v _g_linear_reg `S3 ~T0 @X0 0 e ]
+"8 nvm.h
+[s S7 `uc 1 `uc 1 `uc 1 `uc 1 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 `uc 1 `uc 1 `f 1 `f 1 `f 1 `f 1 `ui 1 `ul 1 `ul 1 `ul 1 `Quc -> 8 `i ]
+[n S7 . filter_mode window_size temp_corf temp_compensate baseLine_uV nA_per_ppm gasOffset tempOffset calib_temp KMf_e_measure KMF_e_estimate auto_Calib dummy slope_min slope_max zeroShift_uV zeroRange_ppm autoCalib_cnt exectime usedtime buildtime serialNum ]
+"6
+[u S6 `Quc -> 72 `i `QS7 1 ]
+[n S6 . byte . ]
+"46
+[s S8 `uc 1 `S6 1 ]
+[n S8 . status flash ]
+"27 app_sens_autoCalibration.c
+[v _g_nvm `S8 ~T0 @X0 0 e ]
+"81
+[c E149 0 1 2 3 4 5 6 .. ]
+[n E149 e_SensorValue LV_GAS_VOLT LV_GAS_PPM LV_RAW_VALUE LV_FILTERD_VALUE LV_SNR LV_TEMP LV_HUMI  ]
+"26
+[v _g_last_value `f ~T0 @X0 -> 0 `x e ]
+"41
+[v _auto_calib_clear `(v ~T0 @X0 0 sf ]
+"40
+[v _auto_calib_apply `(v ~T0 @X0 0 sf ]
+"59 nvm.h
+[v _nvm_write_flash_all `(uc ~T0 @X0 0 ef1`*S6 ]
+"19 app_led_task.h
+[s S9 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S9 . seq last_state isBlink toggle twoYear ]
+"28 app_sens_autoCalibration.c
+[v _g_led_status `S9 ~T0 @X0 0 e ]
+"134
+[c E251 0 1 2 3 4 5 6 7 8 9 10 .. ]
+[n E251 . LED_INIT LED_READY LED_WAIT_OFF LED_CALIB LED_WARMUP LED_COMMAND LED_ZEROCAL LED_ZEROCAL_END LED_FAIL LED_ALLOFF LED_NOTHING  ]
+"42
+[v _sort_uV_slope `(v ~T0 @X0 0 sf3`f`f`f ]
+"156 board.h
+[v _write_command `(v ~T0 @X0 0 ef1`*Cuc ]
+[; ;xc8\pic\include\__size_t.h: 4: typedef unsigned size_t;
+[; ;stdarg.h: 7: typedef void * va_list[1];
+[; ;stdarg.h: 10: extern void * __va_start(void);
+[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
+[; ;stdio.h: 43: struct __prbuf
+[; ;stdio.h: 44: {
+[; ;stdio.h: 45: char * ptr;
+[; ;stdio.h: 46: void (* func)(char);
+[; ;stdio.h: 47: };
+[; ;errno.h: 29: extern int errno;
+[; ;conio.h: 12: extern void init_uart(void);
+[; ;conio.h: 14: extern char getch(void);
+[; ;conio.h: 15: extern char getche(void);
+[; ;conio.h: 16: extern void putch(char);
+[; ;conio.h: 17: extern void ungetch(char);
+[; ;conio.h: 19: extern __bit kbhit(void);
+[; ;conio.h: 23: extern char * cgets(char *);
+[; ;conio.h: 24: extern void cputs(const char *);
+[; ;stdio.h: 88: extern int cprintf(char *, ...);
+[; ;stdio.h: 93: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+[; ;stdio.h: 183: extern char * gets(char *);
+[; ;stdio.h: 184: extern int puts(const char *);
+[; ;stdio.h: 185: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+[; ;stdio.h: 186: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+[; ;stdio.h: 187: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+[; ;stdio.h: 188: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+[; ;stdio.h: 189: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+[; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+[; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
+[; ;stdio.h: 195: extern int printf(const char *, ...);
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef __int24 int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 52: typedef unsigned char uint8_t;
+[; ;stdint.h: 58: typedef unsigned int uint16_t;
+[; ;stdint.h: 65: typedef __uint24 uint24_t;
+[; ;stdint.h: 72: typedef unsigned long int uint32_t;
+[; ;stdint.h: 88: typedef signed char int_least8_t;
+[; ;stdint.h: 96: typedef signed int int_least16_t;
+[; ;stdint.h: 109: typedef __int24 int_least24_t;
+[; ;stdint.h: 118: typedef signed long int int_least32_t;
+[; ;stdint.h: 136: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 143: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 154: typedef __uint24 uint_least24_t;
+[; ;stdint.h: 162: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 181: typedef signed char int_fast8_t;
+[; ;stdint.h: 188: typedef signed int int_fast16_t;
+[; ;stdint.h: 200: typedef __int24 int_fast24_t;
+[; ;stdint.h: 208: typedef signed long int int_fast32_t;
+[; ;stdint.h: 224: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 230: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 240: typedef __uint24 uint_fast24_t;
+[; ;stdint.h: 247: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 268: typedef int32_t intmax_t;
+[; ;stdint.h: 282: typedef uint32_t uintmax_t;
+[; ;stdint.h: 289: typedef int16_t intptr_t;
+[; ;stdint.h: 294: typedef uint16_t uintptr_t;
+[; ;stdbool.h: 15: typedef unsigned char bool;
+[; ;app_sens_autoCalibration.h: 15: typedef enum {
+[; ;app_sens_autoCalibration.h: 16: AUTO_CALIB_INIT,
+[; ;app_sens_autoCalibration.h: 17: AUTO_CALIB_READY,
+[; ;app_sens_autoCalibration.h: 18: AUTO_CALIB_CHECK,
+[; ;app_sens_autoCalibration.h: 19: AUTO_CALIB
+[; ;app_sens_autoCalibration.h: 20: } e_AutoCalib;
+[; ;app_sens_autoCalibration.h: 22: typedef enum {
+[; ;app_sens_autoCalibration.h: 23: SLOPE_SET_INIT,
+[; ;app_sens_autoCalibration.h: 24: SLOPE_SET_LED,
+[; ;app_sens_autoCalibration.h: 25: SLOPE_SET_READY,
+[; ;app_sens_autoCalibration.h: 26: SLOPE_SAVE,
+[; ;app_sens_autoCalibration.h: 27: SLOPE_SET,
+[; ;app_sens_autoCalibration.h: 28: SLOPE_SET_END
+[; ;app_sens_autoCalibration.h: 29: } e_AutoCalib_slp;
+[; ;app_sens_autoCalibration.h: 31: typedef struct {
+[; ;app_sens_autoCalibration.h: 32: uint8_t Seq_autoCal;
+[; ;app_sens_autoCalibration.h: 33: uint8_t Seq_slpSet;
+[; ;app_sens_autoCalibration.h: 34: uint8_t slpSet_en;
+[; ;app_sens_autoCalibration.h: 35: uint8_t led_slpSet;
+[; ;app_sens_autoCalibration.h: 37: float slope_min;
+[; ;app_sens_autoCalibration.h: 38: float slope_max;
+[; ;app_sens_autoCalibration.h: 40: volatile uint8_t chk_cnt;
+[; ;app_sens_autoCalibration.h: 41: float sumZero_uV;
+[; ;app_sens_autoCalibration.h: 42: float avgZero_uV;
+[; ;app_sens_autoCalibration.h: 44: float sft_ppm;
+[; ;app_sens_autoCalibration.h: 46: } s_Auto_calib;
+[; ;app_sens_autoCalibration.h: 53: void sens_autoCalib_init(void);
+[; ;app_sens_autoCalibration.h: 54: void sens_autoCalib_task(void);
+[; ;app_sens_autoCalibration.h: 55: void sens_autoCalib_slp_set_task(void);
+[; ;app_linear_regression.h: 14: typedef struct {
+[; ;app_linear_regression.h: 17: float x[10];
+[; ;app_linear_regression.h: 18: float y[10];
+[; ;app_linear_regression.h: 24: uint8_t position;
+[; ;app_linear_regression.h: 25: float time_cnt;
+[; ;app_linear_regression.h: 27: float sum_x;
+[; ;app_linear_regression.h: 28: float sum_x2;
+[; ;app_linear_regression.h: 29: float sum_y;
+[; ;app_linear_regression.h: 30: float sum_xy;
+[; ;app_linear_regression.h: 32: float slope;
+[; ;app_linear_regression.h: 33: float offset;
+[; ;app_linear_regression.h: 39: } s_Linear_reg;
+[; ;app_linear_regression.h: 47: void Linear_regression_init(s_Linear_reg* p);
+[; ;app_linear_regression.h: 48: void Linear_regression(s_Linear_reg* p, float uVoltage);
+[; ;app_sens_measure.h: 9: enum e_Measure_Seq {
+[; ;app_sens_measure.h: 10: SENS_INIT,
+[; ;app_sens_measure.h: 11: SENS_READY,
+[; ;app_sens_measure.h: 12: SENS_TEMP_MEASURE,
+[; ;app_sens_measure.h: 13: SENS_GAS_MEASURE,
+[; ;app_sens_measure.h: 14: SENS_APPLY,
+[; ;app_sens_measure.h: 15: SENS_WAIT,
+[; ;app_sens_measure.h: 16: SENS_DISPLAY
+[; ;app_sens_measure.h: 17: };
+[; ;app_sens_measure.h: 19: enum e_SensorValue {
+[; ;app_sens_measure.h: 20: LV_GAS_VOLT,
+[; ;app_sens_measure.h: 21: LV_GAS_PPM,
+[; ;app_sens_measure.h: 22: LV_RAW_VALUE,
+[; ;app_sens_measure.h: 23: LV_FILTERD_VALUE,
+[; ;app_sens_measure.h: 24: LV_SNR,
+[; ;app_sens_measure.h: 25: LV_TEMP,
+[; ;app_sens_measure.h: 26: LV_HUMI
+[; ;app_sens_measure.h: 27: };
+[; ;app_sens_measure.h: 32: typedef struct {
+[; ;app_sens_measure.h: 33: uint8_t seq;
+[; ;app_sens_measure.h: 34: uint8_t next_seq;
+[; ;app_sens_measure.h: 35: uint8_t seq_count;
+[; ;app_sens_measure.h: 37: bool isInitDone;
+[; ;app_sens_measure.h: 38: bool isGasSensor_Success;
+[; ;app_sens_measure.h: 39: bool isTemp_Success;
+[; ;app_sens_measure.h: 41: } s_Sens_Measure;
+[; ;app_sens_measure.h: 43: typedef struct {
+[; ;app_sens_measure.h: 44: float rawData_buffer[30];
+[; ;app_sens_measure.h: 45: float fltData_buffer[30];
+[; ;app_sens_measure.h: 47: float rawData_sum;
+[; ;app_sens_measure.h: 48: float fltData_sum;
+[; ;app_sens_measure.h: 50: float rawData_sqrSum;
+[; ;app_sens_measure.h: 51: float fltData_sqrSum;
+[; ;app_sens_measure.h: 53: float rawData_avg;
+[; ;app_sens_measure.h: 54: float fltData_avg;
+[; ;app_sens_measure.h: 56: float rawData_RMS;
+[; ;app_sens_measure.h: 57: float fltData_RMS;
+[; ;app_sens_measure.h: 59: float SNRv;
+[; ;app_sens_measure.h: 60: float SNRdB;
+[; ;app_sens_measure.h: 62: } s_Sens_SNR;
+[; ;app_sens_measure.h: 68: void sensMeasure_init();
+[; ;app_sens_measure.h: 69: void sensMeasure_task();
+[; ;app_sens_measure.h: 72: void sensMeasure_SNR_init(s_Sens_SNR* pSNR);
+[; ;app_sens_measure.h: 73: float sensMeasure_SNR(s_Sens_SNR* pSNR, float rawData, float filData);
+[; ;nvm.h: 6: typedef union {
+[; ;nvm.h: 7: __pack uint8_t byte[72];
+[; ;nvm.h: 8: __pack struct {
+[; ;nvm.h: 9: uint8_t filter_mode;
+[; ;nvm.h: 10: uint8_t window_size;
+[; ;nvm.h: 11: uint8_t temp_corf;
+[; ;nvm.h: 12: uint8_t temp_compensate;
+[; ;nvm.h: 14: float baseLine_uV;
+[; ;nvm.h: 15: float nA_per_ppm;
+[; ;nvm.h: 16: float gasOffset;
+[; ;nvm.h: 17: float tempOffset;
+[; ;nvm.h: 18: float calib_temp;
+[; ;nvm.h: 21: float KMf_e_measure;
+[; ;nvm.h: 22: float KMF_e_estimate;
+[; ;nvm.h: 25: uint8_t auto_Calib;
+[; ;nvm.h: 26: uint8_t dummy;
+[; ;nvm.h: 27: float slope_min;
+[; ;nvm.h: 28: float slope_max;
+[; ;nvm.h: 29: float zeroShift_uV;
+[; ;nvm.h: 30: float zeroRange_ppm;
+[; ;nvm.h: 31: uint16_t autoCalib_cnt;
+[; ;nvm.h: 33: uint32_t exectime;
+[; ;nvm.h: 34: uint32_t usedtime;
+[; ;nvm.h: 35: uint32_t buildtime;
+[; ;nvm.h: 36: __pack uint8_t serialNum[8];
+[; ;nvm.h: 37: };
+[; ;nvm.h: 38: } u_Flash_Nvm;
+[; ;nvm.h: 41: typedef enum {
+[; ;nvm.h: 42: NVM_INIT_NONE,
+[; ;nvm.h: 43: NVM_INIT_FLASH,
+[; ;nvm.h: 44: }e_Nvm_Status;
+[; ;nvm.h: 46: typedef struct {
+[; ;nvm.h: 47: uint8_t status;
+[; ;nvm.h: 48: u_Flash_Nvm flash;
+[; ;nvm.h: 49: } s_Nvm;
+[; ;nvm.h: 55: void nvm_init(void);
+[; ;nvm.h: 56: void nvm_clear(void);
+[; ;nvm.h: 57: void nvm_clear_all(void);
+[; ;nvm.h: 59: bool nvm_write_flash_all(u_Flash_Nvm* flash);
+[; ;nvm.h: 60: void nvm_read_flash_all(u_Flash_Nvm* flash);
+[; ;board.h: 73: enum {
+[; ;board.h: 74: CELSIUS,
+[; ;board.h: 75: FAHRENHEIT
+[; ;board.h: 76: };
+[; ;board.h: 78: enum {
+[; ;board.h: 79: RAW_MODE,
+[; ;board.h: 80: FIL_MODE
+[; ;board.h: 81: };
+[; ;board.h: 83: enum {
+[; ;board.h: 84: TEMP_NOT_COMPENSATION,
+[; ;board.h: 85: TEMP_COMPENSATION
+[; ;board.h: 86: };
+[; ;board.h: 88: enum {
+[; ;board.h: 89: USB_NONE,
+[; ;board.h: 90: USB_DETACHED,
+[; ;board.h: 91: USB_ATTACHED
+[; ;board.h: 92: };
+[; ;board.h: 94: enum {
+[; ;board.h: 95: OFF,
+[; ;board.h: 96: ON
+[; ;board.h: 97: };
+[; ;board.h: 156: void write_command(const uint8_t* buff);
+[; ;board.h: 157: uint16_t* get_product_desc();
+[; ;app_led_task.h: 5: typedef enum {
+[; ;app_led_task.h: 6: LED_INIT,
+[; ;app_led_task.h: 7: LED_READY,
+[; ;app_led_task.h: 8: LED_WAIT_OFF,
+[; ;app_led_task.h: 9: LED_CALIB,
+[; ;app_led_task.h: 10: LED_WARMUP,
+[; ;app_led_task.h: 11: LED_COMMAND,
+[; ;app_led_task.h: 12: LED_ZEROCAL,
+[; ;app_led_task.h: 13: LED_ZEROCAL_END,
+[; ;app_led_task.h: 14: LED_FAIL,
+[; ;app_led_task.h: 15: LED_ALLOFF,
+[; ;app_led_task.h: 16: LED_NOTHING,
+[; ;app_led_task.h: 17: } e_Led_Seq;
+[; ;app_led_task.h: 19: typedef struct {
+[; ;app_led_task.h: 20: uint8_t seq;
+[; ;app_led_task.h: 21: uint8_t last_state;
+[; ;app_led_task.h: 23: bool isBlink;
+[; ;app_led_task.h: 24: bool toggle;
+[; ;app_led_task.h: 25: bool twoYear;
+[; ;app_led_task.h: 26: } s_Led_Status;
+[; ;app_led_task.h: 33: void led_init(void);
+[; ;app_led_task.h: 34: void led_task(void);
+[; ;leds.h: 27: typedef enum
+[; ;leds.h: 28: {
+[; ;leds.h: 29: LED_NONE,
+[; ;leds.h: 30: LED_RED,
+[; ;leds.h: 31: LED_GREEN
+[; ;leds.h: 32: } LED;
+[; ;leds.h: 52: void LED_On(LED led);
+[; ;leds.h: 70: void LED_Off(void);
+[; ;leds.h: 88: void LED_Toggle(LED led);
+[; ;leds.h: 106: bool LED_Get(LED led);
+[; ;leds.h: 123: void LED_Enable(LED led);
+[; ;app_sens_autoCalibration.c: 26: extern float g_last_value[LV_HUMI+1];
+[; ;app_sens_autoCalibration.c: 27: extern s_Nvm g_nvm;
+[; ;app_sens_autoCalibration.c: 28: extern s_Led_Status g_led_status;
+[; ;app_sens_autoCalibration.c: 29: extern s_Linear_reg g_linear_reg;
+[; ;app_sens_autoCalibration.c: 30: extern s_Auto_calib g_sens_autoCalib;
+[; ;app_sens_autoCalibration.c: 31: extern uint8_t writeBuffer[64];
+"33 app_sens_autoCalibration.c
+[v _g_autoCal_cnt `Vul ~T0 @X0 1 e ]
+[; ;app_sens_autoCalibration.c: 33: volatile uint32_t g_autoCal_cnt;
+"34
+[v _g_autoCal_cnt2 `Vuc ~T0 @X0 1 e ]
+[; ;app_sens_autoCalibration.c: 34: volatile uint8_t g_autoCal_cnt2;
+"35
+[v _g_slpSet_cnt `Vul ~T0 @X0 1 e ]
+[; ;app_sens_autoCalibration.c: 35: volatile uint32_t g_slpSet_cnt;
+"36
+[v _g_slpSet_cnt2 `Vui ~T0 @X0 1 e ]
+[; ;app_sens_autoCalibration.c: 36: volatile uint16_t g_slpSet_cnt2;
+[; ;app_sens_autoCalibration.c: 40: static void auto_calib_apply(void);
+[; ;app_sens_autoCalibration.c: 41: static void auto_calib_clear(void);
+[; ;app_sens_autoCalibration.c: 42: static void sort_uV_slope(float min, float max, float uV_slope);
+"45
+[v _sens_autoCalib_init `(v ~T0 @X0 1 ef ]
+"46
+{
+[; ;app_sens_autoCalibration.c: 45: void sens_autoCalib_init(void)
+[; ;app_sens_autoCalibration.c: 46: {
+[e :U _sens_autoCalib_init ]
+[f ]
+[; ;app_sens_autoCalibration.c: 47: g_sens_autoCalib.Seq_autoCal = AUTO_CALIB_INIT;
+"47
+[e = . _g_sens_autoCalib 0 -> . `E92 0 `uc ]
+[; ;app_sens_autoCalibration.c: 48: g_sens_autoCalib.Seq_slpSet = SLOPE_SET_INIT;
+"48
+[e = . _g_sens_autoCalib 1 -> . `E98 0 `uc ]
+[; ;app_sens_autoCalibration.c: 49: g_autoCal_cnt = 0;
+"49
+[e = _g_autoCal_cnt -> -> -> 0 `i `l `ul ]
+[; ;app_sens_autoCalibration.c: 50: g_slpSet_cnt = 0;
+"50
+[e = _g_slpSet_cnt -> -> -> 0 `i `l `ul ]
+[; ;app_sens_autoCalibration.c: 52: g_sens_autoCalib.slpSet_en = OFF;
+"52
+[e = . _g_sens_autoCalib 2 -> . `E245 0 `uc ]
+[; ;app_sens_autoCalibration.c: 53: g_sens_autoCalib.led_slpSet = OFF;
+"53
+[e = . _g_sens_autoCalib 3 -> . `E245 0 `uc ]
+[; ;app_sens_autoCalibration.c: 55: g_sens_autoCalib.slope_min = 0.0f;
+"55
+[e = . _g_sens_autoCalib 4 -> .0.0 `f ]
+[; ;app_sens_autoCalibration.c: 56: g_sens_autoCalib.slope_max = 0.0f;
+"56
+[e = . _g_sens_autoCalib 5 -> .0.0 `f ]
+[; ;app_sens_autoCalibration.c: 58: g_sens_autoCalib.sumZero_uV = 0.0f;
+"58
+[e = . _g_sens_autoCalib 7 -> .0.0 `f ]
+[; ;app_sens_autoCalibration.c: 59: g_sens_autoCalib.avgZero_uV = 0.0f;
+"59
+[e = . _g_sens_autoCalib 8 -> .0.0 `f ]
+[; ;app_sens_autoCalibration.c: 61: g_sens_autoCalib.chk_cnt = 0;
+"61
+[e = . _g_sens_autoCalib 6 -> -> 0 `i `uc ]
+[; ;app_sens_autoCalibration.c: 62: g_sens_autoCalib.sft_ppm = 0.0f;
+"62
+[e = . _g_sens_autoCalib 9 -> .0.0 `f ]
+[; ;app_sens_autoCalibration.c: 63: }
+"63
+[e :UE 10 ]
+}
+"65
+[v _sens_autoCalib_task `(v ~T0 @X0 1 ef ]
+"66
+{
+[; ;app_sens_autoCalibration.c: 65: void sens_autoCalib_task(void)
+[; ;app_sens_autoCalibration.c: 66: {
+[e :U _sens_autoCalib_task ]
+[f ]
+[; ;app_sens_autoCalibration.c: 67: switch (g_sens_autoCalib.Seq_autoCal)
+"67
+[e $U 13  ]
+[; ;app_sens_autoCalibration.c: 68: {
+"68
+{
+[; ;app_sens_autoCalibration.c: 69: case AUTO_CALIB_INIT:
+"69
+[e :U 14 ]
+[; ;app_sens_autoCalibration.c: 70: g_autoCal_cnt = 0;
+"70
+[e = _g_autoCal_cnt -> -> -> 0 `i `l `ul ]
+[; ;app_sens_autoCalibration.c: 71: g_sens_autoCalib.Seq_autoCal = AUTO_CALIB_READY;
+"71
+[e = . _g_sens_autoCalib 0 -> . `E92 1 `uc ]
+[; ;app_sens_autoCalibration.c: 72: break;
+"72
+[e $U 12  ]
+[; ;app_sens_autoCalibration.c: 73: case AUTO_CALIB_READY:
+"73
+[e :U 15 ]
+[; ;app_sens_autoCalibration.c: 74: if (g_autoCal_cnt >= 6000) {
+"74
+[e $ ! >= _g_autoCal_cnt -> -> -> 6000 `i `l `ul 16  ]
+{
+[; ;app_sens_autoCalibration.c: 75: g_autoCal_cnt = 0;
+"75
+[e = _g_autoCal_cnt -> -> -> 0 `i `l `ul ]
+[; ;app_sens_autoCalibration.c: 76: g_autoCal_cnt2++;
+"76
+[e ++ _g_autoCal_cnt2 -> -> 1 `i `uc ]
+[; ;app_sens_autoCalibration.c: 77: g_sens_autoCalib.Seq_autoCal = AUTO_CALIB_CHECK;
+"77
+[e = . _g_sens_autoCalib 0 -> . `E92 2 `uc ]
+"78
+}
+[e :U 16 ]
+[; ;app_sens_autoCalibration.c: 78: } break;
+[e $U 12  ]
+[; ;app_sens_autoCalibration.c: 79: case AUTO_CALIB_CHECK:
+"79
+[e :U 17 ]
+[; ;app_sens_autoCalibration.c: 80: if (g_linear_reg.slope >= g_nvm.flash.slope_min &&
+[; ;app_sens_autoCalibration.c: 81: g_linear_reg.slope <= g_nvm.flash.slope_max && g_last_value[LV_GAS_PPM] <= g_nvm.flash.zeroRange_ppm) {
+"81
+[e $ ! && && >= . _g_linear_reg 8 . . . _g_nvm 1 1 13 <= . _g_linear_reg 8 . . . _g_nvm 1 1 14 <= *U + &U _g_last_value * -> . `E149 1 `ux -> -> # *U &U _g_last_value `ui `ux . . . _g_nvm 1 1 16 18  ]
+{
+[; ;app_sens_autoCalibration.c: 82: g_sens_autoCalib.chk_cnt++;
+"82
+[e ++ . _g_sens_autoCalib 6 -> -> 1 `i `uc ]
+[; ;app_sens_autoCalibration.c: 83: g_sens_autoCalib.sumZero_uV += g_last_value[LV_GAS_VOLT];
+"83
+[e =+ . _g_sens_autoCalib 7 *U + &U _g_last_value * -> . `E149 0 `ux -> -> # *U &U _g_last_value `ui `ux ]
+"84
+}
+[e :U 18 ]
+[; ;app_sens_autoCalibration.c: 84: }
+[; ;app_sens_autoCalibration.c: 85: if (g_autoCal_cnt2 == 60) {
+"85
+[e $ ! == -> _g_autoCal_cnt2 `i -> 60 `i 19  ]
+{
+[; ;app_sens_autoCalibration.c: 86: if (g_sens_autoCalib.chk_cnt >= 50 ) g_sens_autoCalib.Seq_autoCal = AUTO_CALIB;
+"86
+[e $ ! >= -> . _g_sens_autoCalib 6 `i -> 50 `i 20  ]
+[e = . _g_sens_autoCalib 0 -> . `E92 3 `uc ]
+[e $U 21  ]
+"87
+[e :U 20 ]
+[; ;app_sens_autoCalibration.c: 87: else auto_calib_clear();
+[e ( _auto_calib_clear ..  ]
+[e :U 21 ]
+"88
+}
+[; ;app_sens_autoCalibration.c: 88: } else {
+[e $U 22  ]
+[e :U 19 ]
+{
+[; ;app_sens_autoCalibration.c: 89: g_autoCal_cnt = 0;
+"89
+[e = _g_autoCal_cnt -> -> -> 0 `i `l `ul ]
+[; ;app_sens_autoCalibration.c: 90: g_sens_autoCalib.Seq_autoCal = AUTO_CALIB_READY;
+"90
+[e = . _g_sens_autoCalib 0 -> . `E92 1 `uc ]
+"91
+}
+[e :U 22 ]
+[; ;app_sens_autoCalibration.c: 91: } break;
+[e $U 12  ]
+[; ;app_sens_autoCalibration.c: 92: case AUTO_CALIB:
+"92
+[e :U 23 ]
+[; ;app_sens_autoCalibration.c: 93: auto_calib_apply();
+"93
+[e ( _auto_calib_apply ..  ]
+[; ;app_sens_autoCalibration.c: 99: auto_calib_clear();
+"99
+[e ( _auto_calib_clear ..  ]
+[; ;app_sens_autoCalibration.c: 100: break;
+"100
+[e $U 12  ]
+"101
+}
+[; ;app_sens_autoCalibration.c: 101: }
+[e $U 12  ]
+"67
+[e :U 13 ]
+[e [\ . _g_sens_autoCalib 0 , $ -> . `E92 0 `uc 14
+ , $ -> . `E92 1 `uc 15
+ , $ -> . `E92 2 `uc 17
+ , $ -> . `E92 3 `uc 23
+ 12 ]
+"101
+[e :U 12 ]
+[; ;app_sens_autoCalibration.c: 102: }
+"102
+[e :UE 11 ]
+}
+"104
+[v _auto_calib_apply `(v ~T0 @X0 1 sf ]
+"105
+{
+[; ;app_sens_autoCalibration.c: 104: static void auto_calib_apply(void)
+[; ;app_sens_autoCalibration.c: 105: {
+[e :U _auto_calib_apply ]
+[f ]
+[; ;app_sens_autoCalibration.c: 106: g_sens_autoCalib.avgZero_uV = g_sens_autoCalib.sumZero_uV / g_sens_autoCalib.chk_cnt;
+"106
+[e = . _g_sens_autoCalib 8 / . _g_sens_autoCalib 7 -> . _g_sens_autoCalib 6 `f ]
+[; ;app_sens_autoCalibration.c: 107: g_nvm.flash.zeroShift_uV = (g_sens_autoCalib.avgZero_uV - g_nvm.flash.baseLine_uV);
+"107
+[e = . . . _g_nvm 1 1 15 - . _g_sens_autoCalib 8 . . . _g_nvm 1 1 4 ]
+[; ;app_sens_autoCalibration.c: 108: g_nvm.flash.autoCalib_cnt++;
+"108
+[e ++ . . . _g_nvm 1 1 17 -> -> 1 `i `ui ]
+[; ;app_sens_autoCalibration.c: 109: nvm_write_flash_all(&g_nvm.flash);
+"109
+[e ( _nvm_write_flash_all (1 &U . _g_nvm 1 ]
+[; ;app_sens_autoCalibration.c: 110: }
+"110
+[e :UE 24 ]
+}
+"112
+[v _auto_calib_clear `(v ~T0 @X0 1 sf ]
+"113
+{
+[; ;app_sens_autoCalibration.c: 112: static void auto_calib_clear(void)
+[; ;app_sens_autoCalibration.c: 113: {
+[e :U _auto_calib_clear ]
+[f ]
+[; ;app_sens_autoCalibration.c: 114: g_autoCal_cnt = 0;
+"114
+[e = _g_autoCal_cnt -> -> -> 0 `i `l `ul ]
+[; ;app_sens_autoCalibration.c: 115: g_autoCal_cnt2 = 0;
+"115
+[e = _g_autoCal_cnt2 -> -> 0 `i `uc ]
+[; ;app_sens_autoCalibration.c: 116: g_sens_autoCalib.chk_cnt = 0;
+"116
+[e = . _g_sens_autoCalib 6 -> -> 0 `i `uc ]
+[; ;app_sens_autoCalibration.c: 117: g_sens_autoCalib.sumZero_uV = 0.0f;
+"117
+[e = . _g_sens_autoCalib 7 -> .0.0 `f ]
+[; ;app_sens_autoCalibration.c: 118: g_sens_autoCalib.avgZero_uV = 0.0f;
+"118
+[e = . _g_sens_autoCalib 8 -> .0.0 `f ]
+[; ;app_sens_autoCalibration.c: 119: g_sens_autoCalib.Seq_autoCal = AUTO_CALIB_READY;
+"119
+[e = . _g_sens_autoCalib 0 -> . `E92 1 `uc ]
+[; ;app_sens_autoCalibration.c: 120: }
+"120
+[e :UE 25 ]
+}
+"122
+[v _sens_autoCalib_slp_set_task `(v ~T0 @X0 1 ef ]
+"123
+{
+[; ;app_sens_autoCalibration.c: 122: void sens_autoCalib_slp_set_task(void)
+[; ;app_sens_autoCalibration.c: 123: {
+[e :U _sens_autoCalib_slp_set_task ]
+[f ]
+[; ;app_sens_autoCalibration.c: 124: switch (g_sens_autoCalib.Seq_slpSet)
+"124
+[e $U 28  ]
+[; ;app_sens_autoCalibration.c: 125: {
+"125
+{
+[; ;app_sens_autoCalibration.c: 126: case SLOPE_SET_INIT:
+"126
+[e :U 29 ]
+[; ;app_sens_autoCalibration.c: 127: g_slpSet_cnt = 0;
+"127
+[e = _g_slpSet_cnt -> -> -> 0 `i `l `ul ]
+[; ;app_sens_autoCalibration.c: 128: g_sens_autoCalib.led_slpSet = ON;
+"128
+[e = . _g_sens_autoCalib 3 -> . `E245 1 `uc ]
+[; ;app_sens_autoCalibration.c: 129: g_sens_autoCalib.Seq_slpSet = SLOPE_SET_LED;
+"129
+[e = . _g_sens_autoCalib 1 -> . `E98 1 `uc ]
+[; ;app_sens_autoCalibration.c: 130: break;
+"130
+[e $U 27  ]
+[; ;app_sens_autoCalibration.c: 131: case SLOPE_SET_LED:
+"131
+[e :U 30 ]
+[; ;app_sens_autoCalibration.c: 132: if (g_slpSet_cnt >= 50) {
+"132
+[e $ ! >= _g_slpSet_cnt -> -> -> 50 `i `l `ul 31  ]
+{
+[; ;app_sens_autoCalibration.c: 133: g_slpSet_cnt = 0;
+"133
+[e = _g_slpSet_cnt -> -> -> 0 `i `l `ul ]
+[; ;app_sens_autoCalibration.c: 134: g_led_status.seq = LED_ZEROCAL;
+"134
+[e = . _g_led_status 0 -> . `E251 6 `uc ]
+[; ;app_sens_autoCalibration.c: 135: g_led_status.last_state = LED_NOTHING;
+"135
+[e = . _g_led_status 1 -> . `E251 10 `uc ]
+[; ;app_sens_autoCalibration.c: 136: g_sens_autoCalib.Seq_slpSet = SLOPE_SET_READY;
+"136
+[e = . _g_sens_autoCalib 1 -> . `E98 2 `uc ]
+"137
+}
+[e :U 31 ]
+[; ;app_sens_autoCalibration.c: 137: } break;
+[e $U 27  ]
+[; ;app_sens_autoCalibration.c: 138: case SLOPE_SET_READY:
+"138
+[e :U 32 ]
+[; ;app_sens_autoCalibration.c: 139: if (g_slpSet_cnt >= 100) {
+"139
+[e $ ! >= _g_slpSet_cnt -> -> -> 100 `i `l `ul 33  ]
+{
+[; ;app_sens_autoCalibration.c: 140: g_slpSet_cnt2++;
+"140
+[e ++ _g_slpSet_cnt2 -> -> 1 `i `ui ]
+[; ;app_sens_autoCalibration.c: 141: g_sens_autoCalib.Seq_slpSet = SLOPE_SAVE;
+"141
+[e = . _g_sens_autoCalib 1 -> . `E98 3 `uc ]
+"142
+}
+[e :U 33 ]
+[; ;app_sens_autoCalibration.c: 142: } break;
+[e $U 27  ]
+[; ;app_sens_autoCalibration.c: 143: case SLOPE_SAVE:
+"143
+[e :U 34 ]
+[; ;app_sens_autoCalibration.c: 144: sort_uV_slope(g_sens_autoCalib.slope_min, g_sens_autoCalib.slope_max, g_linear_reg.slope);
+"144
+[e ( _sort_uV_slope (3 , , . _g_sens_autoCalib 4 . _g_sens_autoCalib 5 . _g_linear_reg 8 ]
+[; ;app_sens_autoCalibration.c: 145: if (g_slpSet_cnt2 >= 500)
+"145
+[e $ ! >= _g_slpSet_cnt2 -> -> 500 `i `ui 35  ]
+[; ;app_sens_autoCalibration.c: 146: g_sens_autoCalib.Seq_slpSet = SLOPE_SET;
+"146
+[e = . _g_sens_autoCalib 1 -> . `E98 4 `uc ]
+[e $U 36  ]
+"147
+[e :U 35 ]
+[; ;app_sens_autoCalibration.c: 147: else {
+{
+[; ;app_sens_autoCalibration.c: 148: g_slpSet_cnt = 0;
+"148
+[e = _g_slpSet_cnt -> -> -> 0 `i `l `ul ]
+[; ;app_sens_autoCalibration.c: 149: g_sens_autoCalib.Seq_slpSet = SLOPE_SET_READY;
+"149
+[e = . _g_sens_autoCalib 1 -> . `E98 2 `uc ]
+"150
+}
+[e :U 36 ]
+[; ;app_sens_autoCalibration.c: 150: } break;
+[e $U 27  ]
+[; ;app_sens_autoCalibration.c: 151: case SLOPE_SET:
+"151
+[e :U 37 ]
+[; ;app_sens_autoCalibration.c: 152: g_nvm.flash.slope_min = g_sens_autoCalib.slope_min;
+"152
+[e = . . . _g_nvm 1 1 13 . _g_sens_autoCalib 4 ]
+[; ;app_sens_autoCalibration.c: 153: g_nvm.flash.slope_max = g_sens_autoCalib.slope_max;
+"153
+[e = . . . _g_nvm 1 1 14 . _g_sens_autoCalib 5 ]
+[; ;app_sens_autoCalibration.c: 154: if (nvm_write_flash_all(&g_nvm.flash)) {
+"154
+[e $ ! != -> ( _nvm_write_flash_all (1 &U . _g_nvm 1 `i -> -> -> 0 `i `uc `i 38  ]
+{
+[; ;app_sens_autoCalibration.c: 155: g_led_status.seq = LED_ZEROCAL_END;
+"155
+[e = . _g_led_status 0 -> . `E251 7 `uc ]
+[; ;app_sens_autoCalibration.c: 156: write_command("ATACSS\r\n");
+"156
+[e ( _write_command (1 :s 1C ]
+"157
+}
+[e :U 38 ]
+[; ;app_sens_autoCalibration.c: 157: } g_sens_autoCalib.Seq_slpSet = SLOPE_SET_END;
+[e = . _g_sens_autoCalib 1 -> . `E98 5 `uc ]
+[; ;app_sens_autoCalibration.c: 158: break;
+"158
+[e $U 27  ]
+[; ;app_sens_autoCalibration.c: 159: case SLOPE_SET_END:
+"159
+[e :U 39 ]
+[; ;app_sens_autoCalibration.c: 160: g_slpSet_cnt2 = 0;
+"160
+[e = _g_slpSet_cnt2 -> -> 0 `i `ui ]
+[; ;app_sens_autoCalibration.c: 161: g_sens_autoCalib.slpSet_en = OFF;
+"161
+[e = . _g_sens_autoCalib 2 -> . `E245 0 `uc ]
+[; ;app_sens_autoCalibration.c: 162: g_sens_autoCalib.Seq_slpSet = SLOPE_SET_INIT;
+"162
+[e = . _g_sens_autoCalib 1 -> . `E98 0 `uc ]
+[; ;app_sens_autoCalibration.c: 163: break;
+"163
+[e $U 27  ]
+"164
+}
+[; ;app_sens_autoCalibration.c: 164: }
+[e $U 27  ]
+"124
+[e :U 28 ]
+[e [\ . _g_sens_autoCalib 1 , $ -> . `E98 0 `uc 29
+ , $ -> . `E98 1 `uc 30
+ , $ -> . `E98 2 `uc 32
+ , $ -> . `E98 3 `uc 34
+ , $ -> . `E98 4 `uc 37
+ , $ -> . `E98 5 `uc 39
+ 27 ]
+"164
+[e :U 27 ]
+[; ;app_sens_autoCalibration.c: 165: }
+"165
+[e :UE 26 ]
+}
+"167
+[v _sort_uV_slope `(v ~T0 @X0 1 sf3`f`f`f ]
+"168
+{
+[; ;app_sens_autoCalibration.c: 167: static void sort_uV_slope(float min, float max, float uV_slope)
+[; ;app_sens_autoCalibration.c: 168: {
+[e :U _sort_uV_slope ]
+"167
+[v _min `f ~T0 @X0 1 r1 ]
+[v _max `f ~T0 @X0 1 r2 ]
+[v _uV_slope `f ~T0 @X0 1 r3 ]
+"168
+[f ]
+"169
+[v _Min `f ~T0 @X0 1 a ]
+[v _Mid `f ~T0 @X0 1 a ]
+[v _Max `f ~T0 @X0 1 a ]
+[v _Temp `f ~T0 @X0 1 a ]
+[; ;app_sens_autoCalibration.c: 169: float Min, Mid, Max, Temp;
+[; ;app_sens_autoCalibration.c: 170: Min = min;
+"170
+[e = _Min _min ]
+[; ;app_sens_autoCalibration.c: 171: Mid = uV_slope;
+"171
+[e = _Mid _uV_slope ]
+[; ;app_sens_autoCalibration.c: 172: Max = max;
+"172
+[e = _Max _max ]
+[; ;app_sens_autoCalibration.c: 174: if (Min >= Mid) {
+"174
+[e $ ! >= _Min _Mid 41  ]
+{
+[; ;app_sens_autoCalibration.c: 175: Temp = Mid;
+"175
+[e = _Temp _Mid ]
+[; ;app_sens_autoCalibration.c: 176: Mid = Min;
+"176
+[e = _Mid _Min ]
+[; ;app_sens_autoCalibration.c: 177: Min = Temp;
+"177
+[e = _Min _Temp ]
+"178
+}
+[e :U 41 ]
+[; ;app_sens_autoCalibration.c: 178: }
+[; ;app_sens_autoCalibration.c: 179: if (Mid >= Max) {
+"179
+[e $ ! >= _Mid _Max 42  ]
+{
+[; ;app_sens_autoCalibration.c: 180: Temp = Max;
+"180
+[e = _Temp _Max ]
+[; ;app_sens_autoCalibration.c: 181: Max = Mid;
+"181
+[e = _Max _Mid ]
+[; ;app_sens_autoCalibration.c: 182: Mid = Temp;
+"182
+[e = _Mid _Temp ]
+"183
+}
+[e :U 42 ]
+[; ;app_sens_autoCalibration.c: 183: }
+[; ;app_sens_autoCalibration.c: 184: if (Min >= Mid) {
+"184
+[e $ ! >= _Min _Mid 43  ]
+{
+[; ;app_sens_autoCalibration.c: 185: Temp = Mid;
+"185
+[e = _Temp _Mid ]
+[; ;app_sens_autoCalibration.c: 186: Mid = Min;
+"186
+[e = _Mid _Min ]
+[; ;app_sens_autoCalibration.c: 187: Min = Temp;
+"187
+[e = _Min _Temp ]
+"188
+}
+[e :U 43 ]
+[; ;app_sens_autoCalibration.c: 188: }
+[; ;app_sens_autoCalibration.c: 189: g_sens_autoCalib.slope_min = Min;
+"189
+[e = . _g_sens_autoCalib 4 _Min ]
+[; ;app_sens_autoCalibration.c: 190: g_sens_autoCalib.slope_max = Max;
+"190
+[e = . _g_sens_autoCalib 5 _Max ]
+[; ;app_sens_autoCalibration.c: 191: }
+"191
+[e :UE 40 ]
+}
+[a 1C 65 84 65 67 83 83 13 10 0 ]
+

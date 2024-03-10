@@ -1,0 +1,1089 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"60 sensor.c
+[c E141 0 1 2 3 4 5 .. ]
+[n E141 . FSR_6p144V FSR_4p096V FSR_2p048V FSR_1p024V FSR_0p512V FSR_0p256V  ]
+"25 bsp/max7323.h
+[v _max7323_set_gpio `(uc ~T0 @X0 0 ef2`uc`uc ]
+"105 bsp/ads1114.h
+[v _ads1114_SetUp `(uc ~T0 @X0 0 ef4`uc`uc`uc`uc ]
+"102 sensor.c
+[c E149 0 1 .. ]
+[n E149 . CONTINUE_CONV SINGLE_CONV  ]
+[c E153 0 1 2 3 4 5 6 7 .. ]
+[n E153 . SPS8 SPS16 SPS32 SPS64 SPS128 SPS250 SPS475 SPS860  ]
+"93 nvm.h
+[s S4 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `f 1 `ul 1 `uc 1 `uc 1 `uc 1 `uc 1 `ul 1 `Quc -> 8 `i ]
+[n S4 . dummy sensing_on ctrl_master_mode ctrl_channel ctrl_slave_id ctrl_relay_no ctrl_ppm_max ctrl_holding_min byte_swap slave_id baudrate timeout buildtime serialNum ]
+"91
+[u S3 `Quc -> 30 `i `QS4 1 ]
+[n S3 . byte . ]
+"33
+[s S2 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 `f 1 `ul 1 `ul 1 `Quc -> 10 `i `f 1 `ui 1 ]
+[n S2 . supercap sensor_model adc_gain lmp_gain lmp_rload lmp_intZ filter_mode window_size temp_corf temp_compensate baseLine_uV span_uV CalibrationGas gas_slope calib_baseLine gasOffset tempOffset caltime usedtime sensor_name baseLine_temp check_sum ]
+"31
+[u S1 `Quc -> 62 `i `QS2 1 ]
+[n S1 . byte . ]
+"123
+[s S5 `S3 1 `QS1 -> 2 `i ]
+[n S5 . flash eeprm ]
+"15 sensor.c
+[v _g_nvm `S5 ~T0 @X0 0 e ]
+"107 bsp/lmp91000.h
+[v _lmp91000_isReady `(uc ~T0 @X0 0 ef ]
+"105
+[v _lmp91000_unlock `(uc ~T0 @X0 0 ef ]
+"115
+[v _lmp91000_set_GainRLoad `(uc ~T0 @X0 0 ef2`uc`uc ]
+"116
+[v _lmp91000_set_Reference `(uc ~T0 @X0 0 ef4`uc`uc`uc`uc ]
+"148 sensor.c
+[c E70 0 1 .. ]
+[n E70 . INTERNAL EXTERNAL  ]
+[c E80 0 1 .. ]
+[n E80 . NAGATIVE POSITIVE  ]
+[c E84 0 1 2 3 4 5 6 7 8 9 10 11 12 13 .. ]
+[n E84 . B0P B1P B2P B4P B6P B8P B10P B12P B14P B16P B18P B20P B22P B24P  ]
+"117 bsp/lmp91000.h
+[v _lmp91000_set_Mode `(uc ~T0 @X0 0 ef2`uc`uc ]
+"153 sensor.c
+[c E100 0 1 .. ]
+[n E100 . DISABLE ENABLE  ]
+[c E104 0 1 2 3 6 7 .. ]
+[n E104 . SLEEP GALVANIC_2LEAD STANBY AMPEROETRIC_3LEAD TEMP_MEASURE_TIAOFF TEMP_MEASURE_TIAON  ]
+"165
+[c E42 0 1 2 3 4 .. ]
+[n E42 . NONE NH3_100 H2S_50 EO NH3_1000  ]
+"106 bsp/ads1114.h
+[v _ads1114_read `(uc ~T0 @X0 0 ef2`uc`*i ]
+"231 sensor.c
+[c E36 0 1 .. ]
+[n E36 . RAW_MODE FIL_MODE  ]
+[; ;stdbool.h: 15: typedef unsigned char bool;
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef __int24 int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 52: typedef unsigned char uint8_t;
+[; ;stdint.h: 58: typedef unsigned int uint16_t;
+[; ;stdint.h: 65: typedef __uint24 uint24_t;
+[; ;stdint.h: 72: typedef unsigned long int uint32_t;
+[; ;stdint.h: 88: typedef signed char int_least8_t;
+[; ;stdint.h: 96: typedef signed int int_least16_t;
+[; ;stdint.h: 109: typedef __int24 int_least24_t;
+[; ;stdint.h: 118: typedef signed long int int_least32_t;
+[; ;stdint.h: 136: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 143: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 154: typedef __uint24 uint_least24_t;
+[; ;stdint.h: 162: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 181: typedef signed char int_fast8_t;
+[; ;stdint.h: 188: typedef signed int int_fast16_t;
+[; ;stdint.h: 200: typedef __int24 int_fast24_t;
+[; ;stdint.h: 208: typedef signed long int int_fast32_t;
+[; ;stdint.h: 224: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 230: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 240: typedef __uint24 uint_fast24_t;
+[; ;stdint.h: 247: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 268: typedef int32_t intmax_t;
+[; ;stdint.h: 282: typedef uint32_t uintmax_t;
+[; ;stdint.h: 289: typedef int16_t intptr_t;
+[; ;stdint.h: 294: typedef uint16_t uintptr_t;
+[; ;board.h: 51: enum {
+[; ;board.h: 52: SENSING_OFF,
+[; ;board.h: 53: SENSING_ON
+[; ;board.h: 54: };
+[; ;board.h: 73: enum {
+[; ;board.h: 74: CELSIUS,
+[; ;board.h: 75: FAHRENHEIT
+[; ;board.h: 76: };
+[; ;board.h: 78: enum {
+[; ;board.h: 79: RAW_MODE,
+[; ;board.h: 80: FIL_MODE
+[; ;board.h: 81: };
+[; ;board.h: 83: enum {
+[; ;board.h: 84: TEMP_NOT_COMPENSATION,
+[; ;board.h: 85: TEMP_COMPENSATION
+[; ;board.h: 86: };
+[; ;board.h: 88: enum {
+[; ;board.h: 89: NONE,
+[; ;board.h: 90: NH3_100,
+[; ;board.h: 91: H2S_50,
+[; ;board.h: 92: EO,
+[; ;board.h: 93: NH3_1000
+[; ;board.h: 94: };
+[; ;board.h: 96: enum {
+[; ;board.h: 97: MODBUS_SLAVE_MODE,
+[; ;board.h: 98: MODBUS_MASTER_MODE
+[; ;board.h: 99: };
+[; ;board.h: 221: void write_command(const uint8_t* buff);
+[; ;board.h: 222: uint16_t* get_product_desc();
+[; ;lmp91000.h: 25: typedef enum {
+[; ;lmp91000.h: 26: EXTERNAL_REGISTOR,
+[; ;lmp91000.h: 27: R2p75K,
+[; ;lmp91000.h: 28: R3p5K,
+[; ;lmp91000.h: 29: R7K,
+[; ;lmp91000.h: 30: R14K,
+[; ;lmp91000.h: 31: R35K,
+[; ;lmp91000.h: 32: R120K,
+[; ;lmp91000.h: 33: R350K
+[; ;lmp91000.h: 34: } e_TIA_InternalGain;
+[; ;lmp91000.h: 37: typedef enum {
+[; ;lmp91000.h: 38: R10,
+[; ;lmp91000.h: 39: R33,
+[; ;lmp91000.h: 40: R50,
+[; ;lmp91000.h: 41: R100
+[; ;lmp91000.h: 42: } e_TIA_RLoad;
+[; ;lmp91000.h: 45: typedef enum {
+[; ;lmp91000.h: 46: INTERNAL,
+[; ;lmp91000.h: 47: EXTERNAL
+[; ;lmp91000.h: 48: } e_Ref_Voltage;
+[; ;lmp91000.h: 51: typedef enum {
+[; ;lmp91000.h: 52: S20P,
+[; ;lmp91000.h: 53: S50P,
+[; ;lmp91000.h: 54: S67P,
+[; ;lmp91000.h: 55: BYPASS
+[; ;lmp91000.h: 56: } e_InZ_sel;
+[; ;lmp91000.h: 59: typedef enum {
+[; ;lmp91000.h: 60: NAGATIVE,
+[; ;lmp91000.h: 61: POSITIVE
+[; ;lmp91000.h: 62: } e_Bias_sign;
+[; ;lmp91000.h: 65: typedef enum {
+[; ;lmp91000.h: 66: B0P,
+[; ;lmp91000.h: 67: B1P,
+[; ;lmp91000.h: 68: B2P,
+[; ;lmp91000.h: 69: B4P,
+[; ;lmp91000.h: 70: B6P,
+[; ;lmp91000.h: 71: B8P,
+[; ;lmp91000.h: 72: B10P,
+[; ;lmp91000.h: 73: B12P,
+[; ;lmp91000.h: 74: B14P,
+[; ;lmp91000.h: 75: B16P,
+[; ;lmp91000.h: 76: B18P,
+[; ;lmp91000.h: 77: B20P,
+[; ;lmp91000.h: 78: B22P,
+[; ;lmp91000.h: 79: B24P
+[; ;lmp91000.h: 80: } e_Bias_sel;
+[; ;lmp91000.h: 83: typedef enum {
+[; ;lmp91000.h: 84: DISABLE,
+[; ;lmp91000.h: 85: ENABLE
+[; ;lmp91000.h: 86: } e_FET;
+[; ;lmp91000.h: 89: typedef enum {
+[; ;lmp91000.h: 90: SLEEP,
+[; ;lmp91000.h: 91: GALVANIC_2LEAD,
+[; ;lmp91000.h: 92: STANBY,
+[; ;lmp91000.h: 93: AMPEROETRIC_3LEAD,
+[; ;lmp91000.h: 94: TEMP_MEASURE_TIAOFF = 6,
+[; ;lmp91000.h: 95: TEMP_MEASURE_TIAON = 7
+[; ;lmp91000.h: 96: } e_OP_Mode;
+[; ;lmp91000.h: 104: bool lmp91000_lock(void);
+[; ;lmp91000.h: 105: bool lmp91000_unlock(void);
+[; ;lmp91000.h: 106: bool lmp91000_isUnLocked(void);
+[; ;lmp91000.h: 107: bool lmp91000_isReady(void);
+[; ;lmp91000.h: 109: bool lmp91000_get_status(uint8_t* preg);
+[; ;lmp91000.h: 110: bool lmp91000_get_lock(uint8_t* preg);
+[; ;lmp91000.h: 111: bool lmp91000_get_Tiacn(uint8_t* preg);
+[; ;lmp91000.h: 112: bool lmp91000_get_Refcn(uint8_t* preg);
+[; ;lmp91000.h: 113: bool lmp91000_get_Modecn(uint8_t* preg);
+[; ;lmp91000.h: 115: bool lmp91000_set_GainRLoad(uint8_t user_gain, uint8_t RLoad);
+[; ;lmp91000.h: 116: bool lmp91000_set_Reference(uint8_t source, uint8_t IntZ, uint8_t sign, uint8_t bias);
+[; ;lmp91000.h: 117: bool lmp91000_set_Mode(uint8_t fet, uint8_t mode);
+[; ;ads1114.h: 46: typedef enum {
+[; ;ads1114.h: 47: FSR_6p144V,
+[; ;ads1114.h: 48: FSR_4p096V,
+[; ;ads1114.h: 49: FSR_2p048V,
+[; ;ads1114.h: 50: FSR_1p024V,
+[; ;ads1114.h: 51: FSR_0p512V,
+[; ;ads1114.h: 52: FSR_0p256V
+[; ;ads1114.h: 53: } e_ADC_Gain;
+[; ;ads1114.h: 56: typedef enum {
+[; ;ads1114.h: 57: CONTINUE_CONV,
+[; ;ads1114.h: 58: SINGLE_CONV
+[; ;ads1114.h: 59: } e_ADC_Mode;
+[; ;ads1114.h: 62: typedef enum {
+[; ;ads1114.h: 63: SPS8,
+[; ;ads1114.h: 64: SPS16,
+[; ;ads1114.h: 65: SPS32,
+[; ;ads1114.h: 66: SPS64,
+[; ;ads1114.h: 67: SPS128,
+[; ;ads1114.h: 68: SPS250,
+[; ;ads1114.h: 69: SPS475,
+[; ;ads1114.h: 70: SPS860
+[; ;ads1114.h: 71: } e_ADC_DataRate;
+[; ;ads1114.h: 75: typedef enum {
+[; ;ads1114.h: 76: COMP,
+[; ;ads1114.h: 77: WIN_COMP
+[; ;ads1114.h: 78: } e_Comparator_Mode;
+[; ;ads1114.h: 81: typedef enum {
+[; ;ads1114.h: 82: LO,
+[; ;ads1114.h: 83: HI
+[; ;ads1114.h: 84: } e_Comparator_Pol;
+[; ;ads1114.h: 87: typedef enum {
+[; ;ads1114.h: 88: NONE_LATCH,
+[; ;ads1114.h: 89: LATCH
+[; ;ads1114.h: 90: } e_Comparator_Latch;
+[; ;ads1114.h: 93: typedef enum {
+[; ;ads1114.h: 94: ONE_CONV,
+[; ;ads1114.h: 95: TWO_CONV,
+[; ;ads1114.h: 96: FOUR_CONV,
+[; ;ads1114.h: 97: DISABL
+[; ;ads1114.h: 98: } e_Comparator_Que;
+[; ;ads1114.h: 104: bool ads1114_read_ready(uint8_t channel);
+[; ;ads1114.h: 105: bool ads1114_SetUp(uint8_t channel, uint8_t mode, uint8_t pga, uint8_t dataRate);
+[; ;ads1114.h: 106: bool ads1114_read(uint8_t channel, int16_t* raw_adc);
+[; ;ads1114.h: 107: bool ads1114_Comparator_SetUp(uint8_t channel, uint8_t mode, uint8_t pol, uint8_t lat, uint8_t que);
+[; ;max7323.h: 25: bool max7323_set_gpio(uint8_t chno, uint8_t wb);
+[; ;max7323.h: 26: bool max7323_get_gpio(uint8_t chno, uint8_t *rb);
+[; ;nvm.h: 31: typedef union {
+[; ;nvm.h: 32: __pack uint8_t byte[62];
+[; ;nvm.h: 33: __pack struct {
+[; ;nvm.h: 34: uint8_t supercap;
+[; ;nvm.h: 35: uint8_t sensor_model;
+[; ;nvm.h: 36: uint8_t adc_gain;
+[; ;nvm.h: 37: uint8_t lmp_gain;
+[; ;nvm.h: 38: uint8_t lmp_rload;
+[; ;nvm.h: 39: uint8_t lmp_intZ;
+[; ;nvm.h: 40: uint8_t filter_mode;
+[; ;nvm.h: 41: uint8_t window_size;
+[; ;nvm.h: 42: uint8_t temp_corf;
+[; ;nvm.h: 43: uint8_t temp_compensate;
+[; ;nvm.h: 45: float baseLine_uV;
+[; ;nvm.h: 46: float span_uV;
+[; ;nvm.h: 47: float CalibrationGas;
+[; ;nvm.h: 48: float gas_slope;
+[; ;nvm.h: 49: float calib_baseLine;
+[; ;nvm.h: 50: float gasOffset;
+[; ;nvm.h: 51: float tempOffset;
+[; ;nvm.h: 53: uint32_t caltime;
+[; ;nvm.h: 54: uint32_t usedtime;
+[; ;nvm.h: 56: __pack uint8_t sensor_name[10];
+[; ;nvm.h: 58: float baseLine_temp;
+[; ;nvm.h: 60: uint16_t check_sum;
+[; ;nvm.h: 61: };
+[; ;nvm.h: 62: } u_Eeprom_Nvm;
+[; ;nvm.h: 91: typedef union {
+[; ;nvm.h: 92: __pack uint8_t byte[30];
+[; ;nvm.h: 93: __pack struct {
+[; ;nvm.h: 94: uint8_t dummy;
+[; ;nvm.h: 95: uint8_t sensing_on;
+[; ;nvm.h: 97: uint8_t ctrl_master_mode;
+[; ;nvm.h: 98: uint8_t ctrl_channel;
+[; ;nvm.h: 99: uint8_t ctrl_slave_id;
+[; ;nvm.h: 102: uint8_t ctrl_relay_no;
+[; ;nvm.h: 103: float ctrl_ppm_max;
+[; ;nvm.h: 104: uint32_t ctrl_holding_min;
+[; ;nvm.h: 106: uint8_t byte_swap;
+[; ;nvm.h: 107: uint8_t slave_id;
+[; ;nvm.h: 108: uint8_t baudrate;
+[; ;nvm.h: 109: uint8_t timeout;
+[; ;nvm.h: 110: uint32_t buildtime;
+[; ;nvm.h: 111: __pack uint8_t serialNum[8];
+[; ;nvm.h: 112: };
+[; ;nvm.h: 113: } u_Flash_Nvm;
+[; ;nvm.h: 123: typedef struct {
+[; ;nvm.h: 124: u_Flash_Nvm flash;
+[; ;nvm.h: 125: __pack u_Eeprom_Nvm eeprm[2];
+[; ;nvm.h: 126: } s_Nvm;
+[; ;nvm.h: 132: uint16_t checksum(const uint8_t *data, uint16_t length);
+[; ;nvm.h: 138: void nvm_init();
+[; ;nvm.h: 139: void nvm_clear_channel(uint8_t channel);
+[; ;nvm.h: 140: void nvm_clear(void);
+[; ;nvm.h: 141: void nvm_clear_all();
+[; ;nvm.h: 143: void nvm_sensor_type_channel(uint8_t chno, uint8_t sensor_model);
+[; ;nvm.h: 145: bool nvm_write_eeprom_all(uint8_t channel);
+[; ;nvm.h: 146: bool nvm_read_eeprom_all(uint8_t channel);
+[; ;nvm.h: 148: bool nvm_write_flash_all(u_Flash_Nvm* flash);
+[; ;nvm.h: 149: void nvm_read_flash_all(u_Flash_Nvm* flash);
+[; ;app_sens_measure.h: 9: enum e_Measure_Seq {
+[; ;app_sens_measure.h: 10: SENS_INIT,
+[; ;app_sens_measure.h: 11: SENS_EEPRM_INIT,
+[; ;app_sens_measure.h: 12: SENS_EEPRM_INIT_NEXT,
+[; ;app_sens_measure.h: 13: SENS_SENSOR_INIT,
+[; ;app_sens_measure.h: 14: SENS_SENSOR_INIT_NEXT,
+[; ;app_sens_measure.h: 15: SENS_READY,
+[; ;app_sens_measure.h: 16: SENS_CHANGE_TEMP,
+[; ;app_sens_measure.h: 17: SENS_TEMP_MEASURE,
+[; ;app_sens_measure.h: 18: SENS_CHANGE_GAS,
+[; ;app_sens_measure.h: 19: SENS_GAS_MEASURE,
+[; ;app_sens_measure.h: 20: SENS_APPLY,
+[; ;app_sens_measure.h: 21: SENS_NEXT,
+[; ;app_sens_measure.h: 22: SENS_WAIT,
+[; ;app_sens_measure.h: 23: SENS_DISPLAY
+[; ;app_sens_measure.h: 24: };
+[; ;app_sens_measure.h: 26: enum e_SensorValue {
+[; ;app_sens_measure.h: 27: LV_GAS_VOLT,
+[; ;app_sens_measure.h: 28: LV_GAS_PPM,
+[; ;app_sens_measure.h: 29: LV_TEMP
+[; ;app_sens_measure.h: 30: };
+[; ;app_sens_measure.h: 34: typedef union {
+[; ;app_sens_measure.h: 35: __pack uint16_t word[(sizeof(float)/sizeof(uint16_t)) * 4];
+[; ;app_sens_measure.h: 36: __pack float float_value[4];
+[; ;app_sens_measure.h: 37: } u_SensorValue;
+[; ;app_sens_measure.h: 39: typedef struct {
+[; ;app_sens_measure.h: 40: uint8_t seq;
+[; ;app_sens_measure.h: 41: uint8_t next_seq;
+[; ;app_sens_measure.h: 42: uint8_t seq_count;
+[; ;app_sens_measure.h: 44: bool existChannel[2];
+[; ;app_sens_measure.h: 45: bool isChecksum[2];
+[; ;app_sens_measure.h: 46: bool isSensorInit[2];
+[; ;app_sens_measure.h: 48: } s_Sens_Measure;
+[; ;app_sens_measure.h: 55: void sensMeasure_init();
+[; ;app_sens_measure.h: 56: void sensMeasure_sensor_init();
+[; ;app_sens_measure.h: 57: void sensMeasure_task();
+[; ;sensor.h: 11: bool sensor_init(uint8_t channel);
+[; ;sensor.h: 12: bool sensor_adc_init(uint8_t channel, bool isTemp);
+[; ;sensor.h: 13: bool sensor_lmp_init(uint8_t channel);
+[; ;sensor.h: 15: bool sensor_set_temp_mode(uint8_t channel);
+[; ;sensor.h: 16: bool sensor_set_gas_mode(uint8_t channel);
+[; ;sensor.h: 18: void sensor_temp_fahrenheit(float* temp);
+[; ;sensor.h: 20: bool sensor_ADC_read(uint8_t channel, int16_t* raw_adc);
+[; ;sensor.h: 21: float ADCto_uVoltage(int16_t raw_adc, uint8_t gain);
+[; ;sensor.h: 23: float compensate_temperature(float temp, float baseLine_temp, uint8_t model);
+[; ;sensor.h: 24: float gasSensor_calib(uint8_t channel, float slope, float gas_uVolt);
+[; ;sensor.h: 25: float gasSensor_temperature(float temp_uVolt);
+[; ;sensor.h: 27: void max7323_set_lmp_on(uint8_t channel);
+[; ;sensor.h: 28: void max7323_set_lmp_off(void);
+[; ;sensor.c: 15: extern s_Nvm g_nvm;
+"17 sensor.c
+[v _gasSensor_filter `(f ~T0 @X0 1 sf1`f ]
+"18
+{
+[; ;sensor.c: 17: static float gasSensor_filter(float gasConcent)
+[; ;sensor.c: 18: {
+[e :U _gasSensor_filter ]
+"17
+[v _gasConcent `f ~T0 @X0 1 r1 ]
+"18
+[f ]
+"20
+[v _retval `f ~T0 @X0 1 a ]
+[; ;sensor.c: 20: float retval;
+[; ;sensor.c: 21: if (gasConcent < 0.2 && gasConcent >= 0.0)
+"21
+[e $ ! && < -> _gasConcent `d .0.2 >= -> _gasConcent `d .0.0 9  ]
+[; ;sensor.c: 22: retval = 0.0;
+"22
+[e = _retval -> .0.0 `f ]
+[e $U 10  ]
+"23
+[e :U 9 ]
+[; ;sensor.c: 23: else if (gasConcent < 0 && gasConcent >= -0.5)
+[e $ ! && < _gasConcent -> -> 0 `i `f >= -> _gasConcent `d -U .0.5 11  ]
+[; ;sensor.c: 24: retval = 0.0;
+"24
+[e = _retval -> .0.0 `f ]
+[e $U 12  ]
+"25
+[e :U 11 ]
+[; ;sensor.c: 25: else if (gasConcent < -0.5 && gasConcent >= -1.0)
+[e $ ! && < -> _gasConcent `d -U .0.5 >= -> _gasConcent `d -U .1.0 13  ]
+[; ;sensor.c: 26: retval = 0.02;
+"26
+[e = _retval -> .0.02 `f ]
+[e $U 14  ]
+"27
+[e :U 13 ]
+[; ;sensor.c: 27: else if (gasConcent < -1.0 && gasConcent >= -5.0)
+[e $ ! && < -> _gasConcent `d -U .1.0 >= -> _gasConcent `d -U .5.0 15  ]
+[; ;sensor.c: 28: retval = 0.03;
+"28
+[e = _retval -> .0.03 `f ]
+[e $U 16  ]
+"29
+[e :U 15 ]
+[; ;sensor.c: 29: else if (gasConcent < -5.0 && gasConcent >= -10.0)
+[e $ ! && < -> _gasConcent `d -U .5.0 >= -> _gasConcent `d -U .10.0 17  ]
+[; ;sensor.c: 30: retval = 0.04;
+"30
+[e = _retval -> .0.04 `f ]
+[e $U 18  ]
+"31
+[e :U 17 ]
+[; ;sensor.c: 31: else if (gasConcent < -10.0 && gasConcent >= -30.0)
+[e $ ! && < -> _gasConcent `d -U .10.0 >= -> _gasConcent `d -U .30.0 19  ]
+[; ;sensor.c: 32: retval = 0.05;
+"32
+[e = _retval -> .0.05 `f ]
+[e $U 20  ]
+"33
+[e :U 19 ]
+[; ;sensor.c: 33: else if (gasConcent < -30.0)
+[e $ ! < -> _gasConcent `d -U .30.0 21  ]
+[; ;sensor.c: 34: retval = 0.06;
+"34
+[e = _retval -> .0.06 `f ]
+[e $U 22  ]
+"35
+[e :U 21 ]
+[; ;sensor.c: 35: else
+[; ;sensor.c: 36: retval = gasConcent;
+"36
+[e = _retval _gasConcent ]
+[e :U 22 ]
+[e :U 20 ]
+[e :U 18 ]
+[e :U 16 ]
+[e :U 14 ]
+[e :U 12 ]
+[e :U 10 ]
+[; ;sensor.c: 37: return retval;
+"37
+[e ) _retval ]
+[e $UE 8  ]
+[; ;sensor.c: 56: }
+"56
+[e :UE 8 ]
+}
+"58
+[v _FSR_set_LSB `(f ~T0 @X0 1 sf1`uc ]
+"59
+{
+[; ;sensor.c: 58: static float FSR_set_LSB(uint8_t gain)
+[; ;sensor.c: 59: {
+[e :U _FSR_set_LSB ]
+"58
+[v _gain `uc ~T0 @X0 1 r1 ]
+"59
+[f ]
+[; ;sensor.c: 60: if(gain == FSR_6p144V)
+"60
+[e $ ! == -> _gain `i -> . `E141 0 `i 24  ]
+[; ;sensor.c: 61: return 187.5f;
+"61
+[e ) -> .187.5 `f ]
+[e $UE 23  ]
+[e $U 25  ]
+"62
+[e :U 24 ]
+[; ;sensor.c: 62: else if(gain == FSR_4p096V)
+[e $ ! == -> _gain `i -> . `E141 1 `i 26  ]
+[; ;sensor.c: 63: return 125.0f;
+"63
+[e ) -> .125.0 `f ]
+[e $UE 23  ]
+[e $U 27  ]
+"64
+[e :U 26 ]
+[; ;sensor.c: 64: else if(gain == FSR_1p024V)
+[e $ ! == -> _gain `i -> . `E141 3 `i 28  ]
+[; ;sensor.c: 65: return 31.25f;
+"65
+[e ) -> .31.25 `f ]
+[e $UE 23  ]
+[e $U 29  ]
+"66
+[e :U 28 ]
+[; ;sensor.c: 66: else if(gain == FSR_0p512V)
+[e $ ! == -> _gain `i -> . `E141 4 `i 30  ]
+[; ;sensor.c: 67: return 15.62f;
+"67
+[e ) -> .15.62 `f ]
+[e $UE 23  ]
+[e $U 31  ]
+"68
+[e :U 30 ]
+[; ;sensor.c: 68: else if(gain == FSR_0p256V)
+[e $ ! == -> _gain `i -> . `E141 5 `i 32  ]
+[; ;sensor.c: 69: return 7.81f;
+"69
+[e ) -> .7.81 `f ]
+[e $UE 23  ]
+[e :U 32 ]
+"71
+[e :U 31 ]
+[e :U 29 ]
+[e :U 27 ]
+[e :U 25 ]
+[; ;sensor.c: 71: return 62.5f;
+[e ) -> .62.5 `f ]
+[e $UE 23  ]
+[; ;sensor.c: 72: }
+"72
+[e :UE 23 ]
+}
+"74
+[v _max7323_set_lmp_on `(v ~T0 @X0 1 ef1`uc ]
+"75
+{
+[; ;sensor.c: 74: void max7323_set_lmp_on(uint8_t channel)
+[; ;sensor.c: 75: {
+[e :U _max7323_set_lmp_on ]
+"74
+[v _channel `uc ~T0 @X0 1 r1 ]
+"75
+[f ]
+"76
+[v _wr `uc ~T0 @X0 1 a ]
+[; ;sensor.c: 76: uint8_t wr;
+[; ;sensor.c: 78: for (uint8_t i = 0 ; i < 2 ; i++) {
+"78
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 2 `i 34  ]
+[e $U 35  ]
+[e :U 34 ]
+{
+[; ;sensor.c: 79: if (i == channel) wr = 0b00100000;
+"79
+[e $ ! == -> _i `i -> _channel `i 37  ]
+[e = _wr -> -> 32 `i `uc ]
+[e $U 38  ]
+"80
+[e :U 37 ]
+[; ;sensor.c: 80: else wr = 0b00110000;
+[e = _wr -> -> 48 `i `uc ]
+[e :U 38 ]
+[; ;sensor.c: 81: max7323_set_gpio(i, wr);
+"81
+[e ( _max7323_set_gpio (2 , _i _wr ]
+"82
+}
+"78
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 2 `i 34  ]
+[e :U 35 ]
+"82
+}
+[; ;sensor.c: 82: }
+[; ;sensor.c: 83: }
+"83
+[e :UE 33 ]
+}
+"85
+[v _max7323_set_lmp_off `(v ~T0 @X0 1 ef ]
+"86
+{
+[; ;sensor.c: 85: void max7323_set_lmp_off(void)
+[; ;sensor.c: 86: {
+[e :U _max7323_set_lmp_off ]
+[f ]
+[v F353 `uc ~T0 @X0 -> 2 `i s ]
+[i F353
+:U ..
+"87
+-> -> 48 `i `uc
+-> -> 24 `i `uc
+..
+]
+[v _wr `uc ~T0 @X0 -> 2 `i a ]
+[; ;sensor.c: 87: uint8_t wr[2] = { 0b00110000, 0b00011000 };
+[e = _wr F353 ]
+[; ;sensor.c: 89: for (uint8_t i = 0 ; i < 2 ; i++) {
+"89
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 2 `i 40  ]
+[e $U 41  ]
+[e :U 40 ]
+{
+[; ;sensor.c: 90: max7323_set_gpio(i, wr[i]);
+"90
+[e ( _max7323_set_gpio (2 , _i *U + &U _wr * -> _i `ux -> -> # *U &U _wr `ui `ux ]
+"91
+}
+"89
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 2 `i 40  ]
+[e :U 41 ]
+"91
+}
+[; ;sensor.c: 91: }
+[; ;sensor.c: 92: }
+"92
+[e :UE 39 ]
+}
+"99
+[v _sensor_adc_init `(uc ~T0 @X0 1 ef2`uc`uc ]
+"100
+{
+[; ;sensor.c: 99: bool sensor_adc_init(uint8_t channel, bool isTemp)
+[; ;sensor.c: 100: {
+[e :U _sensor_adc_init ]
+"99
+[v _channel `uc ~T0 @X0 1 r1 ]
+[v _isTemp `uc ~T0 @X0 1 r2 ]
+"100
+[f ]
+"101
+[v _ret `uc ~T0 @X0 1 a ]
+[; ;sensor.c: 101: bool ret;
+[; ;sensor.c: 102: if (isTemp) ret = ads1114_SetUp(channel, CONTINUE_CONV, FSR_2p048V, SPS128);
+"102
+[e $ ! != -> _isTemp `i -> -> -> 0 `i `uc `i 44  ]
+[e = _ret ( _ads1114_SetUp (4 , , , _channel -> . `E149 0 `uc -> . `E141 2 `uc -> . `E153 4 `uc ]
+[e $U 45  ]
+"103
+[e :U 44 ]
+[; ;sensor.c: 103: else ret = ads1114_SetUp(channel, CONTINUE_CONV, g_nvm.eeprm[channel].adc_gain, SPS128);
+[e = _ret ( _ads1114_SetUp (4 , , , _channel -> . `E149 0 `uc . . *U + &U . _g_nvm 1 * -> _channel `ux -> -> # *U &U . _g_nvm 1 `ui `ux 1 2 -> . `E153 4 `uc ]
+[e :U 45 ]
+[; ;sensor.c: 105: return ret;
+"105
+[e ) _ret ]
+[e $UE 43  ]
+[; ;sensor.c: 106: }
+"106
+[e :UE 43 ]
+}
+"126
+[v _sensor_lmp_init `(uc ~T0 @X0 1 ef1`uc ]
+"127
+{
+[; ;sensor.c: 126: bool sensor_lmp_init(uint8_t channel)
+[; ;sensor.c: 127: {
+[e :U _sensor_lmp_init ]
+"126
+[v _channel `uc ~T0 @X0 1 r1 ]
+"127
+[f ]
+[; ;sensor.c: 128: max7323_set_lmp_on(channel);
+"128
+[e ( _max7323_set_lmp_on (1 _channel ]
+[; ;sensor.c: 131: if (lmp91000_isReady() == 0) {
+"131
+[e $ ! == -> ( _lmp91000_isReady ..  `i -> 0 `i 47  ]
+{
+[; ;sensor.c: 132: max7323_set_lmp_off();
+"132
+[e ( _max7323_set_lmp_off ..  ]
+[; ;sensor.c: 133: return 0;
+"133
+[e ) -> -> 0 `i `uc ]
+[e $UE 46  ]
+"134
+}
+[e :U 47 ]
+[; ;sensor.c: 134: }
+[; ;sensor.c: 136: if (lmp91000_unlock() == 0) {
+"136
+[e $ ! == -> ( _lmp91000_unlock ..  `i -> 0 `i 48  ]
+{
+[; ;sensor.c: 137: max7323_set_lmp_off();
+"137
+[e ( _max7323_set_lmp_off ..  ]
+[; ;sensor.c: 138: return 0;
+"138
+[e ) -> -> 0 `i `uc ]
+[e $UE 46  ]
+"139
+}
+[e :U 48 ]
+[; ;sensor.c: 139: }
+[; ;sensor.c: 141: if (lmp91000_set_GainRLoad(g_nvm.eeprm[channel].lmp_gain, g_nvm.eeprm[channel].lmp_rload) == 0) {
+"141
+[e $ ! == -> ( _lmp91000_set_GainRLoad (2 , . . *U + &U . _g_nvm 1 * -> _channel `ux -> -> # *U &U . _g_nvm 1 `ui `ux 1 3 . . *U + &U . _g_nvm 1 * -> _channel `ux -> -> # *U &U . _g_nvm 1 `ui `ux 1 4 `i -> 0 `i 49  ]
+{
+[; ;sensor.c: 142: max7323_set_lmp_off();
+"142
+[e ( _max7323_set_lmp_off ..  ]
+[; ;sensor.c: 143: return 0;
+"143
+[e ) -> -> 0 `i `uc ]
+[e $UE 46  ]
+"144
+}
+[e :U 49 ]
+[; ;sensor.c: 144: }
+[; ;sensor.c: 148: if (lmp91000_set_Reference(EXTERNAL, g_nvm.eeprm[channel].lmp_intZ, NAGATIVE, B0P) == 0) {
+"148
+[e $ ! == -> ( _lmp91000_set_Reference (4 , , , -> . `E70 1 `uc . . *U + &U . _g_nvm 1 * -> _channel `ux -> -> # *U &U . _g_nvm 1 `ui `ux 1 5 -> . `E80 0 `uc -> . `E84 0 `uc `i -> 0 `i 50  ]
+{
+[; ;sensor.c: 149: max7323_set_lmp_off();
+"149
+[e ( _max7323_set_lmp_off ..  ]
+[; ;sensor.c: 150: return 0;
+"150
+[e ) -> -> 0 `i `uc ]
+[e $UE 46  ]
+"151
+}
+[e :U 50 ]
+[; ;sensor.c: 151: }
+[; ;sensor.c: 153: if (lmp91000_set_Mode(DISABLE, STANBY) == 0) {
+"153
+[e $ ! == -> ( _lmp91000_set_Mode (2 , -> . `E100 0 `uc -> . `E104 2 `uc `i -> 0 `i 51  ]
+{
+[; ;sensor.c: 154: return 0;
+"154
+[e ) -> -> 0 `i `uc ]
+[e $UE 46  ]
+"155
+}
+[e :U 51 ]
+[; ;sensor.c: 155: }
+[; ;sensor.c: 157: max7323_set_lmp_off();
+"157
+[e ( _max7323_set_lmp_off ..  ]
+[; ;sensor.c: 158: return 1;
+"158
+[e ) -> -> 1 `i `uc ]
+[e $UE 46  ]
+[; ;sensor.c: 159: }
+"159
+[e :UE 46 ]
+}
+"161
+[v _sensor_init `(uc ~T0 @X0 1 ef1`uc ]
+"162
+{
+[; ;sensor.c: 161: bool sensor_init(uint8_t channel)
+[; ;sensor.c: 162: {
+[e :U _sensor_init ]
+"161
+[v _channel `uc ~T0 @X0 1 r1 ]
+"162
+[f ]
+[; ;sensor.c: 165: if (!(g_nvm.eeprm[channel].sensor_model >= NH3_100 && g_nvm.eeprm[channel].sensor_model <= H2S_50))
+"165
+[e $ ! ! && >= -> . . *U + &U . _g_nvm 1 * -> _channel `ux -> -> # *U &U . _g_nvm 1 `ui `ux 1 1 `i -> . `E42 1 `i <= -> . . *U + &U . _g_nvm 1 * -> _channel `ux -> -> # *U &U . _g_nvm 1 `ui `ux 1 1 `i -> . `E42 2 `i 53  ]
+[; ;sensor.c: 166: return 0;
+"166
+[e ) -> -> 0 `i `uc ]
+[e $UE 52  ]
+[e :U 53 ]
+[; ;sensor.c: 167: return sensor_lmp_init(channel);
+"167
+[e ) ( _sensor_lmp_init (1 _channel ]
+[e $UE 52  ]
+[; ;sensor.c: 168: }
+"168
+[e :UE 52 ]
+}
+"170
+[v _sensor_temp_fahrenheit `(v ~T0 @X0 1 ef1`*f ]
+"171
+{
+[; ;sensor.c: 170: void sensor_temp_fahrenheit(float* temp)
+[; ;sensor.c: 171: {
+[e :U _sensor_temp_fahrenheit ]
+"170
+[v _temp `*f ~T0 @X0 1 r1 ]
+"171
+[f ]
+[; ;sensor.c: 172: *temp = (*temp * 1.8f) + 32.0f;
+"172
+[e = *U _temp + * *U _temp -> .1.8 `f -> .32.0 `f ]
+[; ;sensor.c: 173: }
+"173
+[e :UE 54 ]
+}
+"175
+[v _sensor_ADC_read `(uc ~T0 @X0 1 ef2`uc`*i ]
+"176
+{
+[; ;sensor.c: 175: bool sensor_ADC_read(uint8_t channel, int16_t* raw_adc)
+[; ;sensor.c: 176: {
+[e :U _sensor_ADC_read ]
+"175
+[v _channel `uc ~T0 @X0 1 r1 ]
+[v _raw_adc `*i ~T0 @X0 1 r2 ]
+"176
+[f ]
+[; ;sensor.c: 177: return ads1114_read(channel, raw_adc);
+"177
+[e ) ( _ads1114_read (2 , _channel _raw_adc ]
+[e $UE 55  ]
+[; ;sensor.c: 178: }
+"178
+[e :UE 55 ]
+}
+"180
+[v _ADCto_uVoltage `(f ~T0 @X0 1 ef2`i`uc ]
+"181
+{
+[; ;sensor.c: 180: float ADCto_uVoltage(int16_t raw_adc, uint8_t gain)
+[; ;sensor.c: 181: {
+[e :U _ADCto_uVoltage ]
+"180
+[v _raw_adc `i ~T0 @X0 1 r1 ]
+[v _gain `uc ~T0 @X0 1 r2 ]
+"181
+[f ]
+"182
+[v _uVolt `f ~T0 @X0 1 a ]
+"183
+[v _lsb `f ~T0 @X0 1 a ]
+[; ;sensor.c: 182: float uVolt;
+[; ;sensor.c: 183: float lsb = FSR_set_LSB(gain);
+[e = _lsb ( _FSR_set_LSB (1 _gain ]
+[; ;sensor.c: 184: uVolt = (float)raw_adc * lsb;
+"184
+[e = _uVolt * -> _raw_adc `f _lsb ]
+[; ;sensor.c: 185: return uVolt;
+"185
+[e ) _uVolt ]
+[e $UE 56  ]
+[; ;sensor.c: 186: }
+"186
+[e :UE 56 ]
+}
+"189
+[v _compensate_temperature `(f ~T0 @X0 1 ef3`f`f`uc ]
+"190
+{
+[; ;sensor.c: 189: float compensate_temperature(float temp, float baseLine_temp, uint8_t model)
+[; ;sensor.c: 190: {
+[e :U _compensate_temperature ]
+"189
+[v _temp `f ~T0 @X0 1 r1 ]
+[v _baseLine_temp `f ~T0 @X0 1 r2 ]
+[v _model `uc ~T0 @X0 1 r3 ]
+"190
+[f ]
+"191
+[v _cmp_val `f ~T0 @X0 1 a ]
+[; ;sensor.c: 191: float cmp_val = 0.0f;
+[e = _cmp_val -> .0.0 `f ]
+[; ;sensor.c: 193: if (model == NH3_100) {
+"193
+[e $ ! == -> _model `i -> . `E42 1 `i 58  ]
+{
+[; ;sensor.c: 194: if (temp >= 25.0f && temp < 30.0f)
+"194
+[e $ ! && >= _temp -> .25.0 `f < _temp -> .30.0 `f 59  ]
+[; ;sensor.c: 195: cmp_val = 0.034f * temp - 0.826f;
+"195
+[e = _cmp_val - * -> .0.034 `f _temp -> .0.826 `f ]
+[e $U 60  ]
+"197
+[e :U 59 ]
+[; ;sensor.c: 197: else if (temp >= 30.0f && temp < 34.0f)
+[e $ ! && >= _temp -> .30.0 `f < _temp -> .34.0 `f 61  ]
+[; ;sensor.c: 198: cmp_val = 0.05f * temp - 1.356f;
+"198
+[e = _cmp_val - * -> .0.05 `f _temp -> .1.356 `f ]
+[e $U 62  ]
+"200
+[e :U 61 ]
+[; ;sensor.c: 200: else if (temp >= 34.0f && temp < 38.0f)
+[e $ ! && >= _temp -> .34.0 `f < _temp -> .38.0 `f 63  ]
+[; ;sensor.c: 201: cmp_val = 0.095f * temp - 2.892f;
+"201
+[e = _cmp_val - * -> .0.095 `f _temp -> .2.892 `f ]
+[e $U 64  ]
+"203
+[e :U 63 ]
+[; ;sensor.c: 203: else if (temp >= 38.0f && temp < 41.0f)
+[e $ ! && >= _temp -> .38.0 `f < _temp -> .41.0 `f 65  ]
+[; ;sensor.c: 204: cmp_val = 0.1f * temp - 3.1f;
+"204
+[e = _cmp_val - * -> .0.1 `f _temp -> .3.1 `f ]
+[e $U 66  ]
+"206
+[e :U 65 ]
+[; ;sensor.c: 206: else if (temp >= 41.0f)
+[e $ ! >= _temp -> .41.0 `f 67  ]
+[; ;sensor.c: 207: cmp_val = 1.0f;
+"207
+[e = _cmp_val -> .1.0 `f ]
+[e $U 68  ]
+"209
+[e :U 67 ]
+[; ;sensor.c: 209: else
+[; ;sensor.c: 210: cmp_val = 0.0f;
+"210
+[e = _cmp_val -> .0.0 `f ]
+[e :U 68 ]
+[e :U 66 ]
+[e :U 64 ]
+[e :U 62 ]
+[e :U 60 ]
+"211
+}
+[; ;sensor.c: 211: } else if (model == H2S_50) {
+[e $U 69  ]
+[e :U 58 ]
+[e $ ! == -> _model `i -> . `E42 2 `i 70  ]
+{
+"213
+}
+[e :U 70 ]
+"215
+[e :U 69 ]
+[; ;sensor.c: 213: }
+[; ;sensor.c: 215: return cmp_val;
+[e ) _cmp_val ]
+[e $UE 57  ]
+[; ;sensor.c: 216: }
+"216
+[e :UE 57 ]
+}
+"218
+[v _gasSensor_calib `(f ~T0 @X0 1 ef3`uc`f`f ]
+"219
+{
+[; ;sensor.c: 218: float gasSensor_calib(uint8_t channel, float cmp_val, float gas_uVolt)
+[; ;sensor.c: 219: {
+[e :U _gasSensor_calib ]
+"218
+[v _channel `uc ~T0 @X0 1 r1 ]
+[v _cmp_val `f ~T0 @X0 1 r2 ]
+[v _gas_uVolt `f ~T0 @X0 1 r3 ]
+"219
+[f ]
+"220
+[v _gas_ppm `f ~T0 @X0 1 a ]
+"222
+[v _span `f ~T0 @X0 1 a ]
+[; ;sensor.c: 220: float gas_ppm;
+[; ;sensor.c: 222: float span = g_nvm.eeprm[channel].span_uV;
+[e = _span . . *U + &U . _g_nvm 1 * -> _channel `ux -> -> # *U &U . _g_nvm 1 `ui `ux 1 11 ]
+"223
+[v _baseline `f ~T0 @X0 1 a ]
+[; ;sensor.c: 223: float baseline = g_nvm.eeprm[channel].baseLine_uV;
+[e = _baseline . . *U + &U . _g_nvm 1 * -> _channel `ux -> -> # *U &U . _g_nvm 1 `ui `ux 1 10 ]
+"224
+[v _CalibrationGas `f ~T0 @X0 1 a ]
+[; ;sensor.c: 224: float CalibrationGas = g_nvm.eeprm[channel].CalibrationGas;
+[e = _CalibrationGas . . *U + &U . _g_nvm 1 * -> _channel `ux -> -> # *U &U . _g_nvm 1 `ui `ux 1 12 ]
+[; ;sensor.c: 226: if ((span - baseline) == 0.0f || span <= baseline )
+"226
+[e $ ! || == - _span _baseline -> .0.0 `f <= _span _baseline 72  ]
+[; ;sensor.c: 227: return 0.0f;
+"227
+[e ) -> .0.0 `f ]
+[e $UE 71  ]
+[e :U 72 ]
+[; ;sensor.c: 229: gas_ppm = ((CalibrationGas * gas_uVolt) / (span - baseline) - (CalibrationGas * baseline) / (span - baseline)) - cmp_val;
+"229
+[e = _gas_ppm - - / * _CalibrationGas _gas_uVolt - _span _baseline / * _CalibrationGas _baseline - _span _baseline _cmp_val ]
+[; ;sensor.c: 231: if(g_nvm.eeprm[channel].filter_mode == FIL_MODE)
+"231
+[e $ ! == -> . . *U + &U . _g_nvm 1 * -> _channel `ux -> -> # *U &U . _g_nvm 1 `ui `ux 1 6 `i -> . `E36 1 `i 73  ]
+[; ;sensor.c: 232: {
+"232
+{
+[; ;sensor.c: 233: gas_ppm = gasSensor_filter(gas_ppm);
+"233
+[e = _gas_ppm ( _gasSensor_filter (1 _gas_ppm ]
+"234
+}
+[e :U 73 ]
+[; ;sensor.c: 234: }
+[; ;sensor.c: 236: return gas_ppm;
+"236
+[e ) _gas_ppm ]
+[e $UE 71  ]
+[; ;sensor.c: 237: }
+"237
+[e :UE 71 ]
+}
+"314
+[v _gasSensor_temperature `(f ~T0 @X0 1 ef1`f ]
+"315
+{
+[; ;sensor.c: 314: float gasSensor_temperature(float temp_uVolt)
+[; ;sensor.c: 315: {
+[e :U _gasSensor_temperature ]
+"314
+[v _temp_uVolt `f ~T0 @X0 1 r1 ]
+"315
+[f ]
+"316
+[v _temp `f ~T0 @X0 1 a ]
+[; ;sensor.c: 316: float temp = -0.12f * (temp_uVolt/1000.0f + 500.0f) + 187.2f;
+[e = _temp + * -U -> .0.12 `f + / _temp_uVolt -> .1000.0 `f -> .500.0 `f -> .187.2 `f ]
+[; ;sensor.c: 317: return temp;
+"317
+[e ) _temp ]
+[e $UE 74  ]
+[; ;sensor.c: 318: }
+"318
+[e :UE 74 ]
+}
+"320
+[v _sensor_set_temp_mode `(uc ~T0 @X0 1 ef1`uc ]
+"321
+{
+[; ;sensor.c: 320: bool sensor_set_temp_mode(uint8_t channel)
+[; ;sensor.c: 321: {
+[e :U _sensor_set_temp_mode ]
+"320
+[v _channel `uc ~T0 @X0 1 r1 ]
+"321
+[f ]
+[; ;sensor.c: 322: max7323_set_lmp_on(channel);
+"322
+[e ( _max7323_set_lmp_on (1 _channel ]
+[; ;sensor.c: 324: if (lmp91000_set_Mode(DISABLE, TEMP_MEASURE_TIAON) == 0) {
+"324
+[e $ ! == -> ( _lmp91000_set_Mode (2 , -> . `E100 0 `uc -> . `E104 5 `uc `i -> 0 `i 76  ]
+{
+[; ;sensor.c: 325: max7323_set_lmp_off();
+"325
+[e ( _max7323_set_lmp_off ..  ]
+[; ;sensor.c: 326: return 0;
+"326
+[e ) -> -> 0 `i `uc ]
+[e $UE 75  ]
+"327
+}
+[e :U 76 ]
+[; ;sensor.c: 327: }
+[; ;sensor.c: 329: max7323_set_lmp_off();
+"329
+[e ( _max7323_set_lmp_off ..  ]
+[; ;sensor.c: 331: if (sensor_adc_init(channel, 1) == 0)
+"331
+[e $ ! == -> ( _sensor_adc_init (2 , _channel -> -> 1 `i `uc `i -> 0 `i 77  ]
+[; ;sensor.c: 332: return 0;
+"332
+[e ) -> -> 0 `i `uc ]
+[e $UE 75  ]
+[e :U 77 ]
+[; ;sensor.c: 334: return 1;
+"334
+[e ) -> -> 1 `i `uc ]
+[e $UE 75  ]
+[; ;sensor.c: 335: }
+"335
+[e :UE 75 ]
+}
+"337
+[v _sensor_set_gas_mode `(uc ~T0 @X0 1 ef1`uc ]
+"338
+{
+[; ;sensor.c: 337: bool sensor_set_gas_mode(uint8_t channel)
+[; ;sensor.c: 338: {
+[e :U _sensor_set_gas_mode ]
+"337
+[v _channel `uc ~T0 @X0 1 r1 ]
+"338
+[f ]
+[; ;sensor.c: 339: max7323_set_lmp_on(channel);
+"339
+[e ( _max7323_set_lmp_on (1 _channel ]
+[; ;sensor.c: 341: if (lmp91000_set_Mode(DISABLE, AMPEROETRIC_3LEAD) == 0) {
+"341
+[e $ ! == -> ( _lmp91000_set_Mode (2 , -> . `E100 0 `uc -> . `E104 3 `uc `i -> 0 `i 79  ]
+{
+[; ;sensor.c: 342: max7323_set_lmp_off();
+"342
+[e ( _max7323_set_lmp_off ..  ]
+[; ;sensor.c: 343: return 0;
+"343
+[e ) -> -> 0 `i `uc ]
+[e $UE 78  ]
+"344
+}
+[e :U 79 ]
+[; ;sensor.c: 344: }
+[; ;sensor.c: 346: max7323_set_lmp_off();
+"346
+[e ( _max7323_set_lmp_off ..  ]
+[; ;sensor.c: 348: if (sensor_adc_init(channel, 0) == 0)
+"348
+[e $ ! == -> ( _sensor_adc_init (2 , _channel -> -> 0 `i `uc `i -> 0 `i 80  ]
+[; ;sensor.c: 349: return 0;
+"349
+[e ) -> -> 0 `i `uc ]
+[e $UE 78  ]
+[e :U 80 ]
+[; ;sensor.c: 351: return 1;
+"351
+[e ) -> -> 1 `i `uc ]
+[e $UE 78  ]
+[; ;sensor.c: 352: }
+"352
+[e :UE 78 ]
+}
